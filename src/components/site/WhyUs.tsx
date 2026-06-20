@@ -7,11 +7,11 @@ import { Reveal } from "./Reveal";
  * No photos. Copy is placeholder.
  */
 const reasons = [
-  { icon: Wallet, title: "Giá minh bạch" },
-  { icon: Headset, title: "Tư vấn miễn phí" },
-  { icon: Route, title: "Lịch trình may đo" },
-  { icon: LifeBuoy, title: "Hỗ trợ tận nơi" },
-  { icon: Compass, title: "Trải nghiệm địa phương" },
+  { icon: Wallet, title: "Giá minh bạch", color: "#93B89C" }, // sage
+  { icon: Headset, title: "Tư vấn miễn phí", color: "#8BB2C9" }, // sky
+  { icon: Route, title: "Lịch trình may đo", color: "#E2A876" }, // peach
+  { icon: LifeBuoy, title: "Hỗ trợ tận nơi", color: "#D98A94" }, // blush
+  { icon: Compass, title: "Trải nghiệm địa phương", color: "#AC9CC9" }, // lavender
 ];
 
 export function WhyUs() {
@@ -29,7 +29,7 @@ export function WhyUs() {
           {reasons.map((r, i) => (
             <Reveal key={r.title} delay={i * 70}>
               <div className="flex flex-col items-center px-2">
-                <r.icon className="h-9 w-9 text-ink" strokeWidth={1.1} />
+                <r.icon className="h-9 w-9" strokeWidth={1.1} style={{ color: r.color }} />
                 <p className="mt-5 font-serif text-lg leading-snug text-ink">
                   {r.title}
                 </p>
