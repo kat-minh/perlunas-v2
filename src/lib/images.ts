@@ -38,8 +38,27 @@ const SAPA =
 const DALAT =
   "https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/07/anh-da-lat-2.jpg";
 
-// Về chúng tôi (ảnh trái section About) — asset thật trong /public
+// Về chúng tôi (ảnh trái section About trang chủ) — asset thật trong /public
 const ABOUT = "/about.png";
+
+// Tour đoàn (GroupTours) — Unsplash, đúng chủ đề
+const GROUP_GALA = "https://images.unsplash.com/photo-1768881618157-2cc24f7493c6?fm=jpg&q=60&w=2000&auto=format&fit=crop";
+const GROUP_TEAM = "https://images.unsplash.com/photo-1774599661329-d9a2f999d1c4?fm=jpg&q=60&w=2000&auto=format&fit=crop";
+const GROUP_TOUR = "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?fm=jpg&q=60&w=1200&auto=format&fit=crop";
+
+// Tour riêng tư (PrivateTour) — Unsplash, theo từng nhóm khách
+const PRIV_FAMILY = "https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?fm=jpg&q=60&w=900&auto=format&fit=crop";
+const PRIV_COUPLES = "https://images.unsplash.com/photo-1566759996874-04d713cc224a?fm=jpg&q=60&w=900&auto=format&fit=crop";
+const PRIV_FRIENDS = "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?fm=jpg&q=60&w=900&auto=format&fit=crop";
+const PRIV_HONEYMOON = "https://images.unsplash.com/photo-1648538923547-074724ca7a18?fm=jpg&q=60&w=900&auto=format&fit=crop";
+const PRIV_SOLO = "https://images.unsplash.com/photo-1501555088652-021faa106b9b?fm=jpg&q=60&w=900&auto=format&fit=crop";
+
+// Về chúng tôi (trang /ve-chung-toi) — Unsplash
+const ABOUT_CRAFT = "https://images.unsplash.com/photo-1528127269322-539801943592?fm=jpg&q=60&w=2000&auto=format&fit=crop";
+const ABOUT_PEARL = "https://images.unsplash.com/photo-1595345705177-ffe090eb0784?fm=jpg&q=60&w=1200&auto=format&fit=crop";
+const ABOUT_LUNA = "https://images.unsplash.com/photo-1581886573745-4487c55d95f8?fm=jpg&q=60&w=1200&auto=format&fit=crop";
+const ABOUT_VISION = "https://images.unsplash.com/photo-1585970661791-9cec67470281?fm=jpg&q=60&w=1200&auto=format&fit=crop";
+const ABOUT_MISSION = "https://images.unsplash.com/photo-1592903204858-e288251ad9cc?fm=jpg&q=60&w=1200&auto=format&fit=crop";
 
 // Khách sạn
 const LUNARBAY =
@@ -68,6 +87,21 @@ export const IMAGES: Record<string, string> = {
   "perlunas-place-sa-pa": SAPA,
   // Về chúng tôi
   "perlunas-about-dramatic": ABOUT,
+  "perlunas-about-craft": ABOUT_CRAFT,
+  "perlunas-about-pearl": ABOUT_PEARL,
+  "perlunas-about-luna": ABOUT_LUNA,
+  "perlunas-about-vision": ABOUT_VISION,
+  "perlunas-about-mission": ABOUT_MISSION,
+  // Tour đoàn
+  "perlunas-group-gala": GROUP_GALA,
+  "perlunas-group-team": GROUP_TEAM,
+  "perlunas-group-tour": GROUP_TOUR,
+  // Tour riêng tư
+  "perlunas-private-family": PRIV_FAMILY,
+  "perlunas-private-couples": PRIV_COUPLES,
+  "perlunas-private-friends": PRIV_FRIENDS,
+  "perlunas-private-honeymoon": PRIV_HONEYMOON,
+  "perlunas-private-solo": PRIV_SOLO,
   // Khách sạn
   "perlunas-hotel-lunar-bay": LUNARBAY,
   "perlunas-hotel-maison-de-lune": MAISON,

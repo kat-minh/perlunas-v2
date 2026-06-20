@@ -33,8 +33,8 @@ export function Hero() {
             <p className="text-xs font-medium uppercase tracking-[0.3em] text-paper/75">
               Thiết kế hành trình du lịch trong nước
             </p>
-            <h1 className="display mt-6 max-w-4xl text-[3.25rem] leading-[0.98] text-paper sm:text-7xl lg:text-[6rem]">
-              Mỗi hành trình là một viên ngọc.
+            <h1 className="display mt-6 text-[2.25rem] leading-[1.05] text-paper sm:text-6xl lg:text-[4.75rem]">
+              Mỗi hành trình <br />là một viên ngọc.
             </h1>
           </div>
 

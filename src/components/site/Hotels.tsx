@@ -4,29 +4,31 @@ import { Reveal } from "./Reveal";
 import { SceneImage } from "./SceneImage";
 
 /**
- * Khách sạn. Modelled on the client's reference (hotel.png): a clean 3-up grid,
- * image on top with the hotel name + a short description + a "Xem chi tiết" link
- * below it. A "Xem thêm" button leads to the full Khách sạn page (built later)
- * where guests filter by NƠI ĐẾN (province) first, then LOẠI HÌNH LƯU TRÚ.
- * Names/copy are placeholder.
+ * Khách sạn. A clean 3-up grid: a SQUARE photo, then three blocks under it —
+ * (1) name + location, (2) a highlight description that carries the nightly
+ * price, (3) a "Xem chi tiết" button. Parts (1) and (3) share the display font
+ * (Bebas). A "Xem thêm" link leads to the full Khách sạn page. Placeholder copy.
  */
 const hotels = [
   {
     slug: "lunar-bay",
     name: "Lunar Bay Resort",
-    meta: "Resort · Phú Quốc",
+    location: "Phú Quốc",
+    price: "3.500.000đ",
     desc: "Khu nghỉ dưỡng bên bãi biển riêng phía Nam đảo Ngọc, với hồ bơi vô cực hướng hoàng hôn và spa giữa rừng nhiệt đới.",
   },
   {
     slug: "maison-de-lune",
-    name: "Maison de Lune",
-    meta: "Boutique · Hội An",
+    name: "Maison de Lune Boutique Hotel",
+    location: "Hội An",
+    price: "2.000.000đ",
     desc: "Khách sạn boutique trong lòng phố cổ, pha trộn kiến trúc Đông Dương và sự tĩnh lặng bên dòng Hoài giang.",
   },
   {
     slug: "serenity-retreat",
     name: "Serenity Retreat",
-    meta: "Retreat · Đà Lạt",
+    location: "Đà Lạt",
+    price: "2.500.000đ",
     desc: "Không gian ẩn mình giữa rừng thông, nơi mỗi sáng thức dậy trong sương và tiếng chim, dành cho những ngày chậm lại.",
   },
 ];
@@ -54,27 +56,37 @@ export function Hotels() {
           {hotels.map((h, i) => (
             <Reveal key={h.slug} delay={i * 90}>
               <Link href="/khach-san" className="group block">
-                <div className="aspect-[3/2] overflow-hidden">
+                {/* square photo */}
+                <div className="aspect-square overflow-hidden">
                   <SceneImage
                     seed={`perlunas-hotel-${h.slug}`}
                     alt={h.name}
                     w={1000}
-                    h={667}
+                    h={1000}
                     className="transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]"
                   />
                 </div>
-                <p className="mt-5 text-[0.7rem] uppercase tracking-[0.22em] text-mute">{h.meta}</p>
-                <h3 className="mt-2 font-serif text-2xl text-ink">{h.name}</h3>
-                <p className="mt-3 max-w-sm text-pretty text-sm leading-relaxed text-ink/65">{h.desc}</p>
-                <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.15em] text-ink">
+
+                {/* part 1 — name + location (display font) */}
+                <h3 className="mt-5 font-serif text-2xl leading-snug text-ink">
+                  {h.name} - {h.location}
+                </h3>
+
+                {/* part 2 — highlight + nightly price */}
+                <p className="mt-3 text-pretty text-sm leading-relaxed text-ink/65">{h.desc}</p>
+                <p className="mt-2 text-sm text-ink/70">
+                  Giá từ: <span className="font-medium text-ink">{h.price}</span>/đêm
+                </p>
+
+                {/* part 3 — link, same font as part 1 (display) */}
+                <span className="mt-4 inline-flex items-center gap-1.5 font-serif text-sm tracking-[0.05em] text-ink">
                   <span className="link-underline">Xem chi tiết</span>
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </Link>
             </Reveal>
           ))}
         </div>
-
       </div>
     </section>
   );

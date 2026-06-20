@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 export default async function EnquiryPage({
   searchParams,
 }: {
-  searchParams: Promise<{ service?: string }>;
+  searchParams: Promise<{ service?: string; email?: string }>;
 }) {
-  const { service } = await searchParams;
+  const { service, email } = await searchParams;
 
   return (
     <main className="px-6 pb-28 pt-36 sm:px-10 sm:pt-44">
@@ -34,14 +34,14 @@ export default async function EnquiryPage({
 
         <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-8">
-            <LeadForm defaultService={service} />
+            <LeadForm defaultService={service} defaultEmail={email} />
           </div>
 
           <aside className="lg:col-span-4">
             <div className="space-y-10 lg:sticky lg:top-28">
               <div>
                 <Phone className="h-5 w-5 text-ink" strokeWidth={1.5} />
-                <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-ink">
+                <p className="mt-4 text-xs font-medium uppercase tracking-[0.2em] text-ink">
                   Gọi ngay hôm nay
                 </p>
                 <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="mt-2 block font-serif text-2xl text-ink">
@@ -52,7 +52,7 @@ export default async function EnquiryPage({
 
               <div>
                 <MessageCircle className="h-5 w-5 text-ink" strokeWidth={1.5} />
-                <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-ink">
+                <p className="mt-4 text-xs font-medium uppercase tracking-[0.2em] text-ink">
                   Nhắn tin
                 </p>
                 <div className="mt-2 flex flex-col gap-1 text-ink">
@@ -64,7 +64,7 @@ export default async function EnquiryPage({
 
               <div>
                 <Clock className="h-5 w-5 text-ink" strokeWidth={1.5} />
-                <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-ink">
+                <p className="mt-4 text-xs font-medium uppercase tracking-[0.2em] text-ink">
                   Giờ làm việc
                 </p>
                 <dl className="mt-3 space-y-1.5 text-sm text-ink/70">

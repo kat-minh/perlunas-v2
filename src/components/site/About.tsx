@@ -2,10 +2,10 @@ import { Reveal } from "./Reveal";
 import { SceneImage } from "./SceneImage";
 
 /**
- * Về chúng tôi. Modelled on the client's reference (about.png): a deliberate dark
- * section. A dramatic image beside a centred "Về chúng tôi" intro (with flourish
- * rules), then the name meaning (Pearl + Luna), vision, mission and values, all
- * on the dark ground. Copy is placeholder.
+ * Về chúng tôi. A deliberate dark section: a dramatic image beside a short
+ * letter / lời ngỏ (salutation → a few warm first-person paragraphs → signed
+ * "Perlunas"), left-aligned to read like a note. The brand meaning (Pearl +
+ * Luna), vision, mission and values stay hidden below. Copy is placeholder.
  */
 const values = [
   { title: "Chân thành", desc: "Tư vấn thật lòng, đúng nhu cầu và ngân sách của bạn." },
@@ -32,20 +32,37 @@ export function About() {
           </div>
         </Reveal>
 
-        <div className="flex items-center px-6 py-8 sm:px-10 lg:px-16">
-          <Reveal className="mx-auto max-w-xl text-center">
-            <div className="flex items-center justify-center gap-4">
-              <span className="h-px w-10 bg-paper/40" />
-              <h2 className="font-serif text-2xl uppercase tracking-[0.18em] sm:text-3xl">
-                Về chúng tôi
-              </h2>
-              <span className="h-px w-10 bg-paper/40" />
-            </div>
-            <p className="mt-6 leading-relaxed text-paper/75">
-              Perlunas tạo nên những hành trình du lịch riêng tư, lấy khách hàng
-              làm trung tâm, định hình theo sở thích của từng người. Mỗi lịch
-              trình là sự chỉn chu trong từng chi tiết, tinh tế và trọn vẹn.
+        <div className="flex items-center px-6 py-12 sm:px-10 lg:px-16 lg:py-20">
+          <Reveal className="max-w-xl">
+            <p className="text-xs font-medium uppercase tracking-[0.3em] text-paper/45">
+              Về chúng tôi
             </p>
+
+            <p className="mt-7 text-lg text-paper/90">Thân gửi bạn,</p>
+
+            <div className="mt-5 space-y-4 leading-relaxed text-paper/70">
+              <p>
+                Cảm ơn bạn đã ghé Perlunas. Chúng tôi tin rằng một hành trình đẹp
+                không bắt đầu từ điểm đến, mà từ cảm giác bạn mang theo trên suốt
+                chặng đường.
+              </p>
+              <p>
+                Vì thế, chúng tôi không tạo ra những chuyến đi rập khuôn. Chúng tôi
+                lắng nghe câu chuyện của từng người, rồi thiết kế một lịch trình vừa
+                vặn — chỉn chu trong từng chi tiết, tinh tế và trọn vẹn từ đầu đến
+                cuối.
+              </p>
+              <p>
+                Với chúng tôi, mỗi vị khách là một viên ngọc. Và Perlunas xin được
+                là ánh trăng lặng lẽ dõi theo, đồng hành cùng bạn qua thật nhiều
+                hành trình.
+              </p>
+            </div>
+
+            <p className="mt-8 leading-relaxed text-paper/70">
+              Hẹn gặp bạn trên những cung đường,
+            </p>
+            <p className="mt-2 font-serif text-3xl text-paper">Perlunas</p>
           </Reveal>
         </div>
       </div>

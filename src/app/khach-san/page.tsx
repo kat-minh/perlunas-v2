@@ -1,29 +1,50 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { clsx } from "clsx";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { HOTELS, PROVINCES, STAY_TYPES, type StayType } from "@/lib/catalog";
 import { SceneImage } from "@/components/site/SceneImage";
 
 export default function KhachSanPage() {
-  const [city, setCity] = useState<string>("all");
+  return (
+    <Suspense fallback={null}>
+      <KhachSanContent />
+    </Suspense>
+  );
+}
+
+function KhachSanContent() {
+  const searchParams = useSearchParams();
+  // Optional ?noi-den=<province slug> pre-selects the destination (e.g. arriving
+  // from a tour page); stay type stays "Tất cả".
+  const initialCity =
+    PROVINCES.find((p) => p.slug === searchParams.get("noi-den"))?.name ?? "all";
+  const [city, setCity] = useState<string>(initialCity);
   const [type, setType] = useState<StayType | "all">("all");
 
-  // Province-first filtering: the available stay types depend on the chosen city.
+  // Province-first: the available stay types depend on the chosen city.
   const availableTypes = useMemo(() => {
     const pool = city === "all" ? HOTELS : HOTELS.filter((h) => h.city === city);
     return STAY_TYPES.filter((t) => pool.some((h) => h.type === t));
   }, [city]);
 
+  const isFiltering = city !== "all" || type !== "all";
   const filtered = HOTELS.filter(
     (h) =>
       (city === "all" || h.city === city) && (type === "all" || h.type === type),
   );
+  // Default view = the curated/featured picks; once the guest filters, show all matches.
+  const list = isFiltering ? filtered : HOTELS.filter((h) => h.featured);
 
   function pickCity(c: string) {
     setCity(c);
+    setType("all");
+  }
+
+  function reset() {
+    setCity("all");
     setType("all");
   }
 
@@ -38,41 +59,54 @@ export default function KhachSanPage() {
             Chỗ nghỉ trên khắp Việt Nam.
           </h1>
           <p className="mt-6 max-w-xl text-pretty leading-relaxed text-ink/70">
-            Chọn nơi đến trước, rồi tới loại hình lưu trú. Một số nơi chưa có đủ
-            các loại hình, danh sách sẽ tự điều chỉnh theo nơi bạn chọn.
+            Mặc định là những chỗ nghỉ Perlunas tuyển chọn. Chọn nơi đến và loại
+            hình lưu trú để xem danh sách phù hợp với bạn.
           </p>
         </header>
 
-        <div className="mt-12 space-y-6 border-y border-[var(--line-soft)] py-8">
-          <FilterRow label="Nơi đến">
-            <Pill active={city === "all"} onClick={() => pickCity("all")}>
-              Tất cả
-            </Pill>
+        {/* filters — dropdowns */}
+        <div className="mt-12 flex flex-col gap-5 border-y border-[var(--line-soft)] py-6 sm:flex-row sm:flex-wrap sm:items-end sm:gap-8">
+          <Select label="Nơi đến" value={city} onChange={(e) => pickCity(e.target.value)}>
+            <option value="all">Tất cả nơi đến</option>
             {PROVINCES.map((p) => (
-              <Pill key={p.slug} active={city === p.name} onClick={() => pickCity(p.name)}>
+              <option key={p.slug} value={p.name}>
                 {p.name}
-              </Pill>
+              </option>
             ))}
-          </FilterRow>
+          </Select>
 
-          <FilterRow label="Loại hình">
-            <Pill active={type === "all"} onClick={() => setType("all")}>
-              Tất cả
-            </Pill>
+          <Select
+            label="Loại hình"
+            value={type}
+            onChange={(e) => setType(e.target.value as StayType | "all")}
+          >
+            <option value="all">Tất cả loại hình</option>
             {(city === "all" ? STAY_TYPES : availableTypes).map((t) => (
-              <Pill key={t} active={type === t} onClick={() => setType(t)}>
+              <option key={t} value={t}>
                 {t}
-              </Pill>
+              </option>
             ))}
-          </FilterRow>
+          </Select>
+
+          {isFiltering && (
+            <button
+              type="button"
+              onClick={reset}
+              className="self-start text-sm text-mute underline-offset-4 hover:text-ink hover:underline sm:self-auto sm:pb-2.5"
+            >
+              Xóa bộ lọc
+            </button>
+          )}
         </div>
 
-        <p className="mt-8 text-sm text-mute">{filtered.length} chỗ nghỉ</p>
+        <p className="mt-8 text-sm text-mute">
+          {isFiltering ? `${list.length} chỗ nghỉ` : "Chỗ nghỉ nổi bật"}
+        </p>
 
         <div className="mt-6 grid grid-cols-1 gap-x-10 gap-y-14 md:grid-cols-3">
-          {filtered.map((h) => (
+          {list.map((h) => (
             <article key={h.slug} className="group">
-              <div className="aspect-[3/2] overflow-hidden">
+              <div className="relative aspect-[3/2] overflow-hidden">
                 <SceneImage
                   seed={`perlunas-hotel-${h.slug}`}
                   alt={h.name}
@@ -80,6 +114,9 @@ export default function KhachSanPage() {
                   h={667}
                   className="transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]"
                 />
+                <span className="absolute right-3 top-3 bg-ink px-3 py-1.5 text-xs font-medium text-paper">
+                  Từ {h.price}/đêm
+                </span>
               </div>
               <p className="mt-5 text-[0.7rem] uppercase tracking-[0.22em] text-mute">
                 {h.type} · {h.city}
@@ -92,7 +129,7 @@ export default function KhachSanPage() {
           ))}
         </div>
 
-        {filtered.length === 0 && (
+        {list.length === 0 && (
           <p className="mt-6 text-ink/60">
             Chưa có chỗ nghỉ phù hợp với bộ lọc này. Bạn thử bỏ bớt một tiêu chí nhé.
           </p>
@@ -126,38 +163,32 @@ export default function KhachSanPage() {
   );
 }
 
-function FilterRow({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:gap-6">
-      <span className="shrink-0 text-xs font-medium uppercase tracking-[0.2em] text-mute sm:w-28">
-        {label}
-      </span>
-      <div className="flex flex-wrap gap-2">{children}</div>
-    </div>
-  );
-}
-
-function Pill({
-  active,
-  onClick,
+function Select({
+  label,
+  value,
+  onChange,
   children,
 }: {
-  active: boolean;
-  onClick: () => void;
+  label: string;
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLSelectElement>;
   children: React.ReactNode;
 }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={clsx(
-        "rounded-full border px-4 py-1.5 text-sm transition-colors",
-        active
-          ? "border-ink bg-ink text-paper"
-          : "border-[var(--line)] text-ink/70 hover:border-ink hover:text-ink",
-      )}
-    >
-      {children}
-    </button>
+    <label className="flex flex-col gap-2">
+      <span className="text-xs font-medium uppercase tracking-[0.2em] text-mute">
+        {label}
+      </span>
+      <div className="relative w-full sm:w-64">
+        <select
+          value={value}
+          onChange={onChange}
+          className="w-full appearance-none rounded-[3px] border border-[var(--line)] bg-paper-2 py-2.5 pl-4 pr-10 text-sm text-ink transition-colors focus:border-ink focus:outline-none"
+        >
+          {children}
+        </select>
+        <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-mute" />
+      </div>
+    </label>
   );
 }

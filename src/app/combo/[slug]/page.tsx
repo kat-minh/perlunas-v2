@@ -84,7 +84,7 @@ export default async function ProvinceComboPage({
         </div>
 
         <p className="mt-10 text-sm text-mute">
-          <Link href="/combo" className="link-underline">Vì sao chia theo ba dòng ngọc trai?</Link>
+          <Link href="/combo/phan-loai" className="link-underline">Vì sao chia theo ba dòng ngọc trai?</Link>
         </p>
       </div>
     </main>

@@ -20,7 +20,13 @@ const SOURCES = ["Facebook / Instagram", "Google", "Bạn bè giới thiệu", "
  * NOTE: data wiring is provisional. It POSTs to /api/lead; where the data finally
  * lands (Sheet / CRM) is still TBD.
  */
-export function LeadForm({ defaultService }: { defaultService?: string }) {
+export function LeadForm({
+  defaultService,
+  defaultEmail,
+}: {
+  defaultService?: string;
+  defaultEmail?: string;
+}) {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
 
@@ -158,7 +164,7 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
 
       <div className="mt-5 grid gap-5 sm:grid-cols-2">
         <Field label="Email (không bắt buộc)">
-          <input name="email" type="email" inputMode="email" placeholder="ban@email.com" className={inputCls} />
+          <input name="email" type="email" inputMode="email" defaultValue={defaultEmail} placeholder="ban@email.com" className={inputCls} />
         </Field>
         <Field label="Bạn biết Perlunas qua đâu?">
           <select name="source" defaultValue="" className={inputCls}>
@@ -214,7 +220,7 @@ const inputCls =
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-5 mt-8 border-t border-[var(--line)] pt-6 text-xs font-semibold uppercase tracking-[0.2em] text-ink">
+    <p className="mb-5 mt-8 border-t border-[var(--line)] pt-6 text-xs font-medium uppercase tracking-[0.2em] text-ink">
       {children}
     </p>
   );

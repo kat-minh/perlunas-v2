@@ -1,12 +1,42 @@
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { clsx } from "clsx";
 import { SceneImage } from "@/components/site/SceneImage";
 
 export const metadata: Metadata = {
   title: "Về chúng tôi",
   description: "Perlunas thiết kế những hành trình du lịch trong nước tinh tế và trọn vẹn. Tên thương hiệu, triết lý, giá trị cốt lõi, tầm nhìn và sứ mệnh.",
 };
+
+// Each block is its own row with an image slot — alternating sides. Image seeds
+// are placeholders (picsum) until real photos are provided per block.
+const BLOCKS = [
+  {
+    kicker: "Tên thương hiệu",
+    title: "Pearl",
+    body: "Viên ngọc là bạn, vị khách của chúng tôi. Mỗi người một câu chuyện, nên chuyến đi cũng phải độc bản và của riêng bạn.",
+    seed: "perlunas-about-pearl",
+  },
+  {
+    kicker: "Tên thương hiệu",
+    title: "Luna(s)",
+    body: "Ánh trăng là Perlunas, lặng lẽ dõi theo và chăm chút từng chi tiết. Chữ “s” nhỏ ở cuối là lời hứa đồng hành bền lâu.",
+    seed: "perlunas-about-luna",
+  },
+  {
+    kicker: "Tầm nhìn",
+    title: "",
+    body: "Trở thành người đồng hành du lịch trong nước được tin yêu nhất tại Việt Nam.",
+    seed: "perlunas-about-vision",
+  },
+  {
+    kicker: "Sứ mệnh",
+    title: "",
+    body: "Mang những hành trình tử tế, chỉn chu đến gần hơn với mỗi người, để ai cũng có thể đi và trở về trọn vẹn.",
+    seed: "perlunas-about-mission",
+  },
+];
 
 const VALUES = [
   { title: "Chân thành", desc: "Tư vấn thật lòng, đúng nhu cầu và ngân sách của bạn." },
@@ -33,57 +63,54 @@ export default function VeChungToiPage() {
           <SceneImage seed="perlunas-about-craft" alt="Perlunas" w={2000} h={860} priority />
         </div>
 
-        {/* name meaning */}
-        <div className="mt-20 grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-4">
-            <h2 className="display text-3xl text-ink sm:text-4xl">
-              Pearl <span className="text-mute">+</span> Luna<span className="text-mute">(s)</span>
-            </h2>
-          </div>
-          <div className="grid gap-10 sm:grid-cols-2 lg:col-span-8">
-            <div>
-              <h3 className="font-serif text-2xl text-ink">Pearl</h3>
-              <p className="mt-3 leading-relaxed text-ink/70">
-                Viên ngọc là bạn, vị khách của chúng tôi. Mỗi người một câu chuyện,
-                nên chuyến đi cũng phải độc bản và của riêng bạn.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-serif text-2xl text-ink">Luna</h3>
-              <p className="mt-3 leading-relaxed text-ink/70">
-                Ánh trăng là Perlunas, lặng lẽ dõi theo và chăm chút từng chi tiết.
-                Chữ “s” nhỏ ở cuối là lời hứa đồng hành bền lâu.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* vision / mission */}
-        <div className="mt-20 grid gap-12 border-t border-[var(--line)] pt-12 md:grid-cols-2 md:gap-16">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">Tầm nhìn</p>
-            <p className="mt-4 text-2xl font-light leading-snug text-ink sm:text-3xl">
-              Trở thành người đồng hành du lịch trong nước được tin yêu nhất tại
-              Việt Nam.
-            </p>
-          </div>
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">Sứ mệnh</p>
-            <p className="mt-4 text-2xl font-light leading-snug text-ink sm:text-3xl">
-              Mang những hành trình tử tế, chỉn chu đến gần hơn với mỗi người, để
-              ai cũng có thể đi và trở về trọn vẹn.
-            </p>
-          </div>
+        {/* content blocks — each on its own row, image alternating */}
+        <div className="mt-20 space-y-16 sm:space-y-20">
+          {BLOCKS.map((b, i) => (
+            <article
+              key={b.title || b.kicker}
+              className="grid items-center gap-8 border-t border-[var(--line)] pt-12 lg:grid-cols-2 lg:gap-16"
+            >
+              <div className={clsx("group", i % 2 === 1 && "lg:order-2")}>
+                <div className="aspect-[4/3] overflow-hidden bg-[var(--surface)]">
+                  <SceneImage
+                    seed={b.seed}
+                    alt={b.title || b.kicker}
+                    w={1000}
+                    h={750}
+                    className="transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]"
+                  />
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">
+                  {b.kicker}
+                </p>
+                {b.title && (
+                  <h2 className="display mt-3 text-3xl text-ink sm:text-4xl">{b.title}</h2>
+                )}
+                <p
+                  className={clsx(
+                    "text-pretty leading-relaxed",
+                    b.title
+                      ? "mt-4 text-ink/75"
+                      : "mt-4 text-2xl font-light text-ink sm:text-3xl",
+                  )}
+                >
+                  {b.body}
+                </p>
+              </div>
+            </article>
+          ))}
         </div>
 
         {/* values */}
-        <p className="mt-16 text-xs font-medium uppercase tracking-[0.3em] text-mute">
+        <p className="mt-20 text-xs font-medium uppercase tracking-[0.3em] text-mute">
           Giá trị cốt lõi
         </p>
         <div className="mt-6 grid gap-x-12 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
           {VALUES.map((v) => (
             <div key={v.title} className="border-t border-[var(--line)] pt-5">
-              <h4 className="font-serif text-xl text-ink">{v.title}</h4>
+              <h3 className="font-serif text-xl text-ink">{v.title}</h3>
               <p className="mt-1.5 text-sm leading-relaxed text-ink/65">{v.desc}</p>
             </div>
           ))}

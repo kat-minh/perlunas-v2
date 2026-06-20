@@ -34,7 +34,7 @@ export function Navbar() {
       )}
     >
       <div className="mx-auto flex max-w-[100rem] items-center justify-between px-6 sm:px-10">
-        <Link href="/" className="font-serif text-xl font-semibold tracking-[0.18em]">
+        <Link href="/" className="font-serif text-xl tracking-[0.18em]">
           PERLUNAS
         </Link>
 

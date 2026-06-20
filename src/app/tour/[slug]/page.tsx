@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Check } from "lucide-react";
-import { TOURS } from "@/lib/catalog";
+import { Check, ArrowRight } from "lucide-react";
+import { TOURS, PROVINCES, HOTELS } from "@/lib/catalog";
 import { SceneImage } from "@/components/site/SceneImage";
 import { LeadButton } from "@/components/site/LeadButton";
 
@@ -28,6 +28,16 @@ export default async function TourDetailPage({
   const { slug } = await params;
   const tour = TOURS.find((t) => t.slug === slug);
   if (!tour) notFound();
+
+  // Destination(s) of this tour → suggest hotels there (all stay types).
+  const stayProvinces = tour.stays
+    .map((s) => PROVINCES.find((p) => p.slug === s))
+    .filter((p): p is (typeof PROVINCES)[number] => Boolean(p));
+  const stayNames = stayProvinces.map((p) => p.name).join(" & ");
+  const slugByCity = Object.fromEntries(PROVINCES.map((p) => [p.name, p.slug]));
+  const suggestedHotels = HOTELS.filter((h) =>
+    stayProvinces.some((p) => p.name === h.city),
+  ).slice(0, 3);
 
   return (
     <main className="pb-24">
@@ -82,6 +92,63 @@ export default async function TourDetailPage({
           </div>
         </aside>
       </div>
+
+      {/* Gợi ý lưu trú tại điểm đến của tour (đủ mọi loại hình) */}
+      {stayProvinces.length > 0 && (
+        <section className="mx-auto mt-20 max-w-[100rem] border-t border-[var(--line)] px-6 pt-14 sm:px-10">
+          <div className="max-w-2xl">
+            <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">
+              Gợi ý lưu trú
+            </p>
+            <h2 className="display mt-5 text-3xl text-ink sm:text-4xl">
+              Ở lại trọn vẹn tại {stayNames}.
+            </h2>
+            <p className="mt-5 text-pretty leading-relaxed text-ink/70">
+              Sau hành trình, chọn cho mình một chỗ nghỉ ưng ý — đủ mọi loại hình
+              lưu trú — ngay tại {stayNames}.
+            </p>
+          </div>
+
+          {suggestedHotels.length > 0 && (
+            <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-3">
+              {suggestedHotels.map((h) => (
+                <Link
+                  key={h.slug}
+                  href={`/khach-san?noi-den=${slugByCity[h.city] ?? ""}`}
+                  className="group block"
+                >
+                  <div className="aspect-[3/2] overflow-hidden">
+                    <SceneImage
+                      seed={`perlunas-hotel-${h.slug}`}
+                      alt={h.name}
+                      w={800}
+                      h={533}
+                      className="transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]"
+                    />
+                  </div>
+                  <p className="mt-4 text-[0.7rem] uppercase tracking-[0.22em] text-mute">
+                    {h.type} · {h.city}
+                  </p>
+                  <h3 className="mt-1.5 font-serif text-xl text-ink">{h.name}</h3>
+                </Link>
+              ))}
+            </div>
+          )}
+
+          <div className="mt-10 flex flex-wrap gap-3">
+            {stayProvinces.map((p) => (
+              <Link
+                key={p.slug}
+                href={`/khach-san?noi-den=${p.slug}`}
+                className="btn-ink inline-flex items-center gap-2 rounded-[3px] px-7 py-3.5 text-sm font-medium"
+              >
+                Khách sạn ở {p.name}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </main>
   );
 }

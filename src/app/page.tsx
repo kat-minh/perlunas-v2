@@ -4,10 +4,10 @@ import { PackageTours } from "@/components/site/PackageTours";
 import { Hotels } from "@/components/site/Hotels";
 import { Combos } from "@/components/site/Combos";
 import { GroupTours } from "@/components/site/GroupTours";
+import { PrivateTour } from "@/components/site/PrivateTour";
 import { About } from "@/components/site/About";
 import { Partners } from "@/components/site/Partners";
 import { WhyUs } from "@/components/site/WhyUs";
-import { Contact } from "@/components/site/Contact";
 
 export default function Home() {
   return (
@@ -19,10 +19,10 @@ export default function Home() {
       <Hotels />
       <Combos />
       <GroupTours />
+      <PrivateTour />
       <About />
       <Partners />
       <WhyUs />
-      <Contact />
     </>
   );
 }
