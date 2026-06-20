@@ -114,7 +114,7 @@ export default function KhachSanPage() {
             </p>
             <Link
               href="/combo"
-              className="btn-ink mt-7 inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium"
+              className="btn-ink mt-7 inline-flex items-center gap-2 rounded-[3px] px-7 py-3.5 text-sm font-medium"
             >
               Khám phá Combo du lịch
               <ArrowRight className="h-4 w-4" />

@@ -54,7 +54,7 @@ export default function ComboPage() {
                 <p className="mt-2 text-sm font-medium uppercase tracking-[0.2em] text-mute">
                   {t.tagline}
                 </p>
-                <p className="mt-6 text-pretty italic leading-relaxed text-ink/70">
+                <p className="mt-6 text-pretty font-light leading-relaxed text-ink/70">
                   {t.pearl}
                 </p>
                 <p className="mt-4 text-pretty leading-relaxed text-ink/80">{t.story}</p>

@@ -34,7 +34,7 @@ export function Philosophy() {
         </p>
         <p
           ref={ref}
-          className="display mt-8 flex flex-wrap justify-center gap-x-[0.28em] gap-y-2 text-[1.6rem] leading-[1.5] text-ink sm:text-[2.2rem] sm:leading-[1.45]"
+          className="mt-8 flex flex-wrap justify-center gap-x-[0.28em] gap-y-2 font-light text-[1.6rem] leading-[1.5] text-ink sm:text-[2.2rem] sm:leading-[1.45]"
         >
           {words.map((word, i) => (
             <Word

@@ -20,8 +20,8 @@ export function LeadButton({
   const styles: Record<string, string> = {
     ink: "btn-ink",
     paper: "btn-paper",
-    line: "border border-ink/30 text-ink hover:border-ink",
-    ghost: "border border-paper/50 text-paper hover:bg-paper hover:text-ink",
+    line: "btn-sweep-ink border border-ink text-ink",
+    ghost: "btn-sweep-paper border border-paper text-paper",
   };
   const href = service
     ? `/lien-he?service=${encodeURIComponent(service)}`
@@ -30,7 +30,7 @@ export function LeadButton({
     <Link
       href={href}
       className={clsx(
-        "inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium tracking-wide transition-all",
+        "inline-flex items-center gap-2 rounded-[3px] px-7 py-3.5 text-sm font-medium tracking-wide",
         styles[variant],
         className,
       )}

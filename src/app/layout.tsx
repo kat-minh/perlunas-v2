@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant, Be_Vietnam_Pro } from "next/font/google";
+import { Be_Vietnam_Pro } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
@@ -7,22 +8,20 @@ import { ServiceWorkerRegister } from "@/components/providers/ServiceWorkerRegis
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 
-// Display: Cormorant, a refined high-contrast serif for the minimal editorial
-// voice. Body: Be Vietnam Pro, drawn for Vietnamese so every dau sits right.
-// Both ship a vietnamese subset.
-const cormorant = Cormorant({
+// Body: Be Vietnam Pro — readable, multi-weight, drawn for Vietnamese.
+const beVietnam = Be_Vietnam_Pro({
   subsets: ["latin", "vietnamese"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-bevn",
   display: "swap",
 });
 
-const beVietnam = Be_Vietnam_Pro({
-  subsets: ["latin", "vietnamese"],
-  weight: ["300", "400", "500"],
-  variable: "--font-bevn",
+// Display/headings: Bebas Neue — tall condensed all-caps (Vietnamese glyph set).
+const bebas = localFont({
+  src: "./fonts/bebas-neue.otf",
+  variable: "--font-bebas",
   display: "swap",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -49,7 +48,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f4f2ec",
+  themeColor: "#f8f7f3",
   width: "device-width",
   initialScale: 1,
 };
@@ -60,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi" className={`${cormorant.variable} ${beVietnam.variable}`}>
+    <html lang="vi" className={`${beVietnam.variable} ${bebas.variable}`}>
       <body>
         <SmoothScroll>
           <Navbar />

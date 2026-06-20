@@ -20,9 +20,15 @@ export function About() {
       {/* dark split intro */}
       <div className="grid lg:grid-cols-2">
         <Reveal>
-          <div className="relative h-[26vh] overflow-hidden lg:h-full lg:min-h-[18rem]">
-            <SceneImage seed="perlunas-about-dramatic" alt="Perlunas" w={1200} h={1500} />
-            <div className="absolute inset-0 bg-ink/35" />
+          <div className="group relative h-[26vh] overflow-hidden lg:h-full lg:min-h-[18rem]">
+            <SceneImage
+              seed="perlunas-about-dramatic"
+              alt="Perlunas"
+              w={1200}
+              h={1500}
+              className="grayscale transition-all duration-[1.5s] ease-out group-hover:scale-[1.04] group-hover:grayscale-0"
+            />
+            <div className="absolute inset-0 bg-ink/35 transition-opacity duration-[1.5s] ease-out group-hover:opacity-0" />
           </div>
         </Reveal>
 
@@ -68,14 +74,14 @@ export function About() {
           <div className="mt-16 grid gap-12 border-t border-paper/15 pt-12 md:grid-cols-2 md:gap-16">
             <Reveal>
               <p className="text-xs font-medium uppercase tracking-[0.3em] text-paper/45">Tầm nhìn</p>
-              <p className="mt-4 font-serif text-2xl leading-snug text-paper sm:text-3xl">
+              <p className="mt-4 text-2xl font-light leading-snug text-paper sm:text-3xl">
                 Trở thành người đồng hành du lịch trong nước được tin yêu nhất tại
                 Việt Nam.
               </p>
             </Reveal>
             <Reveal delay={120}>
               <p className="text-xs font-medium uppercase tracking-[0.3em] text-paper/45">Sứ mệnh</p>
-              <p className="mt-4 font-serif text-2xl leading-snug text-paper sm:text-3xl">
+              <p className="mt-4 text-2xl font-light leading-snug text-paper sm:text-3xl">
                 Mang những hành trình tử tế, chỉn chu đến gần hơn với mỗi người, để
                 ai cũng có thể đi và trở về trọn vẹn.
               </p>

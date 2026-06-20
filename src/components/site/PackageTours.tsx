@@ -31,7 +31,7 @@ export function PackageTours() {
             <h2 className="display mt-5 text-4xl text-ink sm:text-5xl">
               Những hành trình đã thiết kế sẵn.
             </h2>
-            <p className="mt-4 max-w-xs font-serif text-lg italic text-ink/60">
+            <p className="mt-4 max-w-xs text-lg font-light text-ink/60">
               Những trải nghiệm chỉn chu, khơi gợi cảm hứng cho mỗi chuyến đi.
             </p>
           </Reveal>
@@ -71,7 +71,7 @@ export function PackageTours() {
                     <div className="overflow-hidden">
                       <p className="pt-3 text-sm leading-relaxed text-paper/85">{t.teaser}</p>
                       <p className="mt-3 text-sm font-medium text-paper">{t.price}</p>
-                      <span className="mt-4 inline-flex items-center gap-2 border border-paper/60 px-5 py-2.5 text-xs font-medium uppercase tracking-[0.15em] text-paper transition-colors group-hover:bg-paper group-hover:text-ink">
+                      <span className="btn-paper mt-4 inline-flex items-center gap-2 px-5 py-2.5 text-xs font-medium uppercase tracking-[0.15em]">
                         Xem chi tiết
                         <ArrowRight className="h-3.5 w-3.5" />
                       </span>

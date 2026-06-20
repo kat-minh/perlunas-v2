@@ -38,6 +38,9 @@ const SAPA =
 const DALAT =
   "https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/07/anh-da-lat-2.jpg";
 
+// Về chúng tôi (ảnh trái section About) — asset thật trong /public
+const ABOUT = "/about.png";
+
 // Khách sạn
 const LUNARBAY =
   "https://cf.bstatic.com/xdata/images/hotel/max1024x768/482730525.jpg?k=4feae26c2ba7205e2fd33376a45a3db0798930244ec595cbc6a006400947a81a&o=";
@@ -63,6 +66,8 @@ export const IMAGES: Record<string, string> = {
   "perlunas-place-nha-trang": NHATRANG,
   "perlunas-place-hue": HUE,
   "perlunas-place-sa-pa": SAPA,
+  // Về chúng tôi
+  "perlunas-about-dramatic": ABOUT,
   // Khách sạn
   "perlunas-hotel-lunar-bay": LUNARBAY,
   "perlunas-hotel-maison-de-lune": MAISON,

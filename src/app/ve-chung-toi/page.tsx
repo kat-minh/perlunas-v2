@@ -62,14 +62,14 @@ export default function VeChungToiPage() {
         <div className="mt-20 grid gap-12 border-t border-[var(--line)] pt-12 md:grid-cols-2 md:gap-16">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">Tầm nhìn</p>
-            <p className="mt-4 font-serif text-2xl leading-snug text-ink sm:text-3xl">
+            <p className="mt-4 text-2xl font-light leading-snug text-ink sm:text-3xl">
               Trở thành người đồng hành du lịch trong nước được tin yêu nhất tại
               Việt Nam.
             </p>
           </div>
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">Sứ mệnh</p>
-            <p className="mt-4 font-serif text-2xl leading-snug text-ink sm:text-3xl">
+            <p className="mt-4 text-2xl font-light leading-snug text-ink sm:text-3xl">
               Mang những hành trình tử tế, chỉn chu đến gần hơn với mỗi người, để
               ai cũng có thể đi và trở về trọn vẹn.
             </p>
@@ -94,7 +94,7 @@ export default function VeChungToiPage() {
           <h2 className="display text-2xl text-ink sm:text-3xl">
             Cùng Perlunas bắt đầu hành trình của bạn.
           </h2>
-          <Link href="/lien-he" className="btn-ink inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium">
+          <Link href="/lien-he" className="btn-ink inline-flex items-center gap-2 rounded-[3px] px-7 py-3.5 text-sm font-medium">
             Liên hệ tư vấn
             <ArrowRight className="h-4 w-4" />
           </Link>

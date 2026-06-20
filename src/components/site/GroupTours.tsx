@@ -11,13 +11,13 @@ export function GroupTours() {
     <section id="tour-doan" className="relative border-t border-[var(--line-soft)] px-6 pb-16 pt-10 sm:px-10 sm:pb-24 sm:pt-12">
       <div className="mx-auto max-w-5xl text-center">
         <Reveal>
-          <h2 className="text-sm font-semibold uppercase tracking-[0.22em] text-ink sm:text-base">
+          <h2 className="text-lg font-semibold uppercase tracking-[0.22em] text-ink sm:text-2xl">
             Đoàn đông tới mấy, vẫn trọn vẹn từng người
           </h2>
         </Reveal>
 
         <Reveal delay={100}>
-          <div className="mt-8 space-y-5 font-serif text-lg leading-[1.7] text-ink/80 sm:text-xl">
+          <div className="mt-8 space-y-5 text-lg leading-[1.7] text-ink/80 sm:text-xl">
             <p>
               Một chuyến đi đoàn không bắt đầu từ số lượng người, mà từ cảm giác
               mọi người cùng thuộc về một hành trình. Điều khó nhất không phải là

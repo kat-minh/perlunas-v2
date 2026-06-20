@@ -44,7 +44,7 @@ export function Hero() {
               từng chi tiết và trọn vẹn từ đầu đến cuối.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <a href="#tour-tron-goi" className="btn-paper rounded-full px-6 py-3 text-sm font-medium">
+              <a href="#tour-tron-goi" className="btn-paper rounded-[3px] px-6 py-3 text-sm font-medium">
                 Khám phá hành trình
               </a>
               <LeadButton variant="ghost">Liên hệ tư vấn</LeadButton>

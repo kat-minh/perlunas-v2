@@ -22,7 +22,7 @@ export function Contact() {
           </p>
 
           <figure className="mt-10 border-l border-ink/30 pl-5">
-            <blockquote className="font-serif text-xl italic leading-snug text-ink">
+            <blockquote className="text-xl font-light leading-snug text-ink">
               “Mọi thứ được chuẩn bị chu đáo đến từng chi tiết. Một chuyến đi trọn
               vẹn ngoài mong đợi.”
             </blockquote>
@@ -37,7 +37,7 @@ export function Contact() {
               Điền thông tin chuyến đi của bạn, đội ngũ Perlunas sẽ liên hệ để lên
               kế hoạch và báo giá miễn phí.
             </p>
-            <Link href="/lien-he" className="btn-ink mt-7 inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium">
+            <Link href="/lien-he" className="btn-ink mt-7 inline-flex items-center gap-2 rounded-[3px] px-7 py-3.5 text-sm font-medium">
               Gửi yêu cầu tư vấn
               <ArrowRight className="h-4 w-4" />
             </Link>

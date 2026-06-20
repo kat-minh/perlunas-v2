@@ -199,7 +199,7 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="btn-ink mt-7 flex w-full items-center justify-center gap-2 rounded-full px-8 py-3.5 text-sm font-medium uppercase tracking-[0.1em] disabled:opacity-60"
+        className="btn-ink mt-7 flex w-full items-center justify-center gap-2 rounded-[3px] px-8 py-3.5 text-sm font-medium uppercase tracking-[0.1em] disabled:opacity-60"
       >
         {status === "loading" && <Loader2 className="h-4 w-4 animate-spin" />}
         {status === "loading" ? "Đang gửi…" : "Gửi thông tin"}

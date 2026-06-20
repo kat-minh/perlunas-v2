@@ -5,7 +5,7 @@ import type { ReactElement } from "react";
  * Pure inline-styled shapes so it renders under Satori / next-og without fonts:
  * a thin ring (Luna — the moon) cradling a filled dot (Pearl) — Perlunas.
  */
-const PAPER = "#f4f2ec";
+const PAPER = "#f8f7f3";
 const INK = "#1a1813";
 
 export function Mark({
