@@ -35,6 +35,8 @@ const HUE =
   "https://png.pngtree.com/thumb_back/fh260/background/20220314/pngtree-the-historical-hue-citadel-rich-cultural-heritage-of-dai-noi-vietnam-featuring-ngo-mon-photo-image_21712780.jpg";
 const SAPA =
   "https://pystravel.vn/_next/image?url=https%3A%2F%2Fbooking.pystravel.vn%2Fuploads%2Fposts%2Favatar%2F1740370327.jpg&w=3840&q=75";
+const DALAT =
+  "https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/07/anh-da-lat-2.jpg";
 
 // Khách sạn
 const LUNARBAY =
@@ -55,9 +57,7 @@ export const IMAGES: Record<string, string> = {
   "perlunas-place-ha-noi": HANOI,
   "perlunas-place-ho-chi-minh": HCM,
   "perlunas-place-ha-long": HALONG,
-  // NOTE: client's "Đà Lạt" link was a duplicate of Hạ Long (paste slip), so we
-  // keep the earlier Đà Lạt photo here.
-  "perlunas-place-da-lat": TOUR_DALAT,
+  "perlunas-place-da-lat": DALAT,
   "perlunas-place-phu-quoc": PHUQUOC,
   "perlunas-place-da-nang": DANANG,
   "perlunas-place-nha-trang": NHATRANG,
