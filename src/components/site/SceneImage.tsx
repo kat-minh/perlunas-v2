@@ -1,4 +1,5 @@
 import { clsx } from "clsx";
+import { IMAGES } from "@/lib/images";
 
 /**
  * Placeholder photography via picsum (seed-stable, so the same seed always
@@ -21,10 +22,11 @@ export function SceneImage({
   className?: string;
   priority?: boolean;
 }) {
+  const src = IMAGES[seed] ?? `https://picsum.photos/seed/${seed}/${w}/${h}`;
   return (
     // eslint-disable-next-line @next/next/no-img-element -- placeholder photography; swap for next/image + real assets later
     <img
-      src={`https://picsum.photos/seed/${seed}/${w}/${h}`}
+      src={src}
       alt={alt}
       width={w}
       height={h}
