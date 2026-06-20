@@ -28,7 +28,7 @@ const HALONG =
 const PHUQUOC =
   "https://res.klook.com/image/upload/w_750,h_469,c_fill,q_85/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/tm5ypc6mpiamhf3aamqu.jpg";
 const DANANG =
-  "https://cdnphoto.dantri.com.vn/m-g8nlg06kMKlBiZddeSddryC7c=/thumb_w/1020/2024/05/07/a2-3-1715069946395.jpg";
+  "https://res.klook.com/images/w_1200,h_630,c_fill,q_65/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/e7waraff45cbnn5j959r/TourNg%C3%A0yThamQuanB%C3%A0N%C3%A0HillsT%E1%BB%AB%C4%90%C3%A0N%E1%BA%B5ng-Klook.jpg";
 const NHATRANG =
   "https://dulichdaiviet.com/uploaded/2024/09/chumanhnhandiennamdulichquocgianhatrang.jpeg";
 const HUE =
