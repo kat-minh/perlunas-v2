@@ -28,7 +28,7 @@ export function Philosophy() {
 
   return (
     <section id="triet-ly" className="relative px-6 py-16 sm:px-10 sm:py-28">
-      <div className="mx-auto max-w-4xl text-center">
+      <div className="mx-auto max-w-5xl text-center">
         <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">
           Triết lý
         </p>

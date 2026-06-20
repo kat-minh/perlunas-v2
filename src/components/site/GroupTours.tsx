@@ -8,8 +8,8 @@ import { LeadButton } from "./LeadButton";
  */
 export function GroupTours() {
   return (
-    <section id="tour-doan" className="relative border-t border-[var(--line-soft)] px-6 py-16 sm:px-10 sm:py-24">
-      <div className="mx-auto max-w-3xl text-center">
+    <section id="tour-doan" className="relative border-t border-[var(--line-soft)] px-6 pb-16 pt-10 sm:px-10 sm:pb-24 sm:pt-12">
+      <div className="mx-auto max-w-5xl text-center">
         <Reveal>
           <h2 className="text-sm font-semibold uppercase tracking-[0.22em] text-ink sm:text-base">
             Đoàn đông tới mấy, vẫn trọn vẹn từng người
