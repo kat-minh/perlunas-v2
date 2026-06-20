@@ -3,6 +3,7 @@ import { Cormorant, Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { ServiceWorkerRegister } from "@/components/providers/ServiceWorkerRegister";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 
@@ -31,6 +32,13 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description: site.description,
+  applicationName: site.name,
+  appleWebApp: {
+    capable: true,
+    title: site.name,
+    statusBarStyle: "default",
+  },
+  formatDetection: { telephone: false },
   openGraph: {
     type: "website",
     locale: "vi_VN",
@@ -59,6 +67,7 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
         </SmoothScroll>
+        <ServiceWorkerRegister />
       </body>
     </html>
   );
