@@ -15,9 +15,6 @@ const config = [
         "warn",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
-      // We intentionally use plain <a> for internal links (incl. shared
-      // components that mix internal routes with tel:/mailto: hrefs).
-      "@next/next/no-html-link-for-pages": "off",
     },
   },
 ];

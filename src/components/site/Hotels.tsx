@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SceneImage } from "./SceneImage";
@@ -42,17 +43,17 @@ export function Hotels() {
             </h2>
           </Reveal>
           <Reveal delay={120}>
-            <a href="/khach-san" className="group inline-flex shrink-0 items-center gap-2 text-sm font-medium text-ink">
+            <Link href="/khach-san" className="group inline-flex shrink-0 items-center gap-2 text-sm font-medium text-ink">
               <span className="link-underline">Xem thêm tất cả khách sạn</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </a>
+            </Link>
           </Reveal>
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-x-10 gap-y-14 md:grid-cols-3">
           {hotels.map((h, i) => (
             <Reveal key={h.slug} delay={i * 90}>
-              <a href="/khach-san" className="group block">
+              <Link href="/khach-san" className="group block">
                 <div className="aspect-[3/2] overflow-hidden">
                   <SceneImage
                     seed={`perlunas-hotel-${h.slug}`}
@@ -69,7 +70,7 @@ export function Hotels() {
                   <span className="link-underline">Xem chi tiết</span>
                   <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </span>
-              </a>
+              </Link>
             </Reveal>
           ))}
         </div>

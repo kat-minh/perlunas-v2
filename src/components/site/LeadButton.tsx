@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { clsx } from "clsx";
 
 /**
@@ -26,7 +27,7 @@ export function LeadButton({
     ? `/lien-he?service=${encodeURIComponent(service)}`
     : "/lien-he";
   return (
-    <a
+    <Link
       href={href}
       className={clsx(
         "inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium tracking-wide transition-all",
@@ -35,6 +36,6 @@ export function LeadButton({
       )}
     >
       {children}
-    </a>
+    </Link>
   );
 }

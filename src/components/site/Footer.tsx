@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { site } from "@/lib/site";
 
 export function Footer() {
@@ -63,13 +64,21 @@ function FooterCol({
     <div>
       <p className="mb-4 text-xs uppercase tracking-wider text-paper/45">{title}</p>
       <ul className="space-y-2.5">
-        {links.map((l) => (
-          <li key={l.label}>
-            <a href={l.href} className="text-sm text-paper/65 transition-colors hover:text-paper">
-              {l.label}
-            </a>
-          </li>
-        ))}
+        {links.map((l) =>
+          l.href.startsWith("/") ? (
+            <li key={l.label}>
+              <Link href={l.href} className="text-sm text-paper/65 transition-colors hover:text-paper">
+                {l.label}
+              </Link>
+            </li>
+          ) : (
+            <li key={l.label}>
+              <a href={l.href} className="text-sm text-paper/65 transition-colors hover:text-paper">
+                {l.label}
+              </a>
+            </li>
+          ),
+        )}
       </ul>
     </div>
   );

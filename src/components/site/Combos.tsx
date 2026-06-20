@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SceneImage } from "./SceneImage";
@@ -38,17 +39,17 @@ export function Combos() {
             </p>
           </Reveal>
           <Reveal delay={120}>
-            <a href="/combo" className="group inline-flex shrink-0 items-center gap-2 text-sm font-medium text-ink">
+            <Link href="/combo" className="group inline-flex shrink-0 items-center gap-2 text-sm font-medium text-ink">
               <span className="link-underline">Tìm hiểu ba gói ngọc</span>
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
+            </Link>
           </Reveal>
         </div>
 
         <div className="mt-14 grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-5">
           {provinces.map((p, i) => (
             <Reveal key={p.slug} delay={(i % 5) * 50}>
-              <a
+              <Link
                 href={`/combo/${p.slug}`}
                 className="group relative flex aspect-[3/4] items-center justify-center overflow-hidden"
               >
@@ -63,13 +64,13 @@ export function Combos() {
                 <h3 className="relative px-3 text-center text-sm font-medium uppercase leading-snug tracking-[0.18em] text-paper transition-transform duration-500 ease-out group-hover:scale-[1.15] sm:text-base">
                   {p.name}
                 </h3>
-              </a>
+              </Link>
             </Reveal>
           ))}
 
           {/* Xem tất cả tile */}
           <Reveal delay={(provinces.length % 5) * 50}>
-            <a
+            <Link
               href="/combo"
               className="group relative flex aspect-[3/4] items-center justify-center overflow-hidden bg-ink text-paper transition-colors hover:bg-ink/85"
             >
@@ -77,7 +78,7 @@ export function Combos() {
                 Xem tất cả
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
-            </a>
+            </Link>
           </Reveal>
         </div>
       </div>

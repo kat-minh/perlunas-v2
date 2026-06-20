@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { clsx } from "clsx";
 
 const links = [
@@ -33,29 +34,29 @@ export function Navbar() {
       )}
     >
       <div className="mx-auto flex max-w-[100rem] items-center justify-between px-6 sm:px-10">
-        <a href="/" className="font-serif text-xl font-semibold tracking-[0.18em]">
+        <Link href="/" className="font-serif text-xl font-semibold tracking-[0.18em]">
           PERLUNAS
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-10 lg:flex">
           {links.map((l) => (
-            <a
+            <Link
               key={l.href}
               href={l.href}
               className="link-underline text-sm text-ink/80 hover:text-ink"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         <div className="flex items-center gap-3">
-          <a
+          <Link
             href="/lien-he"
             className="btn-ink hidden rounded-full px-5 py-2 text-sm font-medium md:inline-block"
           >
             Liên hệ tư vấn
-          </a>
+          </Link>
 
           <button
             aria-label="Mở menu"
@@ -78,22 +79,22 @@ export function Navbar() {
         <nav className="min-h-0 px-6">
           <div className="mt-4 flex flex-col gap-1 rounded-sm bg-paper-2 p-3 shadow-sm">
             {links.map((l) => (
-              <a
+              <Link
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
                 className="rounded-sm px-4 py-3 text-ink/85 transition-colors hover:bg-[var(--surface)]"
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
-            <a
+            <Link
               href="/lien-he"
               onClick={() => setOpen(false)}
               className="btn-ink mt-1 rounded-sm px-4 py-3 text-center font-medium"
             >
               Liên hệ tư vấn
-            </a>
+            </Link>
           </div>
         </nav>
       </div>

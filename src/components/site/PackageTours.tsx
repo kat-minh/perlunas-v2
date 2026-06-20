@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SceneImage } from "./SceneImage";
@@ -40,7 +41,7 @@ export function PackageTours() {
         <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 sm:px-10 lg:pl-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {tours.map((t, i) => (
             <Reveal key={t.slug} delay={i * 60} className="shrink-0 snap-start">
-              <a
+              <Link
                 href={`/tour/${t.slug}`}
                 className="group relative block h-[32rem] w-[78vw] overflow-hidden sm:w-[20rem]"
               >
@@ -77,7 +78,7 @@ export function PackageTours() {
                     </div>
                   </div>
                 </div>
-              </a>
+              </Link>
             </Reveal>
           ))}
         </div>

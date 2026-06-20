@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Mail, MessageCircle, Phone, ArrowRight } from "lucide-react";
 import { site } from "@/lib/site";
 import { Reveal } from "./Reveal";
@@ -36,10 +37,10 @@ export function Contact() {
               Điền thông tin chuyến đi của bạn, đội ngũ Perlunas sẽ liên hệ để lên
               kế hoạch và báo giá miễn phí.
             </p>
-            <a href="/lien-he" className="btn-ink mt-7 inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium">
+            <Link href="/lien-he" className="btn-ink mt-7 inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium">
               Gửi yêu cầu tư vấn
               <ArrowRight className="h-4 w-4" />
-            </a>
+            </Link>
 
             <div className="mt-10 space-y-4 border-t border-[var(--line)] pt-8">
               <ContactRow icon={Phone} label="Gọi / Zalo" value={site.phone} href={`tel:${site.phone.replace(/\s/g, "")}`} />
