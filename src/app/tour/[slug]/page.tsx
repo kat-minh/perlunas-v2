@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Check, ArrowRight } from "lucide-react";
-import { TOURS, PROVINCES, HOTELS } from "@/lib/catalog";
+import { PROVINCES } from "@/lib/catalog";
+import { getTour, getHotels } from "@/lib/api";
 import { SceneImage } from "@/components/site/SceneImage";
 import { LeadButton } from "@/components/site/LeadButton";
 
-export function generateStaticParams() {
-  return TOURS.map((t) => ({ slug: t.slug }));
-}
+export const revalidate = 300;
 
 export async function generateMetadata({
   params,
@@ -16,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const t = TOURS.find((x) => x.slug === slug);
+  const t = await getTour(slug);
   return { title: t ? t.name : "Tour trọn gói" };
 }
 
@@ -26,8 +25,10 @@ export default async function TourDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const tour = TOURS.find((t) => t.slug === slug);
+  const tour = await getTour(slug);
   if (!tour) notFound();
+
+  const hotels = await getHotels();
 
   // Destination(s) of this tour → suggest hotels there (all stay types).
   const stayProvinces = tour.stays
@@ -35,9 +36,9 @@ export default async function TourDetailPage({
     .filter((p): p is (typeof PROVINCES)[number] => Boolean(p));
   const stayNames = stayProvinces.map((p) => p.name).join(" & ");
   const slugByCity = Object.fromEntries(PROVINCES.map((p) => [p.name, p.slug]));
-  const suggestedHotels = HOTELS.filter((h) =>
-    stayProvinces.some((p) => p.name === h.city),
-  ).slice(0, 3);
+  const suggestedHotels = hotels
+    .filter((h) => stayProvinces.some((p) => p.name === h.city))
+    .slice(0, 3);
 
   return (
     <main className="pb-24">

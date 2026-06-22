@@ -1,33 +1,74 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { TOURS } from "@/lib/catalog";
+import { getToursPaged, getTaxonomyNames } from "@/lib/api";
+import { getPageContentMap, pc } from "@/lib/page-content";
 import { SceneImage } from "@/components/site/SceneImage";
+import { CatalogControls, Pagination } from "@/components/site/CatalogControls";
+
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Tour trọn gói",
-  description: "Những hành trình du lịch trong nước được thiết kế sẵn, chỉ việc khởi hành.",
+  description:
+    "Những hành trình du lịch trong nước được thiết kế sẵn, chỉ việc khởi hành.",
 };
 
-export default function TourTronGoiPage() {
+const PAGE_SIZE = 9;
+const str = (v: string | string[] | undefined) =>
+  typeof v === "string" && v.trim() ? v : undefined;
+
+export default async function TourTronGoiPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const sp = await searchParams;
+  const params = {
+    page: Number(str(sp.page)) || 1,
+    pageSize: PAGE_SIZE,
+    search: str(sp.search),
+    region: str(sp.region),
+  };
+
+  const [result, map, regions] = await Promise.all([
+    getToursPaged(params),
+    getPageContentMap(),
+    getTaxonomyNames("region"),
+  ]);
+
   return (
     <main className="px-6 pb-24 pt-32 sm:px-10 sm:pt-40">
       <div className="mx-auto max-w-[100rem]">
         <header className="max-w-3xl">
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">
-            Tour trọn gói
+            {pc(map, "tourspage.eyebrow")}
           </p>
           <h1 className="display mt-5 text-4xl text-ink sm:text-6xl">
-            Xách balo lên và đi, phần còn lại để Perlunas lo.
+            {pc(map, "tourspage.hero.title")}
           </h1>
           <p className="mt-6 max-w-xl text-pretty leading-relaxed text-ink/70">
-            Lịch khởi hành đều đặn, giá trọn gói rõ ràng, không phát sinh. Mỗi
-            hành trình đều có thể may đo lại theo nhịp đi của bạn.
+            {pc(map, "tourspage.hero.intro")}
           </p>
         </header>
 
-        <div className="mt-16 grid grid-cols-1 gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-          {TOURS.map((t) => (
+        <CatalogControls
+          className="mt-12"
+          searchPlaceholder="Tên tour hoặc vùng miền…"
+          selects={[
+            {
+              param: "region",
+              label: "Vùng miền",
+              allLabel: "Tất cả vùng miền",
+              options: regions.map((r) => ({ value: r, label: r })),
+            },
+          ]}
+        />
+
+        <p className="mt-8 text-sm text-mute">{result.total} tour</p>
+
+        <div className="mt-6 grid grid-cols-1 gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+          {result.items.map((t) => (
             <Link key={t.slug} href={`/tour/${t.slug}`} className="group block">
               <div className="aspect-[4/3] overflow-hidden">
                 <SceneImage
@@ -55,6 +96,12 @@ export default function TourTronGoiPage() {
             </Link>
           ))}
         </div>
+
+        {result.items.length === 0 && (
+          <p className="mt-6 text-ink/60">Chưa có tour phù hợp. Bạn thử từ khóa khác nhé.</p>
+        )}
+
+        <Pagination page={result.page} total={result.total} pageSize={result.pageSize} />
       </div>
     </main>
   );

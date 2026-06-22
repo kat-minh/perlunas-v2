@@ -1,16 +1,17 @@
+import { Fragment } from "react";
 import { LeadButton } from "./LeadButton";
+import { pc, type PageContentMap } from "@/lib/page-content";
 
 /**
  * Opening Scene. A full-bleed cinematic video with the headline set large at the
- * lower-left, editorial style.
- *
- * NOTE: the video URL below is a temporary placeholder (Black Tomato's CDN).
- * Replace with Perlunas's own footage hosted in /public to avoid a broken link
- * and any rights issues.
+ * lower-left, editorial style. All copy + the background video come from page
+ * content (with bundled defaults), so the site renders identically when the API
+ * is down.
  */
-const HERO_VIDEO = "/hero-vid.mp4";
+export function Hero({ map }: { map: PageContentMap }) {
+  const video = pc(map, "home.hero.video");
+  const titleLines = pc(map, "home.hero.title").split("\n");
 
-export function Hero() {
   return (
     <section id="top" className="relative flex min-h-[100dvh] flex-col justify-end overflow-hidden bg-ink">
       <div className="absolute inset-0">
@@ -22,7 +23,7 @@ export function Hero() {
           playsInline
           preload="auto"
         >
-          <source src={HERO_VIDEO} type="video/mp4" />
+          <source src={video} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-ink/25 via-transparent to-ink/80" />
       </div>
@@ -31,23 +32,27 @@ export function Hero() {
         <div className="grid items-end gap-8 lg:grid-cols-12">
           <div className="reveal is-in lg:col-span-8">
             <p className="text-xs font-medium uppercase tracking-[0.3em] text-paper/75">
-              Thiết kế hành trình du lịch trong nước
+              {pc(map, "home.hero.eyebrow")}
             </p>
             <h1 className="display mt-6 text-[2.25rem] leading-[1.05] text-paper sm:text-6xl lg:text-[4.75rem]">
-              Mỗi hành trình <br />là một viên ngọc.
+              {titleLines.map((line, i) => (
+                <Fragment key={i}>
+                  {i > 0 && <br />}
+                  {line}
+                </Fragment>
+              ))}
             </h1>
           </div>
 
           <div className="reveal is-in lg:col-span-4 lg:pb-3">
             <p className="max-w-sm text-pretty leading-relaxed text-paper/85">
-              Perlunas thiết kế những chuyến đi trong nước đáng nhớ, tinh tế trong
-              từng chi tiết và trọn vẹn từ đầu đến cuối.
+              {pc(map, "home.hero.subtitle")}
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <a href="#tour-tron-goi" className="btn-paper rounded-[3px] px-6 py-3 text-sm font-medium">
-                Khám phá hành trình
+                {pc(map, "home.hero.cta.primary")}
               </a>
-              <LeadButton variant="ghost">Liên hệ tư vấn</LeadButton>
+              <LeadButton variant="ghost">{pc(map, "home.hero.cta.secondary")}</LeadButton>
             </div>
           </div>
         </div>

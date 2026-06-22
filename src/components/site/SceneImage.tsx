@@ -9,20 +9,27 @@ import { IMAGES } from "@/lib/images";
  */
 export function SceneImage({
   seed,
+  src: srcOverride,
   alt,
   w = 1200,
   h = 900,
   className,
   priority = false,
 }: {
-  seed: string;
+  /** Seed for placeholder/override lookup. Optional when `src` is given. */
+  seed?: string;
+  /** Explicit image URL (e.g. from page content). Wins over the seed. */
+  src?: string;
   alt: string;
   w?: number;
   h?: number;
   className?: string;
   priority?: boolean;
 }) {
-  const src = IMAGES[seed] ?? `https://picsum.photos/seed/${seed}/${w}/${h}`;
+  const src =
+    (srcOverride && srcOverride.trim()) ||
+    (seed && IMAGES[seed]) ||
+    `https://picsum.photos/seed/${seed ?? "perlunas"}/${w}/${h}`;
   return (
     // eslint-disable-next-line @next/next/no-img-element -- placeholder photography; swap for next/image + real assets later
     <img

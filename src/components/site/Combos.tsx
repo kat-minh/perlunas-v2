@@ -2,45 +2,32 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SceneImage } from "./SceneImage";
+import { pc, type PageContentMap } from "@/lib/page-content";
+import type { ApiCity } from "@/lib/api";
 
 /**
- * Combo du lịch. Modelled on the client's reference (combo.png): a uniform grid
- * of tall tiles with the province name centred over each image (replacing the
- * stock "Family Holidays" labels), and a "Xem tất cả" tile at the end. Clicking a
- * province opens that province's combo page. Each combo comes in three tiers
- * named after pearls (Akoya / Tahiti / South Sea), explained on /combo.
- * Photos/copy are placeholder.
+ * Combo du lịch. A uniform grid of tall tiles with the destination name centred
+ * over each image, and a "Xem tất cả" tile at the end. Destinations come from
+ * the admin-managed city taxonomy (API); copy comes from page content.
  */
-const provinces = [
-  { name: "Hà Nội", slug: "ha-noi" },
-  { name: "TP. Hồ Chí Minh", slug: "ho-chi-minh" },
-  { name: "Hạ Long", slug: "ha-long" },
-  { name: "Đà Lạt", slug: "da-lat" },
-  { name: "Phú Quốc", slug: "phu-quoc" },
-  { name: "Đà Nẵng", slug: "da-nang" },
-  { name: "Nha Trang", slug: "nha-trang" },
-  { name: "Huế", slug: "hue" },
-  { name: "Sa Pa", slug: "sa-pa" },
-];
-
-export function Combos() {
+export function Combos({ map, cities }: { map: PageContentMap; cities: ApiCity[] }) {
+  const provinces = cities;
   return (
     <section id="combo" className="relative border-t border-[var(--line-soft)] px-6 py-14 sm:px-10 sm:py-20">
       <div className="mx-auto max-w-[100rem]">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <Reveal>
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">Combo du lịch</p>
+            <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">{pc(map, "home.combos.eyebrow")}</p>
             <h2 className="display mt-5 max-w-2xl text-4xl text-ink sm:text-5xl">
-              Chọn một vùng đất để bắt đầu.
+              {pc(map, "home.combos.title")}
             </h2>
             <p className="mt-4 max-w-xl leading-relaxed text-ink/65">
-              Mỗi điểm đến có ba gói combo theo mức độ trải nghiệm: Akoya, Tahiti
-              và South Sea, đặt theo tên ba dòng ngọc trai quý.
+              {pc(map, "home.combos.text")}
             </p>
           </Reveal>
           <Reveal delay={120}>
             <Link href="/combo" className="group inline-flex shrink-0 items-center gap-2 text-sm font-medium text-ink">
-              <span className="link-underline">Tìm hiểu ba gói ngọc</span>
+              <span className="link-underline">{pc(map, "home.combos.link")}</span>
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </Reveal>
@@ -50,7 +37,7 @@ export function Combos() {
           {provinces.map((p, i) => (
             <Reveal key={p.slug} delay={(i % 5) * 50}>
               <Link
-                href={`/combo/${p.slug}`}
+                href={`/combo?noi-den=${p.slug}`}
                 className="group relative flex aspect-[3/4] items-center justify-center overflow-hidden"
               >
                 <SceneImage
@@ -75,7 +62,7 @@ export function Combos() {
               className="group relative flex aspect-[3/4] items-center justify-center overflow-hidden bg-ink text-paper transition-colors hover:bg-ink/85"
             >
               <span className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-[0.18em]">
-                Xem tất cả
+                {pc(map, "home.combos.viewall")}
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
             </Link>

@@ -2,14 +2,20 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Phone } from "lucide-react";
 import { clsx } from "clsx";
+import { site } from "@/lib/site";
 
 const links = [
   { label: "Tour trọn gói", href: "/tour-tron-goi" },
+  { label: "Tour đoàn", href: "/tour-doan" },
+  { label: "Tour riêng tư", href: "/tour-rieng-tu" },
   { label: "Khách sạn", href: "/khach-san" },
   { label: "Combo", href: "/combo" },
   { label: "Về chúng tôi", href: "/ve-chung-toi" },
 ];
+
+const tel = `tel:${site.phone.replace(/\s/g, "")}`;
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -38,7 +44,7 @@ export function Navbar() {
           PERLUNAS
         </Link>
 
-        <nav className="hidden items-center gap-10 lg:flex">
+        <nav className="hidden items-center gap-7 lg:flex xl:gap-9">
           {links.map((l) => (
             <Link
               key={l.href}
@@ -50,7 +56,15 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
+          <a
+            href={tel}
+            className="hidden items-center gap-2 text-sm font-medium tracking-wide text-ink/85 transition-colors hover:text-ink md:inline-flex"
+          >
+            <Phone className="h-4 w-4" strokeWidth={1.6} />
+            {site.phone}
+          </a>
+
           <Link
             href="/lien-he"
             className="btn-ink hidden rounded-[3px] px-5 py-2 text-sm font-medium md:inline-block"
@@ -88,10 +102,18 @@ export function Navbar() {
                 {l.label}
               </Link>
             ))}
+            <a
+              href={tel}
+              onClick={() => setOpen(false)}
+              className="mt-1 flex items-center justify-center gap-2 rounded-sm px-4 py-3 text-center font-medium text-ink"
+            >
+              <Phone className="h-4 w-4" strokeWidth={1.6} />
+              {site.phone}
+            </a>
             <Link
               href="/lien-he"
               onClick={() => setOpen(false)}
-              className="btn-ink mt-1 rounded-sm px-4 py-3 text-center font-medium"
+              className="btn-ink rounded-sm px-4 py-3 text-center font-medium"
             >
               Liên hệ tư vấn
             </Link>

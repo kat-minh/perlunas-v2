@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Phone, MessageCircle, Clock } from "lucide-react";
 import { site } from "@/lib/site";
 import { LeadForm } from "@/components/site/LeadForm";
+import { getPageContentMap, pc } from "@/lib/page-content";
+
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Yêu cầu tư vấn",
@@ -14,21 +17,20 @@ export default async function EnquiryPage({
   searchParams: Promise<{ service?: string; email?: string }>;
 }) {
   const { service, email } = await searchParams;
+  const map = await getPageContentMap();
 
   return (
     <main className="px-6 pb-28 pt-36 sm:px-10 sm:pt-44">
       <div className="mx-auto max-w-[78rem]">
         <header className="max-w-3xl">
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">
-            Yêu cầu tư vấn
+            {pc(map, "contact.eyebrow")}
           </p>
           <h1 className="display mt-5 text-4xl text-ink sm:text-6xl">
-            Kể cho chúng tôi về chuyến đi của bạn.
+            {pc(map, "contact.hero.title")}
           </h1>
           <p className="mt-6 max-w-2xl text-pretty leading-relaxed text-ink/70">
-            Sau khi bạn gửi yêu cầu, Perlunas sẽ liên hệ sớm để tư vấn và lên kế
-            hoạch qua Zalo, điện thoại hoặc gặp trực tiếp. Mọi tư vấn và báo giá
-            đều hoàn toàn miễn phí.
+            {pc(map, "contact.hero.intro")}
           </p>
         </header>
 
@@ -42,18 +44,18 @@ export default async function EnquiryPage({
               <div>
                 <Phone className="h-5 w-5 text-ink" strokeWidth={1.5} />
                 <p className="mt-4 text-xs font-medium uppercase tracking-[0.2em] text-ink">
-                  Gọi ngay hôm nay
+                  {pc(map, "contact.call.label")}
                 </p>
                 <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="mt-2 block font-serif text-2xl text-ink">
                   {site.phone}
                 </a>
-                <p className="mt-1 text-sm text-mute">Tư vấn nhanh trong giờ làm việc.</p>
+                <p className="mt-1 text-sm text-mute">{pc(map, "contact.call.note")}</p>
               </div>
 
               <div>
                 <MessageCircle className="h-5 w-5 text-ink" strokeWidth={1.5} />
                 <p className="mt-4 text-xs font-medium uppercase tracking-[0.2em] text-ink">
-                  Nhắn tin
+                  {pc(map, "contact.message.label")}
                 </p>
                 <div className="mt-2 flex flex-col gap-1 text-ink">
                   <a href={site.zalo} className="link-underline w-fit">Zalo</a>
@@ -65,12 +67,12 @@ export default async function EnquiryPage({
               <div>
                 <Clock className="h-5 w-5 text-ink" strokeWidth={1.5} />
                 <p className="mt-4 text-xs font-medium uppercase tracking-[0.2em] text-ink">
-                  Giờ làm việc
+                  {pc(map, "contact.hours.label")}
                 </p>
                 <dl className="mt-3 space-y-1.5 text-sm text-ink/70">
-                  <Row d="Thứ 2 - Thứ 6" h="8:00 - 21:00" />
-                  <Row d="Thứ 7" h="8:00 - 20:00" />
-                  <Row d="Chủ nhật" h="9:00 - 18:00" />
+                  <Row d={pc(map, "contact.hours.1.day")} h={pc(map, "contact.hours.1.time")} />
+                  <Row d={pc(map, "contact.hours.2.day")} h={pc(map, "contact.hours.2.time")} />
+                  <Row d={pc(map, "contact.hours.3.day")} h={pc(map, "contact.hours.3.time")} />
                 </dl>
               </div>
             </div>

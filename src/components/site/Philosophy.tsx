@@ -8,29 +8,27 @@ import {
   useReducedMotion,
   type MotionValue,
 } from "motion/react";
+import { pc, type PageContentMap } from "@/lib/page-content";
 
 /**
  * The philosophy statement below the hero. The words start dim and brighten one
  * by one as the block scrolls up through the viewport (scroll-linked word
- * reveal). Copy is placeholder.
+ * reveal). Copy comes from page content.
  */
-const TEXT =
-  "Một hành trình đẹp bắt đầu từ cảm giác bạn mang theo, không phải điểm đến. Vì thế Perlunas không tạo ra những chuyến đi rập khuôn. Chúng tôi lắng nghe từng người, rồi thiết kế một hành trình vừa vặn, chỉn chu trong từng chi tiết. Với chúng tôi, mỗi vị khách là một viên ngọc.";
-
-export function Philosophy() {
+export function Philosophy({ map }: { map: PageContentMap }) {
   const ref = useRef<HTMLParagraphElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start 0.82", "start 0.28"],
   });
-  const words = TEXT.split(" ");
+  const words = pc(map, "home.philosophy.text").split(" ");
 
   return (
     <section id="triet-ly" className="relative px-6 py-16 sm:px-10 sm:py-28">
       <div className="mx-auto max-w-5xl text-center">
         <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">
-          Triết lý
+          {pc(map, "home.philosophy.eyebrow")}
         </p>
         <p
           ref={ref}

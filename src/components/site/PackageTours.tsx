@@ -5,24 +5,23 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SceneImage } from "./SceneImage";
+import { pc, type PageContentMap } from "@/lib/page-content";
+import type { ApiTour } from "@/lib/api";
 
 /**
  * Tour trọn gói. Modelled on the client's reference (Black Tomato "Explore our
  * trips"): a side title, then a horizontal rail of tall image cards. Each card
  * shows a nights badge + region + name over the photo; on hover the photo dims
  * for legibility and reveals a teaser, the price and a "Xem chi tiết" button.
- * The whole section sits on a dark ground; prev/next buttons under the rail
- * scroll it. Photos/copy are placeholder; detail route /tour/[slug] built later.
+ * Copy comes from page content; the tour list comes from the API (entities).
  */
-const tours = [
-  { slug: "da-lat", name: "Đà Lạt mộng mơ", region: "Lâm Đồng", nights: "3 đêm", price: "từ 2.890.000đ", teaser: "Ba ngày giữa rừng thông và sương sớm: săn mây Cầu Đất, dạo vườn hồng, nhâm nhi cà phê trong cái se lạnh cao nguyên." },
-  { slug: "phu-quoc", name: "Phú Quốc đảo ngọc", region: "Kiên Giang", nights: "3 đêm", price: "từ 3.690.000đ", teaser: "Cáp treo Hòn Thơm, lặn ngắm san hô và những hoàng hôn rực rỡ bên bãi biển trong vắt phía Nam." },
-  { slug: "ha-noi-sapa", name: "Hà Nội Sa Pa", region: "Miền Bắc", nights: "4 đêm", price: "từ 4.290.000đ", teaser: "Từ phố cổ ngàn năm đến ruộng bậc thang Mường Hoa và đỉnh Fansipan ẩn hiện trong mây." },
-  { slug: "da-nang-hoi-an", name: "Đà Nẵng Hội An", region: "Miền Trung", nights: "3 đêm", price: "từ 3.190.000đ", teaser: "Cầu Vàng Bà Nà, phố Hội lung linh đèn lồng và bãi biển Mỹ Khê xanh ngắt." },
-  { slug: "nha-trang", name: "Nha Trang biển xanh", region: "Khánh Hòa", nights: "3 đêm", price: "từ 2.990.000đ", teaser: "Vịnh biển trong xanh, khám phá đảo Hòn Mun và thư giãn với tắm bùn khoáng nổi tiếng." },
-];
-
-export function PackageTours() {
+export function PackageTours({
+  map,
+  tours,
+}: {
+  map: PageContentMap;
+  tours: ApiTour[];
+}) {
   const railRef = useRef<HTMLDivElement>(null);
 
   // Scroll the rail by one card width (card + the 20px gap-5 gutter).
@@ -41,13 +40,13 @@ export function PackageTours() {
         <div className="mb-10 shrink-0 px-6 sm:px-10 lg:mb-0 lg:flex lg:w-[22rem] lg:flex-col lg:justify-center lg:pl-10 lg:pr-0">
           <Reveal>
             <p className="text-xs font-medium uppercase tracking-[0.3em] text-paper/50">
-              Tour trọn gói
+              {pc(map, "home.packagetours.eyebrow")}
             </p>
             <h2 className="display mt-5 text-4xl text-paper sm:text-5xl">
-              Những hành trình đã thiết kế sẵn.
+              {pc(map, "home.packagetours.title")}
             </h2>
             <p className="mt-4 max-w-xs text-lg font-light text-paper/65">
-              Những trải nghiệm chỉn chu, khơi gợi cảm hứng cho mỗi chuyến đi.
+              {pc(map, "home.packagetours.subtitle")}
             </p>
           </Reveal>
         </div>
@@ -94,7 +93,7 @@ export function PackageTours() {
                         <p className="pt-3 text-sm leading-relaxed text-paper/85">{t.teaser}</p>
                         <p className="mt-3 text-sm font-medium text-paper">{t.price}</p>
                         <span className="btn-paper mt-4 inline-flex items-center gap-2 px-5 py-2.5 text-xs font-medium uppercase tracking-[0.15em]">
-                          Xem chi tiết
+                          {pc(map, "home.packagetours.cta")}
                           <ArrowRight className="h-3.5 w-3.5" />
                         </span>
                       </div>

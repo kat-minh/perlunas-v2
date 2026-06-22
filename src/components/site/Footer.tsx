@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, MessageCircle, Send, Mail, Phone } from "lucide-react";
 import { site } from "@/lib/site";
+import { getPageContentMap, pc } from "@/lib/page-content";
 
 /**
  * Footer. Brand + two link columns + a compact "Liên hệ" block (ref ảnh5): a
@@ -30,7 +31,8 @@ const channels = [
   { label: "Điện thoại", href: `tel:${site.phone.replace(/\s/g, "")}`, Icon: Phone },
 ];
 
-export function Footer() {
+export async function Footer() {
+  const map = await getPageContentMap();
   return (
     <footer id="lien-he" className="relative bg-ink px-6 py-14 text-paper sm:px-10">
       <div className="mx-auto max-w-[100rem]">
@@ -39,8 +41,7 @@ export function Footer() {
           <div className="col-span-2 lg:col-span-4">
             <p className="font-serif text-2xl tracking-[0.16em] text-paper">PERLUNAS</p>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-paper/55">
-              {site.taglineVi}. Thiết kế những hành trình du lịch trong nước tinh
-              tế và trọn vẹn.
+              {pc(map, "footer.tagline")}
             </p>
           </div>
 
@@ -51,7 +52,7 @@ export function Footer() {
           {/* liên hệ — compact: quick email + contact channels */}
           <div className="col-span-2 lg:col-span-4">
             <p className="text-xs font-medium uppercase tracking-[0.3em] text-paper/45">
-              Nhận tư vấn từ Perlunas
+              {pc(map, "footer.newsletter.eyebrow")}
             </p>
             <form action="/lien-he" method="get" className="mt-4 flex items-center bg-paper p-1.5">
               <input
@@ -70,7 +71,7 @@ export function Footer() {
               </button>
             </form>
             <p className="mt-2 text-xs text-paper/45">
-              Để lại email, Perlunas sẽ liên hệ tư vấn miễn phí.
+              {pc(map, "footer.newsletter.note")}
             </p>
 
             <div className="mt-5 flex items-center gap-3">
@@ -91,7 +92,7 @@ export function Footer() {
         {/* legal bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-paper/12 pt-6 text-xs text-paper/45 sm:flex-row">
           <p>© {site.foundedYear}-2026 {site.name}. Mọi quyền được bảo lưu.</p>
-          <p>Mỗi hành trình là một viên ngọc dưới ánh trăng.</p>
+          <p>{pc(map, "footer.legal.tagline")}</p>
         </div>
       </div>
     </footer>

@@ -1,29 +1,21 @@
 import { Reveal } from "./Reveal";
+import { pc, type PageContentMap } from "@/lib/page-content";
 
 /**
  * Đối tác. Logo wordmarks sliding by continuously (marquee, one per page). Two
- * copies of the list sit side by side so the -50% loop is seamless. Wordmarks
- * are placeholders; swap for real SVG logos when provided.
+ * copies of the list sit side by side so the -50% loop is seamless. The list +
+ * heading come from page content (one partner name per line).
  */
-const partners = [
-  "Vietnam Airlines",
-  "Vietravel",
-  "Saigontourist",
-  "Mường Thanh",
-  "Vinpearl",
-  "Bamboo Airways",
-  "Accor Hotels",
-  "Sun World",
-  "Vietjet Air",
-  "Marriott",
-];
-
-export function Partners() {
+export function Partners({ map }: { map: PageContentMap }) {
+  const partners = pc(map, "home.partners.list")
+    .split("\n")
+    .map((p) => p.trim())
+    .filter(Boolean);
   return (
     <section id="doi-tac" className="relative overflow-hidden border-y border-[var(--line-soft)] py-10">
       <Reveal>
         <p className="mb-10 text-center text-xs font-medium uppercase tracking-[0.3em] text-mute">
-          Đối tác đồng hành
+          {pc(map, "home.partners.eyebrow")}
         </p>
       </Reveal>
 

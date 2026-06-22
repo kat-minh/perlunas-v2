@@ -71,7 +71,7 @@ export const TOURS: Tour[] = [
   {
     slug: "da-lat",
     name: "Đà Lạt mộng mơ",
-    region: "Lâm Đồng",
+    region: "Tây Nguyên",
     nights: "3 ngày 2 đêm",
     price: "từ 2.890.000đ",
     teaser: "Ba ngày giữa rừng thông và sương sớm trên cao nguyên.",
@@ -81,7 +81,7 @@ export const TOURS: Tour[] = [
   {
     slug: "phu-quoc",
     name: "Phú Quốc đảo ngọc",
-    region: "Kiên Giang",
+    region: "Miền Nam",
     nights: "3 ngày 2 đêm",
     price: "từ 3.690.000đ",
     teaser: "Biển trong vắt, san hô và hoàng hôn rực rỡ phương Nam.",
@@ -111,7 +111,7 @@ export const TOURS: Tour[] = [
   {
     slug: "nha-trang",
     name: "Nha Trang biển xanh",
-    region: "Khánh Hòa",
+    region: "Miền Trung",
     nights: "3 ngày 2 đêm",
     price: "từ 2.990.000đ",
     teaser: "Vịnh biển trong xanh và những hòn đảo gần bờ.",
