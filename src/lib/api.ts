@@ -25,8 +25,10 @@ import {
 } from "@/lib/catalog";
 import { IMAGES } from "@/lib/images";
 
-export const API_BASE_URL =
-  process.env.API_BASE_URL ?? "http://localhost:5080";
+// Strip any trailing slash so `${API_BASE_URL}/api/...` never doubles up ("//").
+export const API_BASE_URL = (
+  process.env.API_BASE_URL ?? "http://localhost:5080"
+).replace(/\/+$/, "");
 
 /* ----------------------------------------------------------------
    Pagination envelope (mirrors the backend PagedResult<T>).
