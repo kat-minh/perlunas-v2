@@ -35,7 +35,6 @@ export default async function TourDetailPage({
     .map((s) => PROVINCES.find((p) => p.slug === s))
     .filter((p): p is (typeof PROVINCES)[number] => Boolean(p));
   const stayNames = stayProvinces.map((p) => p.name).join(" & ");
-  const slugByCity = Object.fromEntries(PROVINCES.map((p) => [p.name, p.slug]));
   const suggestedHotels = hotels
     .filter((h) => stayProvinces.some((p) => p.name === h.city))
     .slice(0, 3);
@@ -115,7 +114,7 @@ export default async function TourDetailPage({
               {suggestedHotels.map((h) => (
                 <Link
                   key={h.slug}
-                  href={`/khach-san?noi-den=${slugByCity[h.city] ?? ""}`}
+                  href={`/khach-san/${h.slug}`}
                   className="group block"
                 >
                   <div className="aspect-[3/2] overflow-hidden">
