@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SceneImage } from "@/components/site/SceneImage";
+import { PageHero } from "@/components/site/PageHero";
 import { LeadButton } from "@/components/site/LeadButton";
 import { getPageContentMap, pc } from "@/lib/page-content";
 
@@ -19,34 +20,17 @@ export default async function TourDoanPage() {
   const map = await getPageContentMap();
 
   return (
-    <main className="px-6 pb-24 pt-32 sm:px-10 sm:pt-40">
-      <div className="mx-auto max-w-[100rem]">
-        {/* header */}
-        <header className="max-w-3xl">
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">
-            {pc(map, "grouppage.eyebrow")}
-          </p>
-          <h1 className="display mt-5 text-4xl text-ink sm:text-6xl">
-            {pc(map, "grouppage.hero.title")}
-          </h1>
-          <p className="mt-6 max-w-xl text-pretty leading-relaxed text-ink/70">
-            {pc(map, "grouppage.hero.intro")}
-          </p>
-        </header>
-
-        {/* ảnh lớn mở đầu */}
-        <div className="mt-14 aspect-[16/7] overflow-hidden">
-          <SceneImage
-            src={pc(map, "grouppage.hero.image")}
-            alt="Tour đoàn Perlunas"
-            w={1600}
-            h={700}
-            priority
-          />
-        </div>
-
+    <main className="pb-24">
+      <PageHero
+        eyebrow={pc(map, "grouppage.eyebrow")}
+        title={pc(map, "grouppage.hero.title")}
+        intro={pc(map, "grouppage.hero.intro")}
+        image={pc(map, "grouppage.hero.image")}
+        alt="Tour đoàn Perlunas"
+      />
+      <div className="mx-auto max-w-[100rem] px-6 sm:px-10">
         {/* các khối nội dung + ảnh xen kẽ */}
-        <div className="mt-20 space-y-24">
+        <div className="mt-16 space-y-24 sm:mt-20">
           <ContentBlock
             eyebrow={pc(map, "grouppage.block1.eyebrow")}
             title={pc(map, "grouppage.block1.title")}

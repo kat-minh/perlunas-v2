@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro } from "next/font/google";
-import localFont from "next/font/local";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
@@ -14,14 +13,6 @@ const beVietnam = Be_Vietnam_Pro({
   weight: ["300", "400", "500", "600"],
   variable: "--font-bevn",
   display: "swap",
-});
-
-// Display/headings: Bebas Neue — tall condensed all-caps (Vietnamese glyph set).
-const bebas = localFont({
-  src: "./fonts/bebas-neue.otf",
-  variable: "--font-bebas",
-  display: "swap",
-  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -59,7 +50,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi" className={`${beVietnam.variable} ${bebas.variable}`}>
+    <html lang="vi" className={beVietnam.variable}>
       <body>
         <SmoothScroll>
           <Navbar />

@@ -24,6 +24,7 @@ import {
   type Combo,
 } from "@/lib/catalog";
 import { IMAGES } from "@/lib/images";
+import { hotelPurposes } from "@/lib/purposes";
 
 // Strip any trailing slash so `${API_BASE_URL}/api/...` never doubles up ("//").
 export const API_BASE_URL = (
@@ -51,6 +52,7 @@ export type CatalogParams = {
   type?: string;
   tier?: string;
   stayType?: string;
+  purpose?: string;
 };
 
 /* ----------------------------------------------------------------
@@ -135,6 +137,7 @@ async function getPaged<T>(
   if (params.type) qs.set("type", params.type);
   if (params.tier) qs.set("tier", params.tier);
   if (params.stayType) qs.set("stayType", params.stayType);
+  if (params.purpose) qs.set("purpose", params.purpose);
 
   try {
     const res = await fetch(`${API_BASE_URL}${path}?${qs.toString()}`, {
@@ -206,6 +209,7 @@ export const getHotelsPaged = (params: CatalogParams = {}) =>
         (includes(h.name, p.search) || includes(h.city, p.search)) &&
         (!p.city || h.city === p.city) &&
         (!p.type || h.type === p.type) &&
+        (!p.purpose || hotelPurposes(h.slug).includes(p.purpose)) &&
         (p.featured == null || (h.featured ?? false) === p.featured),
     ),
   );
@@ -306,6 +310,7 @@ const GROUP_TOURS_FALLBACK: ApiHighlightCard[] = [
   { title: "Gala Dinner", image: IMAGES["perlunas-group-gala"] ?? "", description: "Gala Dinner của đoàn", sortOrder: 1 },
   { title: "Team Building", image: IMAGES["perlunas-group-team"] ?? "", description: "Team building của đoàn", sortOrder: 2 },
   { title: "Tham quan", image: IMAGES["perlunas-group-tour"] ?? "", description: "Đoàn đang tham quan", sortOrder: 3 },
+  { title: "Khoảnh khắc", image: IMAGES["perlunas-group-celebrate"] ?? "", description: "Khoảnh khắc cùng đoàn", sortOrder: 4 },
 ];
 
 const PRIVATE_TOURS_FALLBACK: ApiHighlightCard[] = [

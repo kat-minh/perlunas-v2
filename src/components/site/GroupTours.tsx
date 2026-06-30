@@ -16,7 +16,8 @@ export function GroupTours({
   map: PageContentMap;
   moments: ApiHighlightCard[];
 }) {
-  const [hero, ...rest] = moments;
+  // 2×2 collage — exactly four equal photos.
+  const grid = moments.slice(0, 4);
 
   return (
     <section id="tour-doan" className="relative border-t border-[var(--line-soft)] px-6 pb-16 pt-10 sm:px-10 sm:pb-24 sm:pt-12">
@@ -38,28 +39,10 @@ export function GroupTours({
           </div>
         </Reveal>
 
-        {/* right — photo collage */}
+        {/* right — 2×2 photo collage (four equal squares) */}
         <Reveal delay={120}>
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
-            {/* wide: first moment */}
-            {hero && (
-              <figure className="group relative col-span-2 aspect-[16/10] overflow-hidden">
-                <SceneImage
-                  src={hero.image}
-                  alt={hero.description || hero.title}
-                  w={1200}
-                  h={750}
-                  className="transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/55 to-transparent" />
-                <figcaption className="absolute bottom-3 left-4 text-[0.65rem] uppercase tracking-[0.2em] text-paper">
-                  {hero.title}
-                </figcaption>
-              </figure>
-            )}
-
-            {/* remaining squares */}
-            {rest.map((m) => (
+            {grid.map((m) => (
               <figure key={m.id ?? m.title} className="group relative aspect-square overflow-hidden">
                 <SceneImage
                   src={m.image}
@@ -69,7 +52,7 @@ export function GroupTours({
                   className="transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink/55 to-transparent" />
-                <figcaption className="absolute bottom-3 left-4 text-[0.65rem] uppercase tracking-[0.2em] text-paper">
+                <figcaption className="absolute bottom-3 left-4 text-sm uppercase tracking-[0.2em] text-paper">
                   {m.title}
                 </figcaption>
               </figure>

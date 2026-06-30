@@ -45,6 +45,7 @@ const ABOUT = "/about.png";
 const GROUP_GALA = "https://images.unsplash.com/photo-1768881618157-2cc24f7493c6?fm=jpg&q=60&w=2000&auto=format&fit=crop";
 const GROUP_TEAM = "https://images.unsplash.com/photo-1774599661329-d9a2f999d1c4?fm=jpg&q=60&w=2000&auto=format&fit=crop";
 const GROUP_TOUR = "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?fm=jpg&q=60&w=1200&auto=format&fit=crop";
+const GROUP_CELEBRATE = "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?fm=jpg&q=60&w=1200&auto=format&fit=crop";
 
 // Tour riêng tư (PrivateTour) — Unsplash, theo từng nhóm khách
 const PRIV_FAMILY = "https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?fm=jpg&q=60&w=900&auto=format&fit=crop";
@@ -96,6 +97,7 @@ export const IMAGES: Record<string, string> = {
   "perlunas-group-gala": GROUP_GALA,
   "perlunas-group-team": GROUP_TEAM,
   "perlunas-group-tour": GROUP_TOUR,
+  "perlunas-group-celebrate": GROUP_CELEBRATE,
   // Tour riêng tư
   "perlunas-private-family": PRIV_FAMILY,
   "perlunas-private-couples": PRIV_COUPLES,

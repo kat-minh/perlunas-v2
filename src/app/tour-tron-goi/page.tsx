@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { getToursPaged, getTaxonomyNames } from "@/lib/api";
 import { getPageContentMap, pc } from "@/lib/page-content";
 import { SceneImage } from "@/components/site/SceneImage";
+import { PageHero } from "@/components/site/PageHero";
 import { CatalogControls, Pagination } from "@/components/site/CatalogControls";
 
 export const revalidate = 300;
@@ -38,22 +39,17 @@ export default async function TourTronGoiPage({
   ]);
 
   return (
-    <main className="px-6 pb-24 pt-32 sm:px-10 sm:pt-40">
-      <div className="mx-auto max-w-[100rem]">
-        <header className="max-w-3xl">
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">
-            {pc(map, "tourspage.eyebrow")}
-          </p>
-          <h1 className="display mt-5 text-4xl text-ink sm:text-6xl">
-            {pc(map, "tourspage.hero.title")}
-          </h1>
-          <p className="mt-6 max-w-xl text-pretty leading-relaxed text-ink/70">
-            {pc(map, "tourspage.hero.intro")}
-          </p>
-        </header>
-
+    <main className="pb-24">
+      <PageHero
+        eyebrow={pc(map, "tourspage.eyebrow")}
+        title={pc(map, "tourspage.hero.title")}
+        intro={pc(map, "tourspage.hero.intro")}
+        image={pc(map, "tourspage.hero.image")}
+        alt="Tour trong nước trọn gói"
+      />
+      <div className="mx-auto max-w-[100rem] px-6 sm:px-10">
         <CatalogControls
-          className="mt-12"
+          className="mt-14 sm:mt-16"
           searchPlaceholder="Tên tour hoặc vùng miền…"
           selects={[
             {

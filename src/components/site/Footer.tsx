@@ -22,6 +22,7 @@ const congTy = [
   { label: "Tại sao chọn Perlunas", href: "/#tai-sao" },
   { label: "Đối tác", href: "/#doi-tac" },
   { label: "Yêu cầu tư vấn", href: "/lien-he" },
+  { label: "Chính sách & Điều khoản", href: "/chinh-sach" },
 ];
 
 const channels = [
@@ -40,9 +41,33 @@ export async function Footer() {
           {/* brand */}
           <div className="col-span-2 lg:col-span-4">
             <p className="font-serif text-2xl tracking-[0.16em] text-paper">PERLUNAS</p>
-            <p className="mt-3 max-w-xs text-sm leading-relaxed text-paper/55">
-              {pc(map, "footer.tagline")}
-            </p>
+
+            <dl className="mt-6 space-y-1.5 text-sm text-paper/55">
+              <div className="flex gap-2">
+                <dt className="text-paper/40">Công ty:</dt>
+                <dd className="text-paper/70">{site.legalName}</dd>
+              </div>
+              <div className="flex gap-2">
+                <dt className="text-paper/40">MST:</dt>
+                <dd className="text-paper/70">{site.taxId}</dd>
+              </div>
+              <div className="flex gap-2">
+                <dt className="text-paper/40">Email:</dt>
+                <dd>
+                  <a href={`mailto:${site.email}`} className="text-paper/70 transition-colors hover:text-paper">
+                    {site.email}
+                  </a>
+                </dd>
+              </div>
+              <div className="flex gap-2">
+                <dt className="text-paper/40">Hotline:</dt>
+                <dd>
+                  <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="text-paper/70 transition-colors hover:text-paper">
+                    {site.phone}
+                  </a>
+                </dd>
+              </div>
+            </dl>
           </div>
 
           {/* link columns */}

@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { clsx } from "clsx";
 import { SceneImage } from "@/components/site/SceneImage";
+import { PageHero } from "@/components/site/PageHero";
 import { getPageContentMap, pc } from "@/lib/page-content";
 
 export const revalidate = 300;
@@ -30,23 +31,16 @@ export default async function VeChungToiPage() {
   }));
 
   return (
-    <main className="pb-24 pt-32 sm:pt-40">
+    <main className="pb-24">
+      <PageHero
+        title={pc(map, "about.eyebrow")}
+        intro={pc(map, "about.hero.intro")}
+        image={pc(map, "about.hero.image")}
+        alt="Về chúng tôi — Perlunas"
+      />
       <div className="mx-auto max-w-[100rem] px-6 sm:px-10">
-        <header className="max-w-4xl">
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">
-            {pc(map, "about.eyebrow")}
-          </p>
-          <p className="display mt-6 text-balance text-3xl leading-[1.25] text-ink sm:text-5xl sm:leading-[1.2]">
-            {pc(map, "about.hero.intro")}
-          </p>
-        </header>
-
-        <div className="mt-14 aspect-[21/9] overflow-hidden">
-          <SceneImage src={pc(map, "about.hero.image")} alt="Perlunas" w={2000} h={860} priority />
-        </div>
-
         {/* content blocks — each on its own row, image alternating */}
-        <div className="mt-20 space-y-16 sm:space-y-20">
+        <div className="mt-16 space-y-16 sm:mt-20 sm:space-y-20">
           {BLOCKS.map((b, i) => (
             <article
               key={b.title || b.kicker}

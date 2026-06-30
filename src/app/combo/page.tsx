@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { getCombosPaged, getComboTiers, getCities, getTaxonomyNames } from "@/lib/api";
 import { getPageContentMap, pc } from "@/lib/page-content";
 import { SceneImage } from "@/components/site/SceneImage";
+import { PageHero } from "@/components/site/PageHero";
 import { PearlIcon } from "@/components/site/PearlIcon";
 import { LeadButton } from "@/components/site/LeadButton";
 import { CatalogControls, Pagination } from "@/components/site/CatalogControls";
@@ -50,20 +51,16 @@ export default async function ComboPage({
   const result = await getCombosPaged(params);
 
   return (
-    <main className="px-6 pb-24 pt-32 sm:px-10 sm:pt-40">
-      <div className="mx-auto max-w-[100rem]">
-        <header className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <div className="max-w-2xl">
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">
-              {pc(map, "combopage.eyebrow")}
-            </p>
-            <h1 className="display mt-5 text-4xl text-ink sm:text-6xl">
-              {pc(map, "combopage.hero.title")}
-            </h1>
-            <p className="mt-6 text-pretty leading-relaxed text-ink/70">
-              {pc(map, "combopage.hero.intro")}
-            </p>
-          </div>
+    <main className="pb-24">
+      <PageHero
+        eyebrow={pc(map, "combopage.eyebrow")}
+        title={pc(map, "combopage.hero.title")}
+        intro={pc(map, "combopage.hero.intro")}
+        image={pc(map, "combopage.hero.image")}
+        alt="Combo du lịch Perlunas"
+      />
+      <div className="mx-auto max-w-[100rem] px-6 sm:px-10">
+        <div className="mt-14 flex justify-end sm:mt-16">
           <Link
             href="/combo/phan-loai"
             className="inline-flex shrink-0 items-center gap-2 rounded-[3px] border border-ink px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-ink hover:text-paper"
@@ -71,10 +68,10 @@ export default async function ComboPage({
             Phân loại Combo
             <ArrowRight className="h-4 w-4" />
           </Link>
-        </header>
+        </div>
 
         <CatalogControls
-          className="mt-12"
+          className="mt-8"
           searchPlaceholder="Tên khách sạn hoặc nơi đến…"
           selects={[
             {
@@ -112,11 +109,8 @@ export default async function ComboPage({
                   className="transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" />
-                <div className="absolute left-3 top-3 flex items-center gap-2">
+                <div className="absolute left-3 top-3">
                   <PearlIcon tier={c.tier} className="h-6 w-6" />
-                  <span className="bg-ink/65 px-2 py-1 text-[0.6rem] font-medium uppercase tracking-[0.15em] text-paper backdrop-blur-sm">
-                    {c.tier}
-                  </span>
                 </div>
                 <span className="absolute right-3 top-3 bg-ink px-3 py-1.5 text-xs font-medium text-paper">
                   Giá từ {c.price}

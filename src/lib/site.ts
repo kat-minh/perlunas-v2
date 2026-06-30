@@ -1,6 +1,9 @@
 /** Central place for brand + contact constants (kept env-overridable). */
 export const site = {
   name: "Perlunas",
+  // Thông tin pháp lý công ty — cập nhật giá trị thật khi có.
+  legalName: process.env.NEXT_PUBLIC_LEGAL_NAME ?? "Công ty TNHH Du lịch Perlunas",
+  taxId: process.env.NEXT_PUBLIC_TAX_ID ?? "0123456789",
   tagline: "Pearl & Luna, every journey a pearl under the moon",
   taglineVi: "Mỗi hành trình là một viên ngọc dưới ánh trăng",
   description:

@@ -26,14 +26,12 @@ export function Philosophy({ map }: { map: PageContentMap }) {
 
   return (
     <section id="triet-ly" className="relative px-6 py-16 sm:px-10 sm:py-28">
-      <div className="mx-auto max-w-5xl text-center">
-        <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">
-          {pc(map, "home.philosophy.eyebrow")}
-        </p>
+      <div className="mx-auto max-w-5xl">
         <p
           ref={ref}
-          className="mt-8 flex flex-wrap justify-center gap-x-[0.28em] gap-y-2 font-light text-[1.6rem] leading-[1.5] text-ink sm:text-[2.2rem] sm:leading-[1.45]"
+          className="flex flex-wrap gap-x-[0.28em] gap-y-2 font-light text-[1.6rem] leading-[1.5] text-ink sm:text-[2.2rem] sm:leading-[1.45]"
         >
+          <span className="text-ink/30">“</span>
           {words.map((word, i) => (
             <Word
               key={`${word}-${i}`}
@@ -44,7 +42,15 @@ export function Philosophy({ map }: { map: PageContentMap }) {
               {word}
             </Word>
           ))}
+          <span className="text-ink/30">”</span>
         </p>
+
+        <footer className="mt-8 text-right">
+          <p className="font-serif text-xl text-ink">{pc(map, "home.philosophy.author")}</p>
+          <p className="mt-1 text-xs font-medium uppercase tracking-[0.25em] text-mute">
+            {pc(map, "home.philosophy.role")}
+          </p>
+        </footer>
       </div>
     </section>
   );

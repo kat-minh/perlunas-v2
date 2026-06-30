@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { getHotelsPaged, getCities, getTaxonomyNames } from "@/lib/api";
 import { getPageContentMap, pc } from "@/lib/page-content";
 import { stripHtml } from "@/lib/text";
 import { SceneImage } from "@/components/site/SceneImage";
+import { PageHero } from "@/components/site/PageHero";
+import { PerlunasMark } from "@/components/site/PerlunasMark";
 import { CatalogControls, Pagination } from "@/components/site/CatalogControls";
+import { PURPOSES, hotelPurposes, purposeColor } from "@/lib/purposes";
 
 export const revalidate = 300;
 
@@ -39,27 +42,54 @@ export default async function KhachSanPage({
     search: str(sp.search),
     city: str(sp.city) ?? cityFromSlug,
     type: str(sp.type),
+    purpose: str(sp.purpose),
   };
 
   const result = await getHotelsPaged(params);
 
   return (
-    <main className="px-6 pb-24 pt-32 sm:px-10 sm:pt-40">
-      <div className="mx-auto max-w-[100rem]">
-        <header className="max-w-3xl">
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">
-            {pc(map, "hotelspage.eyebrow")}
-          </p>
-          <h1 className="display mt-5 text-4xl text-ink sm:text-6xl">
-            {pc(map, "hotelspage.hero.title")}
-          </h1>
-          <p className="mt-6 max-w-xl text-pretty leading-relaxed text-ink/70">
-            {pc(map, "hotelspage.hero.intro")}
-          </p>
-        </header>
+    <main className="pb-24">
+      <PageHero
+        eyebrow={pc(map, "hotelspage.eyebrow")}
+        title={pc(map, "hotelspage.hero.title")}
+        intro={pc(map, "hotelspage.hero.intro")}
+        image={pc(map, "hotelspage.hero.image")}
+        alt="Lưu trú cao cấp Perlunas"
+      />
+      <div className="mx-auto max-w-[100rem] px-6 sm:px-10">
+        {/* editorial ngắn: vì sao quan trọng + tiêu chuẩn chọn đối tác */}
+        <section className="grid gap-10 pt-14 sm:pt-16 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <h2 className="display text-2xl text-ink sm:text-3xl">
+              Tầm quan trọng của nơi lưu trú cho một chuyến đi
+            </h2>
+            <p className="mt-4 text-pretty leading-relaxed text-ink/70">
+              Một chỗ nghỉ đúng giúp bạn nạp lại năng lượng và cảm nhận trọn vẹn không
+              khí của điểm đến — Perlunas xem đây là một phần quan trọng của trải nghiệm.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="display text-2xl text-ink sm:text-3xl">
+              Tiêu chuẩn chọn đối tác lưu trú cao cấp
+            </h2>
+            <ul className="mt-4 space-y-2.5">
+              {[
+                "Vị trí thuận tiện, an toàn.",
+                "Chất lượng và tiện nghi đạt chuẩn 4 - 5 sao.",
+                "Dịch vụ tận tâm, không gian tinh tế.",
+              ].map((c) => (
+                <li key={c} className="flex gap-3 text-pretty leading-relaxed text-ink/75">
+                  <Check className="mt-1 h-4 w-4 shrink-0 text-ink/50" />
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
 
         <CatalogControls
-          className="mt-12"
+          className="mt-16"
           searchPlaceholder="Tên khách sạn hoặc nơi đến…"
           selects={[
             {
@@ -74,8 +104,27 @@ export default async function KhachSanPage({
               allLabel: "Tất cả loại hình",
               options: types.map((t) => ({ value: t, label: t })),
             },
+            {
+              param: "purpose",
+              label: "Mục đích chuyến đi",
+              allLabel: "Tất cả mục đích",
+              options: PURPOSES.map((p) => ({ value: p.key, label: p.key })),
+            },
           ]}
         />
+
+        {/* chú thích màu logo PERLUNAS theo mục đích chuyến đi */}
+        <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink/70">
+          <span className="text-xs font-medium uppercase tracking-[0.2em] text-mute">
+            Chú thích
+          </span>
+          {PURPOSES.map((p) => (
+            <span key={p.key} className="inline-flex items-center gap-2">
+              <PerlunasMark color={p.color} title={p.key} className="h-4 w-4" />
+              {p.key}
+            </span>
+          ))}
+        </div>
 
         <p className="mt-8 text-sm text-mute">{result.total} chỗ nghỉ</p>
 
@@ -95,9 +144,16 @@ export default async function KhachSanPage({
                 </span>
               </div>
               <p className="mt-5 text-[0.7rem] uppercase tracking-[0.22em] text-mute">
-                {h.type} · {h.city}
+                {h.city}
               </p>
-              <h3 className="mt-2 font-serif text-2xl text-ink group-hover:underline group-hover:underline-offset-4">{h.name}</h3>
+              <h3 className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 font-serif text-2xl text-ink">
+                <span className="group-hover:underline group-hover:underline-offset-4">{h.name}</span>
+                <span className="flex items-center gap-1">
+                  {hotelPurposes(h.slug).map((p) => (
+                    <PerlunasMark key={p} color={purposeColor(p)} title={`Phù hợp: ${p}`} className="h-4 w-4" />
+                  ))}
+                </span>
+              </h3>
               <p className="mt-3 max-w-sm text-pretty text-sm leading-relaxed text-ink/65">
                 {stripHtml(h.desc, 120)}
               </p>

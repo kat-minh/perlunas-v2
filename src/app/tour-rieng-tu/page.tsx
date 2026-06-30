@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SceneImage } from "@/components/site/SceneImage";
+import { PageHero } from "@/components/site/PageHero";
 import { LeadButton } from "@/components/site/LeadButton";
 import { getPageContentMap, pc } from "@/lib/page-content";
 import { getPrivateTours } from "@/lib/api";
@@ -23,23 +24,17 @@ export default async function TourRiengTuPage() {
   ]);
 
   return (
-    <main className="px-6 pb-24 pt-32 sm:px-10 sm:pt-40">
-      <div className="mx-auto max-w-[100rem]">
-        {/* header */}
-        <header className="max-w-3xl">
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">
-            {pc(map, "privatepage.eyebrow")}
-          </p>
-          <h1 className="display mt-5 text-4xl text-ink sm:text-6xl">
-            {pc(map, "privatepage.hero.title")}
-          </h1>
-          <p className="mt-6 max-w-xl text-pretty leading-relaxed text-ink/70">
-            {pc(map, "privatepage.hero.intro")}
-          </p>
-        </header>
-
+    <main className="pb-24">
+      <PageHero
+        eyebrow={pc(map, "privatepage.eyebrow")}
+        title={pc(map, "privatepage.hero.title")}
+        intro={pc(map, "privatepage.hero.intro")}
+        image={pc(map, "privatepage.hero.image")}
+        alt="Tour riêng tư Perlunas"
+      />
+      <div className="mx-auto max-w-[100rem] px-6 sm:px-10">
         {/* dải ảnh theo nhóm khách */}
-        <div className="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
+        <div className="mt-16 grid grid-cols-2 gap-3 sm:mt-20 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
           {segments.map((s) => (
             <figure key={s.id ?? s.title} className="group relative aspect-[2/3] overflow-hidden">
               <SceneImage
@@ -49,8 +44,8 @@ export default async function TourRiengTuPage() {
                 h={900}
                 className="transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
-              <figcaption className="absolute inset-x-0 bottom-5 text-center text-sm uppercase tracking-[0.2em] text-paper">
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" />
+              <figcaption className="absolute inset-x-0 bottom-5 translate-y-2 text-center text-sm uppercase tracking-[0.2em] text-paper opacity-0 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
                 {s.title}
               </figcaption>
             </figure>

@@ -8,6 +8,8 @@
 
   { "key": "home.philosophy.eyebrow", "page": "Trang chủ", "label": "Triết lý · Nhãn", "kind": "text", "value": "Triết lý" },
   { "key": "home.philosophy.text", "page": "Trang chủ", "label": "Triết lý · Nội dung", "kind": "textarea", "value": "Một hành trình đẹp bắt đầu từ cảm giác bạn mang theo, không phải điểm đến. Vì thế Perlunas không tạo ra những chuyến đi rập khuôn. Chúng tôi lắng nghe từng người, rồi thiết kế một hành trình vừa vặn, chỉn chu trong từng chi tiết. Với chúng tôi, mỗi vị khách là một viên ngọc." },
+  { "key": "home.philosophy.author", "page": "Trang chủ", "label": "Triết lý · Tác giả", "kind": "text", "value": "Nguyễn Văn A" },
+  { "key": "home.philosophy.role", "page": "Trang chủ", "label": "Triết lý · Chức danh", "kind": "text", "value": "Nhà sáng lập Perlunas" },
 
   { "key": "home.packagetours.eyebrow", "page": "Trang chủ", "label": "Tour trọn gói · Nhãn", "kind": "text", "value": "Tour trọn gói" },
   { "key": "home.packagetours.title", "page": "Trang chủ", "label": "Tour trọn gói · Tiêu đề", "kind": "textarea", "value": "Những hành trình đã thiết kế sẵn." },
@@ -119,6 +121,7 @@
   { "key": "privatepage.eyebrow", "page": "Tour riêng tư", "label": "Hero · Nhãn", "kind": "text", "value": "Tour riêng tư" },
   { "key": "privatepage.hero.title", "page": "Tour riêng tư", "label": "Hero · Tiêu đề", "kind": "textarea", "value": "Hành trình may đo cho riêng bạn." },
   { "key": "privatepage.hero.intro", "page": "Tour riêng tư", "label": "Hero · Đoạn mở đầu", "kind": "textarea", "value": "Mỗi nhóm khách có một nhịp đi riêng. Perlunas thiết kế lịch trình, lưu trú và trải nghiệm theo đúng mong muốn của bạn — linh hoạt từ ngày khởi hành đến từng điểm dừng." },
+  { "key": "privatepage.hero.image", "page": "Tour riêng tư", "label": "Hero · Ảnh lớn", "kind": "image", "value": "https://images.unsplash.com/photo-1566759996874-04d713cc224a?fm=jpg&q=60&w=2000&auto=format&fit=crop" },
   { "key": "privatepage.block.eyebrow", "page": "Tour riêng tư", "label": "Khối · Nhãn", "kind": "text", "value": "Cách chúng tôi làm việc" },
   { "key": "privatepage.block.title", "page": "Tour riêng tư", "label": "Khối · Tiêu đề", "kind": "text", "value": "Lắng nghe, đề xuất, rồi tinh chỉnh." },
   { "key": "privatepage.block.body", "page": "Tour riêng tư", "label": "Khối · Nội dung", "kind": "textarea", "value": "Bạn chia sẻ mong muốn và ngân sách, chúng tôi đề xuất một hành trình chi tiết và điều chỉnh cùng bạn cho đến khi vừa ý." },
@@ -130,10 +133,12 @@
   { "key": "tourspage.eyebrow", "page": "Tour trọn gói", "label": "Hero · Nhãn", "kind": "text", "value": "Tour trọn gói" },
   { "key": "tourspage.hero.title", "page": "Tour trọn gói", "label": "Hero · Tiêu đề", "kind": "textarea", "value": "Xách balo lên và đi, phần còn lại để Perlunas lo." },
   { "key": "tourspage.hero.intro", "page": "Tour trọn gói", "label": "Hero · Đoạn mở đầu", "kind": "textarea", "value": "Lịch khởi hành đều đặn, giá trọn gói rõ ràng, không phát sinh. Mỗi hành trình đều có thể may đo lại theo nhịp đi của bạn." },
+  { "key": "tourspage.hero.image", "page": "Tour trọn gói", "label": "Hero · Ảnh lớn", "kind": "image", "value": "https://images.unsplash.com/photo-1528127269322-539801943592?fm=jpg&q=60&w=2000&auto=format&fit=crop" },
 
   { "key": "hotelspage.eyebrow", "page": "Khách sạn", "label": "Hero · Nhãn", "kind": "text", "value": "Khách sạn" },
   { "key": "hotelspage.hero.title", "page": "Khách sạn", "label": "Hero · Tiêu đề", "kind": "textarea", "value": "Chỗ nghỉ trên khắp Việt Nam." },
   { "key": "hotelspage.hero.intro", "page": "Khách sạn", "label": "Hero · Đoạn mở đầu", "kind": "textarea", "value": "Mặc định là những chỗ nghỉ Perlunas tuyển chọn. Chọn nơi đến và loại hình lưu trú để xem danh sách phù hợp với bạn." },
+  { "key": "hotelspage.hero.image", "page": "Khách sạn", "label": "Hero · Ảnh lớn", "kind": "image", "value": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/482730525.jpg?k=4feae26c2ba7205e2fd33376a45a3db0798930244ec595cbc6a006400947a81a&o=" },
   { "key": "hotelspage.upsell.eyebrow", "page": "Khách sạn", "label": "Upsell · Nhãn", "kind": "text", "value": "Nâng tầm trải nghiệm" },
   { "key": "hotelspage.upsell.title", "page": "Khách sạn", "label": "Upsell · Tiêu đề", "kind": "textarea", "value": "Không chỉ là đặt phòng, hãy đi cùng một combo trọn vẹn." },
   { "key": "hotelspage.upsell.body", "page": "Khách sạn", "label": "Upsell · Nội dung", "kind": "textarea", "value": "Combo du lịch kết hợp lưu trú, di chuyển và trải nghiệm theo ba mức: Akoya, Tahiti và South Sea, để chuyến đi của bạn liền mạch từ đầu đến cuối." },
@@ -142,6 +147,7 @@
   { "key": "combopage.eyebrow", "page": "Combo", "label": "Hero · Nhãn", "kind": "text", "value": "Combo du lịch" },
   { "key": "combopage.hero.title", "page": "Combo", "label": "Hero · Tiêu đề", "kind": "textarea", "value": "Combo trọn gói khắp Việt Nam." },
   { "key": "combopage.hero.intro", "page": "Combo", "label": "Hero · Đoạn mở đầu", "kind": "textarea", "value": "Mỗi combo kết hợp lưu trú, di chuyển và trải nghiệm theo một trong ba chuẩn dịch vụ: Akoya, Tahiti, South Sea. Lọc theo nhu cầu của bạn, hoặc tìm hiểu ý nghĩa từng phân loại." },
+  { "key": "combopage.hero.image", "page": "Combo", "label": "Hero · Ảnh lớn", "kind": "image", "value": "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?fm=jpg&q=60&w=2000&auto=format&fit=crop" },
   { "key": "combopage.cta.title", "page": "Combo", "label": "Khối kêu gọi · Tiêu đề", "kind": "text", "value": "Chưa biết chọn combo nào?" },
   { "key": "combopage.cta.body", "page": "Combo", "label": "Khối kêu gọi · Nội dung", "kind": "textarea", "value": "Để lại thông tin, Perlunas tư vấn gói phù hợp với bạn, miễn phí." },
   { "key": "combopage.cta.button", "page": "Combo", "label": "Khối kêu gọi · Nút", "kind": "text", "value": "Nhận tư vấn" },

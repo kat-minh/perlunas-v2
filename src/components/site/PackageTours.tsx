@@ -37,7 +37,7 @@ export function PackageTours({
     <section id="tour-tron-goi" className="relative bg-ink py-14 text-paper sm:py-20">
       <div className="flex flex-col lg:flex-row lg:items-stretch">
         {/* side title */}
-        <div className="mb-10 shrink-0 px-6 sm:px-10 lg:mb-0 lg:flex lg:w-[22rem] lg:flex-col lg:justify-center lg:pl-10 lg:pr-0">
+        <div className="mb-10 shrink-0 px-6 sm:px-10 lg:mb-0 lg:flex lg:w-[24rem] lg:flex-col lg:justify-center lg:pl-10 lg:pr-10">
           <Reveal>
             <p className="text-xs font-medium uppercase tracking-[0.3em] text-paper/50">
               {pc(map, "home.packagetours.eyebrow")}
