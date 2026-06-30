@@ -76,7 +76,7 @@ export default async function HotelDetailPage({
 
   const album = Array.from(
     new Set([
-      `perlunas-hotel-${hotel.slug}`,
+      hotel.cover?.trim() || `perlunas-hotel-${hotel.slug}`,
       ...Array.from({ length: 7 }, (_, i) => `perlunas-hotel-${hotel.slug}-${i + 2}`),
     ]),
   );

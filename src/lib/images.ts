@@ -68,6 +68,8 @@ const MAISON =
   "https://q-xx.bstatic.com/xdata/images/hotel/max500/594054604.jpg?k=1c607a279abd5d319392d70aaa3b070e677865e56557040bbc2fcf3a28ce0e48&o=";
 const SERENITY =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkVjNDwLET4nYxGnOOrI03mZVNn7DcRmFocg&s";
+const AZUREBAY =
+  "https://q-xx.bstatic.com/xdata/images/hotel/max500/806379509.jpg?k=c4212bbbf79bcfda3b00422b79a730dbc46cefd063aa0c41970e0ee26509895f&o=";
 
 export const IMAGES: Record<string, string> = {
   // Tour trọn gói
@@ -108,4 +110,5 @@ export const IMAGES: Record<string, string> = {
   "perlunas-hotel-lunar-bay": LUNARBAY,
   "perlunas-hotel-maison-de-lune": MAISON,
   "perlunas-hotel-serenity-retreat": SERENITY,
+  "perlunas-hotel-azure-bay": AZUREBAY,
 };

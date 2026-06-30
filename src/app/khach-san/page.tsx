@@ -133,6 +133,7 @@ export default async function KhachSanPage({
             <Link key={h.slug} href={`/khach-san/${h.slug}`} className="group block">
               <div className="relative aspect-[3/2] overflow-hidden">
                 <SceneImage
+                  src={h.cover}
                   seed={`perlunas-hotel-${h.slug}`}
                   alt={h.name}
                   w={1000}

@@ -46,6 +46,7 @@ export function Hotels({
                 {/* square photo */}
                 <div className="aspect-square overflow-hidden">
                   <SceneImage
+                    src={h.cover}
                     seed={`perlunas-hotel-${h.slug}`}
                     alt={h.name}
                     w={1000}

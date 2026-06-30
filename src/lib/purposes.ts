@@ -24,3 +24,6 @@ export function hotelPurposes(slug: string): string[] {
   const second = keys[Math.floor(hash / 7) % keys.length];
   return primary === second ? [primary] : [primary, second];
 }
+
+/** Stable mock assignment of trip purposes to a combo (1–2 purposes). */
+export const comboPurposes = (slug: string): string[] => hotelPurposes(slug);

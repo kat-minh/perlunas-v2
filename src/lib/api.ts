@@ -24,7 +24,7 @@ import {
   type Combo,
 } from "@/lib/catalog";
 import { IMAGES } from "@/lib/images";
-import { hotelPurposes } from "@/lib/purposes";
+import { hotelPurposes, comboPurposes } from "@/lib/purposes";
 
 // Strip any trailing slash so `${API_BASE_URL}/api/...` never doubles up ("//").
 export const API_BASE_URL = (
@@ -238,6 +238,7 @@ export const getCombosPaged = (params: CatalogParams = {}) =>
         (!p.city || c.city === p.city) &&
         (!p.tier || c.tier === p.tier) &&
         (!p.stayType || c.stayType === p.stayType) &&
+        (!p.purpose || comboPurposes(c.slug).includes(p.purpose)) &&
         (p.featured == null || (c.featured ?? false) === p.featured),
     ),
   );

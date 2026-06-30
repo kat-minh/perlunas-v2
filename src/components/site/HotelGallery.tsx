@@ -7,6 +7,14 @@ import { X, ChevronLeft, ChevronRight, Images } from "lucide-react";
 import { SceneImage } from "./SceneImage";
 
 /**
+ * An album entry is either a real image URL (from the CMS `cover`) or a seed
+ * string resolved through lib/images.ts. Pick the right SceneImage prop so a
+ * real URL is used as-is and a seed still falls back to the placeholder map.
+ */
+const imgProp = (s: string) =>
+  /^(https?:\/\/|\/)/.test(s) ? { src: s } : { seed: s };
+
+/**
  * Agoda-style photo gallery: a big lead image + a 2×2 grid of smaller ones, with
  * a "Xem tất cả ảnh" button. Clicking any photo opens a full-screen lightbox
  * with prev/next and a thumbnail strip. Stays on the page (no navigation).
@@ -32,7 +40,7 @@ export function HotelGallery({ images, alt }: { images: string[]; alt: string })
       className={clsx("group relative min-h-0 overflow-hidden", growCls)}
     >
       <SceneImage
-        seed={tiles[i]}
+        {...imgProp(tiles[i])}
         alt={i === 0 ? alt : `${alt} — ảnh ${i + 1}`}
         w={700}
         h={800}
@@ -124,7 +132,7 @@ export function Lightbox({
           <ChevronLeft className="h-6 w-6" />
         </button>
         <div className="max-h-[72vh] w-full max-w-4xl overflow-hidden">
-          <SceneImage key={images[idx]} seed={images[idx]} alt={`${alt} — ảnh ${idx + 1}`} w={1600} h={1000} priority className="!h-auto !max-h-[72vh] !w-full !object-contain" />
+          <SceneImage key={images[idx]} {...imgProp(images[idx])} alt={`${alt} — ảnh ${idx + 1}`} w={1600} h={1000} priority className="!h-auto !max-h-[72vh] !w-full !object-contain" />
         </div>
         <button type="button" onClick={() => go(1)} aria-label="Ảnh tiếp theo" className="absolute right-3 flex h-11 w-11 items-center justify-center rounded-full bg-paper/15 text-paper hover:bg-paper/25">
           <ChevronRight className="h-6 w-6" />
@@ -142,7 +150,7 @@ export function Lightbox({
               i === idx ? "opacity-100 ring-2 ring-paper" : "opacity-50 hover:opacity-90",
             )}
           >
-            <SceneImage seed={s} alt="" w={240} h={160} />
+            <SceneImage {...imgProp(s)} alt="" w={240} h={160} />
           </button>
         ))}
       </div>

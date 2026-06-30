@@ -6,8 +6,10 @@ import { getPageContentMap, pc } from "@/lib/page-content";
 import { SceneImage } from "@/components/site/SceneImage";
 import { PageHero } from "@/components/site/PageHero";
 import { PearlIcon } from "@/components/site/PearlIcon";
+import { PerlunasMark } from "@/components/site/PerlunasMark";
 import { LeadButton } from "@/components/site/LeadButton";
 import { CatalogControls, Pagination } from "@/components/site/CatalogControls";
+import { PURPOSES, comboPurposes, purposeColor } from "@/lib/purposes";
 
 export const revalidate = 300;
 
@@ -46,6 +48,7 @@ export default async function ComboPage({
     city: str(sp.city) ?? cityFromSlug,
     tier: str(sp.tier),
     stayType: str(sp.stayType),
+    purpose: str(sp.purpose),
   };
 
   const result = await getCombosPaged(params);
@@ -92,8 +95,27 @@ export default async function ComboPage({
               allLabel: "Tất cả phân loại",
               options: tiers.map((t) => ({ value: t.name, label: t.name })),
             },
+            {
+              param: "purpose",
+              label: "Mục đích chuyến đi",
+              allLabel: "Tất cả mục đích",
+              options: PURPOSES.map((p) => ({ value: p.key, label: p.key })),
+            },
           ]}
         />
+
+        {/* chú thích màu logo PERLUNAS theo mục đích chuyến đi */}
+        <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink/70">
+          <span className="text-xs font-medium uppercase tracking-[0.2em] text-mute">
+            Chú thích
+          </span>
+          {PURPOSES.map((p) => (
+            <span key={p.key} className="inline-flex items-center gap-2">
+              <PerlunasMark color={p.color} title={p.key} className="h-4 w-4" />
+              {p.key}
+            </span>
+          ))}
+        </div>
 
         <p className="mt-8 text-sm text-mute">{result.total} gói</p>
 
@@ -116,8 +138,15 @@ export default async function ComboPage({
                   Giá từ {c.price}
                 </span>
               </div>
-              <h3 className="mt-4 font-serif text-xl leading-snug text-ink group-hover:underline group-hover:underline-offset-4">
-                {c.tier.toUpperCase()} - {c.hotelName} {c.nights} ĐÊM
+              <h3 className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 font-serif text-xl leading-snug text-ink">
+                <span className="group-hover:underline group-hover:underline-offset-4">
+                  {c.tier.toUpperCase()} - {c.hotelName} {c.nights} ĐÊM
+                </span>
+                <span className="flex items-center gap-1">
+                  {comboPurposes(c.slug).map((p) => (
+                    <PerlunasMark key={p} color={purposeColor(p)} title={`Phù hợp: ${p}`} className="h-4 w-4" />
+                  ))}
+                </span>
               </h3>
               <p className="mt-1.5 text-[0.7rem] uppercase tracking-[0.2em] text-mute">
                 {c.stayType} · {c.city}
