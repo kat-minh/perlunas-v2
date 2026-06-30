@@ -37,8 +37,8 @@ export function PrivateTour({
                   h={900}
                   className="transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" />
-                <figcaption className="absolute inset-x-0 bottom-5 translate-y-2 text-center text-sm uppercase tracking-[0.2em] text-paper opacity-0 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent" />
+                <figcaption className="absolute inset-x-0 bottom-5 text-center text-sm uppercase tracking-[0.2em] text-paper">
                   {s.title}
                 </figcaption>
               </figure>
