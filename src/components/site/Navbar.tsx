@@ -10,8 +10,9 @@ const links = [
   { label: "Tour trong nước trọn gói", href: "/tour-tron-goi" },
   { label: "Tour đoàn", href: "/tour-doan" },
   { label: "Tour riêng tư", href: "/tour-rieng-tu" },
-  { label: "Lưu trú Cao cấp", href: "/khach-san" },
+  { label: "Lưu trú cao cấp", href: "/khach-san" },
   { label: "Gói du lịch", href: "/combo" },
+  { label: "Blog", href: "/blog" },
   { label: "Về chúng tôi", href: "/ve-chung-toi" },
 ];
 

@@ -19,6 +19,7 @@ const dichVu = [
 
 const congTy = [
   { label: "Về chúng tôi", href: "/ve-chung-toi" },
+  { label: "Blog", href: "/blog" },
   { label: "Tại sao chọn Perlunas", href: "/#tai-sao" },
   { label: "Đối tác", href: "/#doi-tac" },
   { label: "Yêu cầu tư vấn", href: "/lien-he" },

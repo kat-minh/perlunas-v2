@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { SceneImage } from "@/components/site/SceneImage";
 import { PageHero } from "@/components/site/PageHero";
 import { LeadButton } from "@/components/site/LeadButton";
+import { WorkGallery, Testimonials } from "@/components/site/ShowcaseSections";
 import { getPageContentMap, pc } from "@/lib/page-content";
-import { getPrivateTours } from "@/lib/api";
+import { PRIVATE_WORK, PRIVATE_TESTIMONIALS } from "@/lib/showcase";
 
 export const revalidate = 300;
 
@@ -14,14 +14,11 @@ export const metadata: Metadata = {
 };
 
 /**
- * Trang Tour riêng tư. Header giới thiệu, dải ảnh theo nhóm khách (private-tours
- * entities), khối nội dung + ảnh, và CTA — text/ảnh lấy từ page content.
+ * Trang Tour riêng tư. Cùng bố cục với Tour đoàn: hero, ba khối showcase —
+ * hành trình đã thiết kế, khách hàng đã hợp tác, feedback — và CTA cuối trang.
  */
 export default async function TourRiengTuPage() {
-  const [map, segments] = await Promise.all([
-    getPageContentMap(),
-    getPrivateTours(),
-  ]);
+  const map = await getPageContentMap();
 
   return (
     <main className="pb-24">
@@ -33,49 +30,34 @@ export default async function TourRiengTuPage() {
         alt="Tour riêng tư Perlunas"
       />
       <div className="mx-auto max-w-[100rem] px-6 sm:px-10">
-        {/* dải ảnh theo nhóm khách */}
-        <div className="mt-16 grid grid-cols-2 gap-3 sm:mt-20 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
-          {segments.map((s) => (
-            <figure key={s.id ?? s.title} className="group relative aspect-[2/3] overflow-hidden">
-              <SceneImage
-                src={s.image}
-                alt={`Tour riêng — ${s.title}`}
-                w={600}
-                h={900}
-                className="transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" />
-              <figcaption className="absolute inset-x-0 bottom-5 translate-y-2 text-center text-sm uppercase tracking-[0.2em] text-paper opacity-0 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
-                {s.title}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+        <div className="mt-16 space-y-24 sm:mt-20">
+          {/* đoạn text tự do — admin tự ghi (page content) */}
+          {(pc(map, "privatepage.intro.title") || pc(map, "privatepage.intro.body")) && (
+            <section className="max-w-3xl">
+              {pc(map, "privatepage.intro.title") && (
+                <h2 className="display text-3xl text-ink sm:text-4xl">
+                  {pc(map, "privatepage.intro.title")}
+                </h2>
+              )}
+              {pc(map, "privatepage.intro.body") && (
+                <p className="mt-4 whitespace-pre-line text-pretty text-lg leading-relaxed text-ink/75">
+                  {pc(map, "privatepage.intro.body")}
+                </p>
+              )}
+            </section>
+          )}
 
-        {/* khối nội dung + ảnh */}
-        <div className="mt-24 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">
-              {pc(map, "privatepage.block.eyebrow")}
-            </p>
-            <h2 className="mt-4 font-serif text-3xl text-ink sm:text-4xl">
-              {pc(map, "privatepage.block.title")}
-            </h2>
-            <p className="mt-5 max-w-md text-pretty leading-relaxed text-ink/70">
-              {pc(map, "privatepage.block.body")}
-            </p>
-            <div className="mt-8">
-              <LeadButton service="Tour riêng">{pc(map, "privatepage.block.button")}</LeadButton>
-            </div>
-          </div>
-          <div className="aspect-[4/3] overflow-hidden">
-            <SceneImage
-              src={pc(map, "privatepage.block.image")}
-              alt="Tư vấn tour riêng tư"
-              w={1000}
-              h={750}
-            />
-          </div>
+          <WorkGallery
+            eyebrow={pc(map, "privatepage.work.eyebrow")}
+            title={pc(map, "privatepage.work.title")}
+            items={PRIVATE_WORK}
+          />
+
+          <Testimonials
+            eyebrow={pc(map, "privatepage.feedback.eyebrow")}
+            title={pc(map, "privatepage.feedback.title")}
+            items={PRIVATE_TESTIMONIALS}
+          />
         </div>
 
         {/* CTA */}

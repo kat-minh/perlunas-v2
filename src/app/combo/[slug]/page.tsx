@@ -20,7 +20,6 @@ import { TourGallery } from "@/components/site/TourGallery";
 import { HighlightsPanel } from "@/components/site/HighlightsPanel";
 import { Itinerary, type ItineraryDay } from "@/components/site/Itinerary";
 import { InfoAccordion, type InfoItem } from "@/components/site/InfoAccordion";
-import { DepartureSchedule, type Departure } from "@/components/site/DepartureSchedule";
 import { RoomGallery } from "@/components/site/RoomGallery";
 import { RoomDetail } from "@/components/site/RoomDetail";
 import { HotelBooking } from "@/components/site/HotelBooking";
@@ -80,7 +79,12 @@ export default async function ComboDetailPage({
   ).slice(0, 10);
 
   const baseNum = parseInt(combo.price.replace(/\D/g, ""), 10) || 0;
-  const fmtVnd = (n: number) => `${n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`;
+  // API trả giá kèm đơn vị, vd "8.000.000đ/khách" → tách số và đơn vị để hiển
+  // thị riêng (số to ở trên, "/ khách" nhỏ ở dưới); không hardcode đơn vị.
+  const slashAt = combo.price.indexOf("/");
+  const priceAmount = slashAt === -1 ? combo.price : combo.price.slice(0, slashAt).trim();
+  const priceUnit =
+    slashAt === -1 ? "" : combo.price.slice(slashAt).replace(/^\/\s*/, "/ ").trim();
   // Per-night reference price for the room cards (combo price is total / khách).
   const nightly =
     combo.nights > 0 ? Math.round(baseNum / combo.nights / 100000) * 100000 || baseNum : baseNum;
@@ -127,7 +131,6 @@ export default async function ComboDetailPage({
       desc: "Hạng phòng cao cấp nhất với phòng khách riêng và tầm nhìn đẹp, lý tưởng cho gia đình hoặc một kỳ nghỉ thật đặc biệt.",
     },
   ];
-  const roomTypeNames = roomTypes.map((r) => r.name);
   // Mỗi combo gắn với 1 hạng phòng cố định theo chuẩn ngọc trai.
   const roomByTier: Record<string, number> = { Akoya: 0, Tahiti: 1, "South Sea": 2 };
   const fixedRoom = roomTypes[roomByTier[combo.tier] ?? 0];
@@ -158,24 +161,6 @@ export default async function ComboDetailPage({
     },
   ];
 
-  // Lịch & giá áp dụng — chia theo tháng (dữ liệu mẫu dựng từ combo).
-  const MONTHS = ["07/2026", "08/2026", "09/2026", "10/2026"];
-  const departures: Departure[] = MONTHS.flatMap((m, mi) => {
-    const [mm, yyyy] = m.split("/");
-    return [1, 11, 21].map((d, di) => {
-      const dd = String(d).padStart(2, "0");
-      const seq = String(mi * 3 + di + 51).padStart(3, "0");
-      const discounted = di === 2; // mốc cuối tháng có khuyến mãi
-      return {
-        month: m,
-        date: `${dd}/${mm}/${yyyy}`,
-        code: `${comboCode}-${seq}`,
-        price: fmtVnd(baseNum),
-        priceWas: discounted ? fmtVnd(baseNum + 500000) : undefined,
-        stay: fixedRoom.name,
-      };
-    });
-  });
 
   // Lịch trình gợi ý — ngày 1 nhận phòng, ngày cuối trả phòng.
   const daysCount = combo.nights + 1;
@@ -404,22 +389,6 @@ export default async function ComboDetailPage({
             </>
           )}
 
-          {/* Lịch & giá áp dụng — chia theo tháng */}
-          <h2 className="mt-12 font-serif text-2xl text-ink">Lịch & giá áp dụng</h2>
-          <p className="mt-2 text-sm text-mute">
-            Chọn tháng để xem các mốc áp dụng, mã gói, giá và hạng lưu trú.
-          </p>
-          <div className="mt-6">
-            <DepartureSchedule
-              departures={departures}
-              dateLabel="Ngày áp dụng"
-              codeLabel="Mã gói"
-              priceLabel="Giá gói"
-              stayLabel="Hạng lưu trú"
-              emptyText="Chưa có lịch áp dụng cho tháng này."
-            />
-          </div>
-
           {/* Điểm nổi bật — 1 bảng lớn, có Xem thêm/Thu gọn */}
           <h2 className="mt-12 font-serif text-2xl text-ink">Điểm nổi bật</h2>
           <div className="mt-5">
@@ -518,20 +487,15 @@ export default async function ComboDetailPage({
 
             <div className="mt-5">
               <p className="text-xs uppercase tracking-[0.2em] text-mute">Giá từ</p>
-              <p className="mt-1 font-serif text-3xl text-ink">{combo.price}</p>
-              <p className="mt-1 text-sm text-mute">/ khách</p>
+              <p className="mt-1 font-serif text-3xl text-ink">{priceAmount}</p>
+              {priceUnit && <p className="mt-1 text-sm text-mute">{priceUnit}</p>}
             </div>
 
             <HotelBooking
               hotelName={combo.hotelName}
               hotelCity={combo.city}
-              roomTypes={roomTypeNames}
-              monthOptions={MONTHS.map((m) => ({
-                month: `Tháng ${m}`,
-                combos: departures
-                  .filter((d) => d.month === m)
-                  .map((d) => `${d.date} · ${d.stay} · ${d.price}`),
-              }))}
+              roomTypes={[fixedRoom.name]}
+              lockRoom
               className="mt-7 flex w-full justify-center"
             />
             <p className="mt-5 text-center text-xs text-mute">

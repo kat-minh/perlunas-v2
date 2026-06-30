@@ -1,0 +1,198 @@
+"use client";
+
+import { createContext, useContext, useState } from "react";
+import { clsx } from "clsx";
+import { Check } from "lucide-react";
+import type { Departure } from "./DepartureSchedule";
+
+/**
+ * Lịch khởi hành có thể CHỌN: mỗi hàng một nút chọn, hàng được chọn đổi màu, và
+ * sidebar (DepartureSummary) hiển thị thông tin của lịch đang chọn. Trạng thái
+ * chia sẻ qua context để bảng (cột trái) và sidebar sticky (cột phải) đồng bộ.
+ * Mặc định chọn lịch đầu tiên.
+ */
+type Ctx = {
+  selected: Departure | undefined;
+  setSelected: (d: Departure) => void;
+};
+const DepartureCtx = createContext<Ctx | null>(null);
+
+function useDepartureCtx() {
+  const ctx = useContext(DepartureCtx);
+  if (!ctx) throw new Error("DepartureSummary/Picker phải nằm trong <DepartureProvider>");
+  return ctx;
+}
+
+export function DepartureProvider({
+  departures,
+  children,
+}: {
+  departures: Departure[];
+  children: React.ReactNode;
+}) {
+  const [selected, setSelected] = useState<Departure | undefined>(departures[0]);
+  return (
+    <DepartureCtx.Provider value={{ selected, setSelected }}>
+      {children}
+    </DepartureCtx.Provider>
+  );
+}
+
+export function DeparturePicker({
+  departures,
+  dateLabel = "Ngày khởi hành",
+  codeLabel = "Mã tour",
+  priceLabel = "Giá tour",
+  stayLabel = "Chuẩn lưu trú",
+  emptyText = "Chưa có lịch khởi hành cho tháng này.",
+}: {
+  departures: Departure[];
+  dateLabel?: string;
+  codeLabel?: string;
+  priceLabel?: string;
+  stayLabel?: string;
+  emptyText?: string;
+}) {
+  const { selected, setSelected } = useDepartureCtx();
+  const months = Array.from(new Set(departures.map((d) => d.month)));
+  const [active, setActive] = useState(selected?.month ?? months[0] ?? "");
+  const rows = departures.filter((d) => d.month === active);
+
+  const cols = "grid grid-cols-[1.1fr_1.7fr_1.1fr_1.1fr_auto] gap-4";
+
+  return (
+    <div>
+      {/* ô chọn tháng */}
+      <div className="flex flex-wrap gap-3">
+        {months.map((m) => {
+          const [mm, yyyy] = m.split("/");
+          const isActive = m === active;
+          return (
+            <button
+              key={m}
+              type="button"
+              onClick={() => setActive(m)}
+              aria-pressed={isActive}
+              className={clsx(
+                "flex flex-col items-center px-5 py-3 text-center transition-colors",
+                isActive
+                  ? "bg-ink text-paper"
+                  : "border border-[var(--line)] text-ink hover:border-ink",
+              )}
+            >
+              <span className="text-[0.65rem] uppercase tracking-[0.2em] opacity-70">Tháng</span>
+              <span className="font-serif text-2xl leading-tight">{mm}</span>
+              <span className="text-xs opacity-70">{yyyy}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* bảng lịch khởi hành — mỗi hàng có nút chọn, hàng chọn đổi màu */}
+      <div className="mt-6 overflow-x-auto">
+        <div className="min-w-[680px] bg-paper-2 shadow-[0_8px_22px_-12px_rgba(26,24,19,0.45)]">
+          <div
+            className={clsx(
+              cols,
+              "border-b-2 border-ink/70 px-5 py-3 text-[0.7rem] font-medium uppercase tracking-[0.15em] text-mute",
+            )}
+          >
+            <span>{dateLabel}</span>
+            <span>{codeLabel}</span>
+            <span>{priceLabel}</span>
+            <span>{stayLabel}</span>
+            <span className="text-center">Chọn</span>
+          </div>
+
+          {rows.map((r) => {
+            const isSelected = selected?.code === r.code;
+            return (
+              <div
+                key={r.code}
+                className={clsx(
+                  cols,
+                  "items-center border-b border-[var(--line-soft)] px-5 py-3.5 text-sm last:border-b-0 transition-colors",
+                  isSelected ? "bg-ink/[0.05] text-ink" : "text-ink/80",
+                )}
+              >
+                <span className="font-medium text-ink">{r.date}</span>
+                <span className="uppercase tracking-wide text-ink/70">{r.code}</span>
+                <span className="flex flex-col leading-tight">
+                  {r.priceWas && (
+                    <span className="text-xs text-mute line-through">{r.priceWas}</span>
+                  )}
+                  <span className="font-medium text-ink">{r.price}</span>
+                </span>
+                <span>{r.stay}</span>
+                <span className="flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setSelected(r)}
+                    aria-pressed={isSelected}
+                    aria-label={isSelected ? "Đã chọn lịch này" : "Chọn lịch này"}
+                    title={isSelected ? "Đã chọn" : "Chọn"}
+                    className={clsx(
+                      // kích thước cố định → không nhảy layout; chỉ icon, không chữ
+                      "flex h-9 w-9 items-center justify-center rounded-full border transition-colors",
+                      isSelected
+                        ? "border-ink bg-ink text-paper"
+                        : "border-ink/40 text-transparent hover:border-ink",
+                    )}
+                  >
+                    <Check className="h-4 w-4" aria-hidden />
+                  </button>
+                </span>
+              </div>
+            );
+          })}
+
+          {rows.length === 0 && <p className="px-5 py-6 text-sm text-mute">{emptyText}</p>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Khối thông tin trong sidebar sticky — phản chiếu lịch khởi hành đang chọn:
+ * ngày, mã tour, chuẩn lưu trú và giá. Thời lượng truyền vào (cố định).
+ */
+export function DepartureSummary({ nights }: { nights: string }) {
+  const { selected } = useDepartureCtx();
+
+  return (
+    <>
+      <dl className="space-y-3 text-sm">
+        <div className="flex justify-between gap-4 border-b border-[var(--line-soft)] pb-3">
+          <dt className="text-mute">Ngày khởi hành</dt>
+          <dd className="font-medium text-ink">{selected?.date ?? "—"}</dd>
+        </div>
+        <div className="flex justify-between gap-4 border-b border-[var(--line-soft)] pb-3">
+          <dt className="text-mute">Mã tour</dt>
+          <dd className="text-right text-xs font-medium uppercase tracking-wide text-ink">
+            {selected?.code ?? "—"}
+          </dd>
+        </div>
+        <div className="flex justify-between gap-4 border-b border-[var(--line-soft)] pb-3">
+          <dt className="text-mute">Thời lượng</dt>
+          <dd className="font-medium uppercase text-ink">{nights}</dd>
+        </div>
+        <div className="flex justify-between gap-4 border-b border-[var(--line-soft)] pb-3">
+          <dt className="text-mute">Chuẩn lưu trú</dt>
+          <dd className="font-medium text-ink">{selected?.stay ?? "—"}</dd>
+        </div>
+      </dl>
+
+      <div className="mt-5">
+        <p className="text-xs uppercase tracking-[0.2em] text-mute">Giá từ</p>
+        <div className="mt-1 flex items-baseline gap-2">
+          <p className="font-serif text-3xl text-ink">{selected?.price ?? "—"}</p>
+          {selected?.priceWas && (
+            <span className="text-sm text-mute line-through">{selected.priceWas}</span>
+          )}
+        </div>
+        <p className="mt-1 text-sm text-mute">/ khách</p>
+      </div>
+    </>
+  );
+}

@@ -4,8 +4,10 @@ import { ArrowRight } from "lucide-react";
 import { getToursPaged, getTaxonomyNames } from "@/lib/api";
 import { getPageContentMap, pc } from "@/lib/page-content";
 import { SceneImage } from "@/components/site/SceneImage";
+import { ComingSoonTag } from "@/components/site/ComingSoonTag";
 import { PageHero } from "@/components/site/PageHero";
 import { CatalogControls, Pagination } from "@/components/site/CatalogControls";
+import { isComingSoon } from "@/lib/tour-tags";
 
 export const revalidate = 300;
 
@@ -64,33 +66,50 @@ export default async function TourTronGoiPage({
         <p className="mt-8 text-sm text-mute">{result.total} tour</p>
 
         <div className="mt-6 grid grid-cols-1 gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-          {result.items.map((t) => (
-            <Link key={t.slug} href={`/tour/${t.slug}`} className="group block">
-              <div className="aspect-[4/3] overflow-hidden">
-                <SceneImage
-                  seed={`perlunas-tour-${t.slug}`}
-                  alt={t.name}
-                  w={1000}
-                  h={750}
-                  className="transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]"
-                />
+          {result.items.map((t) => {
+            const comingSoon = isComingSoon(t.slug);
+            const inner = (
+              <>
+                {comingSoon && <ComingSoonTag />}
+                <div className="aspect-[4/3] overflow-hidden">
+                  <SceneImage
+                    seed={`perlunas-tour-${t.slug}`}
+                    alt={t.name}
+                    w={1000}
+                    h={750}
+                    className="transition-transform duration-[1.5s] ease-out group-hover:scale-[1.04]"
+                  />
+                </div>
+                <p className="mt-5 text-[0.7rem] uppercase tracking-[0.22em] text-mute">
+                  {t.region} · {t.nights}
+                </p>
+                <h2 className="mt-2 font-serif text-2xl text-ink">{t.name}</h2>
+                <p className="mt-2 max-w-sm text-pretty text-sm leading-relaxed text-ink/65">
+                  {t.teaser}
+                </p>
+                <div className="mt-3 flex items-center justify-between">
+                  <span className="text-sm font-medium text-ink">{t.price}</span>
+                  {comingSoon ? (
+                    <span className="text-sm text-mute">Sắp ra mắt</span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1.5 text-sm text-ink">
+                      Xem chi tiết
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  )}
+                </div>
+              </>
+            );
+            return comingSoon ? (
+              <div key={t.slug} className="group relative block cursor-default">
+                {inner}
               </div>
-              <p className="mt-5 text-[0.7rem] uppercase tracking-[0.22em] text-mute">
-                {t.region} · {t.nights}
-              </p>
-              <h2 className="mt-2 font-serif text-2xl text-ink">{t.name}</h2>
-              <p className="mt-2 max-w-sm text-pretty text-sm leading-relaxed text-ink/65">
-                {t.teaser}
-              </p>
-              <div className="mt-3 flex items-center justify-between">
-                <span className="text-sm font-medium text-ink">{t.price}</span>
-                <span className="inline-flex items-center gap-1.5 text-sm text-ink">
-                  Xem chi tiết
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
-            </Link>
-          ))}
+            ) : (
+              <Link key={t.slug} href={`/tour/${t.slug}`} className="group relative block">
+                {inner}
+              </Link>
+            );
+          })}
         </div>
 
         {result.items.length === 0 && (

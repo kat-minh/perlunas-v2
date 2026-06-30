@@ -5,12 +5,18 @@ import { clsx } from "clsx";
 import { ArrowRight, BedDouble, Camera, Utensils, Bus } from "lucide-react";
 import { PROVINCES } from "@/lib/catalog";
 import { getTour, getHotels, getTours } from "@/lib/api";
+import { isComingSoon } from "@/lib/tour-tags";
 import { SceneImage } from "@/components/site/SceneImage";
 import { TourGallery } from "@/components/site/TourGallery";
 import { HighlightsPanel } from "@/components/site/HighlightsPanel";
 import { Itinerary, type ItineraryDay } from "@/components/site/Itinerary";
 import { InfoAccordion, type InfoItem } from "@/components/site/InfoAccordion";
-import { DepartureSchedule, type Departure } from "@/components/site/DepartureSchedule";
+import { type Departure } from "@/components/site/DepartureSchedule";
+import {
+  DepartureProvider,
+  DeparturePicker,
+  DepartureSummary,
+} from "@/components/site/TourDepartures";
 import { QuickEnquiry } from "@/components/site/QuickEnquiry";
 
 export const revalidate = 300;
@@ -33,6 +39,8 @@ export default async function TourDetailPage({
   const { slug } = await params;
   const tour = await getTour(slug);
   if (!tour) notFound();
+  // Tour "Sắp ra mắt" chưa cho xem chi tiết (kể cả truy cập thẳng URL).
+  if (isComingSoon(slug)) notFound();
 
   const [hotels, allTours] = await Promise.all([getHotels(), getTours()]);
 
@@ -107,12 +115,15 @@ export default async function TourDetailPage({
       const dd = String(d).padStart(2, "0");
       const seq = String(mi * 3 + di + 51).padStart(3, "0");
       const discounted = di === 2; // dòng cuối tháng có khuyến mãi
+      // giá chênh nhẹ giữa các mốc (theo tháng/ngày) cho thực tế hơn
+      const delta = mi * 100000 + di * 50000;
+      const price = baseNum + delta;
       return {
         month: m,
         date: `${dd}/${mm}/${yyyy}`,
         code: `ND${codePrefix}103-${seq}-${dd}${mm}${yyyy.slice(2)}VN-D`,
-        price: fmtVnd(baseNum),
-        priceWas: discounted ? fmtVnd(baseNum + 200000) : undefined,
+        price: fmtVnd(price),
+        priceWas: discounted ? fmtVnd(price + 200000) : undefined,
         stay: STAYS[(mi + di) % STAYS.length],
       };
     });
@@ -291,10 +302,25 @@ export default async function TourDetailPage({
         </div>
       </section>
 
+      <DepartureProvider departures={departures}>
       <div className="mx-auto grid max-w-[100rem] gap-12 px-6 pt-16 sm:px-10 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-7">
           {/* image carousel — main photo + left-aligned thumbnail index */}
           <TourGallery images={gallery} alt={tour.name} />
+
+          {/* Vì sao có hành trình này — lý do Perlunas thiết kế tour (placeholder,
+              dựng từ thông tin tour; thay bằng field riêng khi có). */}
+          <div className="mt-10 border-l-2 border-ink/15 pl-5 sm:pl-6">
+            <p className="text-xs font-medium uppercase tracking-[0.3em] text-mute">
+              Vì sao có hành trình này
+            </p>
+            <p className="mt-4 text-pretty text-lg leading-relaxed text-ink/75">
+              {tour.name} ra đời từ mong muốn để bạn cảm nhận trọn vẹn {tour.region} theo
+              cách thong thả và chân thật nhất. Chúng tôi chọn lọc từng điểm dừng, cân nhắc
+              nhịp đi và khoảng nghỉ để mỗi ngày đều có một khoảng thở — không nhồi nhét,
+              không vội vã, chỉ giữ lại những trải nghiệm thật sự đáng nhớ.
+            </p>
+          </div>
 
           {/* Thông tin chính về chuyến đi — các ô giấy note */}
           <h2 className="mt-12 font-serif text-2xl text-ink">Thông tin chính về chuyến đi</h2>
@@ -325,7 +351,7 @@ export default async function TourDetailPage({
             Chọn tháng để xem các ngày khởi hành, mã tour, giá và chuẩn lưu trú.
           </p>
           <div className="mt-6">
-            <DepartureSchedule departures={departures} />
+            <DeparturePicker departures={departures} />
           </div>
 
           {/* Điểm nổi bật trong tour — 1 bảng lớn, có Xem thêm/Thu gọn góc phải dưới */}
@@ -340,11 +366,6 @@ export default async function TourDetailPage({
             <Itinerary days={itinerary} />
           </div>
 
-          <p className="mt-8 text-sm leading-relaxed text-mute">
-            Lịch trình chi tiết theo ngày sẽ được Perlunas gửi và điều chỉnh theo
-            số khách, ngày đi và sở thích của bạn.
-          </p>
-
           {/* Thông tin quan trọng về tour — accordion giống Lịch trình chi tiết */}
           <h2 className="mt-12 font-serif text-2xl text-ink">Thông tin quan trọng về tour</h2>
           <div className="mt-5">
@@ -355,26 +376,7 @@ export default async function TourDetailPage({
         {/* booking card */}
         <aside className="lg:col-span-5">
           <div className="border border-[var(--line)] bg-paper-2 p-8 lg:sticky lg:top-28">
-            <dl className="space-y-3 text-sm">
-              <div className="flex justify-between gap-4 border-b border-[var(--line-soft)] pb-3">
-                <dt className="text-mute">Mã tour</dt>
-                <dd className="font-medium uppercase tracking-wide text-ink">{tourCode}</dd>
-              </div>
-              <div className="flex justify-between gap-4 border-b border-[var(--line-soft)] pb-3">
-                <dt className="text-mute">Thời lượng</dt>
-                <dd className="font-medium uppercase text-ink">{tour.nights}</dd>
-              </div>
-              <div className="flex justify-between gap-4 border-b border-[var(--line-soft)] pb-3">
-                <dt className="text-mute">Khởi hành</dt>
-                <dd className="font-medium text-ink">{departureFrom}</dd>
-              </div>
-            </dl>
-
-            <div className="mt-5">
-              <p className="text-xs uppercase tracking-[0.2em] text-mute">Giá từ</p>
-              <p className="mt-1 font-serif text-3xl text-ink">{fmtVnd(baseNum)}</p>
-              <p className="mt-1 text-sm text-mute">/ khách</p>
-            </div>
+            <DepartureSummary nights={tour.nights} />
 
             <QuickEnquiry
               tourName={tour.name}
@@ -387,6 +389,7 @@ export default async function TourDetailPage({
           </div>
         </aside>
       </div>
+      </DepartureProvider>
 
       {/* Tour khác — gợi ý các hành trình liên quan đang có */}
       {relatedTours.length > 0 && (

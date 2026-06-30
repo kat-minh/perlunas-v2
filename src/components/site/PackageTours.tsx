@@ -5,7 +5,9 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SceneImage } from "./SceneImage";
+import { ComingSoonTag } from "./ComingSoonTag";
 import { pc, type PageContentMap } from "@/lib/page-content";
+import { isComingSoon } from "@/lib/tour-tags";
 import type { ApiTour } from "@/lib/api";
 
 /**
@@ -57,12 +59,12 @@ export function PackageTours({
             ref={railRef}
             className="flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 sm:px-10 lg:pl-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {tours.map((t, i) => (
-              <Reveal key={t.slug} delay={i * 60} className="shrink-0 snap-start">
-                <Link
-                  href={`/tour/${t.slug}`}
-                  className="group relative block h-[32rem] w-[78vw] overflow-hidden sm:w-[20rem]"
-                >
+            {tours.map((t, i) => {
+              const comingSoon = isComingSoon(t.slug);
+              const cardClass =
+                "group relative block h-[32rem] w-[78vw] overflow-hidden sm:w-[20rem]";
+              const inner = (
+                <>
                   <SceneImage
                     seed={`perlunas-tour-${t.slug}`}
                     alt={t.name}
@@ -74,6 +76,9 @@ export function PackageTours({
                   <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/15 to-ink/10" />
                   {/* hover: dim the whole photo so the revealed copy reads clearly */}
                   <div className="absolute inset-0 bg-ink/0 transition-colors duration-500 ease-out group-hover:bg-ink/45" />
+
+                  {/* tag "Sắp ra mắt" cho một số tour — tông kem để nổi trên nền tối */}
+                  {comingSoon && <ComingSoonTag variant="paper" />}
 
                   {/* nights badge */}
                   <span className="absolute right-4 top-4 text-[0.7rem] uppercase tracking-[0.18em] text-paper/85">
@@ -92,16 +97,33 @@ export function PackageTours({
                       <div className="overflow-hidden">
                         <p className="pt-3 text-sm leading-relaxed text-paper/85">{t.teaser}</p>
                         <p className="mt-3 text-sm font-medium text-paper">{t.price}</p>
-                        <span className="btn-paper mt-4 inline-flex items-center gap-2 px-5 py-2.5 text-xs font-medium uppercase tracking-[0.15em]">
-                          {pc(map, "home.packagetours.cta")}
-                          <ArrowRight className="h-3.5 w-3.5" />
-                        </span>
+                        {comingSoon ? (
+                          <span className="mt-4 inline-block text-xs font-medium uppercase tracking-[0.15em] text-paper/70">
+                            Sắp ra mắt
+                          </span>
+                        ) : (
+                          <span className="btn-paper mt-4 inline-flex items-center gap-2 px-5 py-2.5 text-xs font-medium uppercase tracking-[0.15em]">
+                            {pc(map, "home.packagetours.cta")}
+                            <ArrowRight className="h-3.5 w-3.5" />
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
-                </Link>
-              </Reveal>
-            ))}
+                </>
+              );
+              return (
+                <Reveal key={t.slug} delay={i * 60} className="shrink-0 snap-start">
+                  {comingSoon ? (
+                    <div className={`${cardClass} cursor-default`}>{inner}</div>
+                  ) : (
+                    <Link href={`/tour/${t.slug}`} className={cardClass}>
+                      {inner}
+                    </Link>
+                  )}
+                </Reveal>
+              );
+            })}
           </div>
 
           {/* rail controls — kept below the cards, not over them */}

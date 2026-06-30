@@ -128,6 +128,13 @@
     letter-spacing: 0;
   }
 
+  /* Chữ ký viết tay — tên nhà sáng lập ở khối Triết lý. */
+  .signature {
+    font-family: var(--font-signature), cursive;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
   /* Solid ink button (on paper). On hover a paper fill sweeps in left→right
      and the text flips to ink. The sweep = a 2-stop gradient (2x wide) whose
      background-position slides from right to left. */

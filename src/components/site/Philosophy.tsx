@@ -46,7 +46,7 @@ export function Philosophy({ map }: { map: PageContentMap }) {
         </p>
 
         <footer className="mt-8 text-right">
-          <p className="font-serif text-xl text-ink">{pc(map, "home.philosophy.author")}</p>
+          <p className="signature text-3xl leading-none text-ink sm:text-4xl">{pc(map, "home.philosophy.author")}</p>
           <p className="mt-1 text-xs font-medium uppercase tracking-[0.25em] text-mute">
             {pc(map, "home.philosophy.role")}
           </p>

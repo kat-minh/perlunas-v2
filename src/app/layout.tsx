@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
@@ -12,6 +13,13 @@ const beVietnam = Be_Vietnam_Pro({
   subsets: ["latin", "vietnamese"],
   weight: ["300", "400", "500", "600"],
   variable: "--font-bevn",
+  display: "swap",
+});
+
+// Chữ ký nhà sáng lập — dùng cho tên tác giả ở khối Triết lý.
+const gastroline = localFont({
+  src: "./fonts/GastrolineSignature.otf",
+  variable: "--font-signature",
   display: "swap",
 });
 
@@ -50,7 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi" className={beVietnam.variable}>
+    <html lang="vi" className={`${beVietnam.variable} ${gastroline.variable}`}>
       <body>
         <SmoothScroll>
           <Navbar />

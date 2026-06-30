@@ -43,6 +43,7 @@ export function HotelBooking({
   roomTypes,
   defaultRoom,
   monthOptions,
+  lockRoom = false,
   label = "Đặt phòng",
   variant = "ink",
   className,
@@ -54,6 +55,8 @@ export function HotelBooking({
   /** When provided (combo: ngày fix), the date pickers are hidden and the row
    *  becomes "chọn tháng → chọn combo trong tháng đó" (two dependent selects). */
   monthOptions?: MonthOption[];
+  /** Combo: hạng phòng cố định — khoá ô chọn hạng phòng, ẩn "Thêm hạng phòng". */
+  lockRoom?: boolean;
   label?: string;
   variant?: "ink" | "line";
   className?: string;
@@ -79,6 +82,7 @@ export function HotelBooking({
           roomTypes={roomTypes}
           defaultRoom={defaultRoom}
           monthOptions={monthOptions}
+          lockRoom={lockRoom}
           onClose={() => setOpen(false)}
         />
       )}
@@ -92,6 +96,7 @@ function Dialog({
   roomTypes,
   defaultRoom,
   monthOptions,
+  lockRoom = false,
   onClose,
 }: {
   hotelName: string;
@@ -99,6 +104,7 @@ function Dialog({
   roomTypes: string[];
   defaultRoom?: string;
   monthOptions?: MonthOption[];
+  lockRoom?: boolean;
   onClose: () => void;
 }) {
   const comboMode = !!(monthOptions && monthOptions.length);
@@ -267,6 +273,13 @@ function Dialog({
                             )}
                           </select>
                         </div>
+                      ) : lockRoom ? (
+                        <div className="flex flex-1 flex-col">
+                          <span className="text-xs uppercase tracking-[0.12em] text-mute">
+                            Hạng phòng
+                          </span>
+                          <span className="mt-0.5 font-medium text-ink">{r.room}</span>
+                        </div>
                       ) : (
                         <select
                           value={r.room}
@@ -347,13 +360,15 @@ function Dialog({
                   </div>
                 ))}
               </div>
-              <button
-                type="button"
-                onClick={addRow}
-                className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-ink transition-opacity hover:opacity-70"
-              >
-                <Plus className="h-4 w-4" /> {comboMode ? "Thêm gói" : "Thêm hạng phòng"}
-              </button>
+              {!lockRoom && (
+                <button
+                  type="button"
+                  onClick={addRow}
+                  className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-ink transition-opacity hover:opacity-70"
+                >
+                  <Plus className="h-4 w-4" /> {comboMode ? "Thêm gói" : "Thêm hạng phòng"}
+                </button>
+              )}
             </Section>
 
             {status === "error" && (

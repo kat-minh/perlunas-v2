@@ -23,6 +23,7 @@ export default async function VeChungToiPage() {
     { kicker: pc(map, "about.luna.eyebrow"), title: pc(map, "about.luna.title"), body: pc(map, "about.luna.body"), image: pc(map, "about.luna.image") },
     { kicker: pc(map, "about.vision.eyebrow"), title: "", body: pc(map, "about.vision.body"), image: pc(map, "about.vision.image") },
     { kicker: pc(map, "about.mission.eyebrow"), title: "", body: pc(map, "about.mission.body"), image: pc(map, "about.mission.image") },
+    { kicker: pc(map, "about.philosophy.eyebrow"), title: "", body: pc(map, "about.philosophy.body"), image: pc(map, "about.philosophy.image") },
   ];
 
   const VALUES = [1, 2, 3, 4].map((n) => ({
