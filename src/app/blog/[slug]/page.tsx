@@ -37,7 +37,7 @@ export default async function BlogDetailPage({
   return (
     <main className="pb-24 pt-28 sm:pt-32">
       {/* header bài viết — không dùng hero ảnh full-bleed, kiểu editorial gọn */}
-      <header className="mx-auto max-w-3xl px-6 sm:px-10">
+      <header className="mx-auto max-w-5xl px-6 sm:px-10">
         <Link
           href="/blog"
           className="inline-flex items-center gap-2 text-sm text-ink/70 transition-colors hover:text-ink"
@@ -58,7 +58,7 @@ export default async function BlogDetailPage({
         </p>
       </header>
 
-      <article className="mx-auto max-w-3xl px-6 pt-10 sm:px-10 sm:pt-12">
+      <article className="mx-auto max-w-5xl px-6 pt-10 sm:px-10 sm:pt-12">
         <div className="space-y-8">
           {post.content.map((section, i) => (
             <section key={i}>

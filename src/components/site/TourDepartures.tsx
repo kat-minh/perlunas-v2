@@ -133,13 +133,13 @@ export function DeparturePicker({
                     title={isSelected ? "Đã chọn" : "Chọn"}
                     className={clsx(
                       // kích thước cố định → không nhảy layout; chỉ icon, không chữ
-                      "flex h-9 w-9 items-center justify-center rounded-full border transition-colors",
+                      "flex h-7 w-7 items-center justify-center rounded-full border transition-colors",
                       isSelected
                         ? "border-ink bg-ink text-paper"
                         : "border-ink/40 text-transparent hover:border-ink",
                     )}
                   >
-                    <Check className="h-4 w-4" aria-hidden />
+                    <Check className="h-3.5 w-3.5" aria-hidden />
                   </button>
                 </span>
               </div>
