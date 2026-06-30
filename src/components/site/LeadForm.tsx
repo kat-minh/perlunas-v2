@@ -5,7 +5,7 @@ import { Check, Loader2 } from "lucide-react";
 
 type Status = "idle" | "loading" | "ok" | "error";
 
-const SERVICES = ["Tour trọn gói", "Khách sạn", "Combo du lịch", "Tour đoàn", "Tour riêng"] as const;
+const SERVICES = ["Tour trọn gói", "Khách sạn", "Gói du lịch", "Tour đoàn", "Tour riêng"] as const;
 const MONTHS = Array.from({ length: 12 }, (_, i) => `Tháng ${i + 1}`);
 const YEARS = ["2026", "2027"];
 const GROUP = ["1 người", "2 người", "3 - 5 người", "6 - 10 người", "Trên 10 người"];

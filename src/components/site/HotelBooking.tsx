@@ -228,8 +228,8 @@ function Dialog({
             {/* 2. phòng & ngày — nhiều hạng trong cùng 1 booking */}
             <Section
               step={2}
-              title={comboMode ? "Combo & số khách" : "Phòng, ngày & số khách"}
-              hint={comboMode ? "có thể thêm nhiều combo" : "có thể thêm nhiều hạng phòng"}
+              title={comboMode ? "Gói & số khách" : "Phòng, ngày & số khách"}
+              hint={comboMode ? "có thể thêm nhiều gói" : "có thể thêm nhiều hạng phòng"}
             >
               <div className="space-y-3">
                 {rows.map((r, i) => (
@@ -258,7 +258,7 @@ function Dialog({
                             value={r.cid}
                             onChange={(e) => setRow(i, { cid: e.target.value })}
                             className={clsx(inputCls, "w-full")}
-                            aria-label="Combo trong tháng"
+                            aria-label="Gói trong tháng"
                           >
                             {(monthOptions!.find((g) => g.month === r.month)?.combos ?? []).map(
                               (c) => (
@@ -352,7 +352,7 @@ function Dialog({
                 onClick={addRow}
                 className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-ink transition-opacity hover:opacity-70"
               >
-                <Plus className="h-4 w-4" /> {comboMode ? "Thêm combo" : "Thêm hạng phòng"}
+                <Plus className="h-4 w-4" /> {comboMode ? "Thêm gói" : "Thêm hạng phòng"}
               </button>
             </Section>
 

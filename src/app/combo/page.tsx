@@ -12,9 +12,9 @@ import { CatalogControls, Pagination } from "@/components/site/CatalogControls";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Combo du lịch",
+  title: "Gói du lịch",
   description:
-    "Combo trọn gói khắp Việt Nam theo ba chuẩn dịch vụ Akoya, Tahiti và South Sea.",
+    "Gói du lịch khắp Việt Nam theo ba chuẩn dịch vụ Akoya, Tahiti và South Sea.",
 };
 
 const PAGE_SIZE = 9;
@@ -57,7 +57,7 @@ export default async function ComboPage({
         title={pc(map, "combopage.hero.title")}
         intro={pc(map, "combopage.hero.intro")}
         image={pc(map, "combopage.hero.image")}
-        alt="Combo du lịch Perlunas"
+        alt="Gói du lịch Perlunas"
       />
       <div className="mx-auto max-w-[100rem] px-6 sm:px-10">
         <div className="mt-14 flex justify-end sm:mt-16">
@@ -65,7 +65,7 @@ export default async function ComboPage({
             href="/combo/phan-loai"
             className="inline-flex shrink-0 items-center gap-2 rounded-[3px] border border-ink px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-ink hover:text-paper"
           >
-            Phân loại Combo
+            Phân loại Gói
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -95,7 +95,7 @@ export default async function ComboPage({
           ]}
         />
 
-        <p className="mt-8 text-sm text-mute">{result.total} combo</p>
+        <p className="mt-8 text-sm text-mute">{result.total} gói</p>
 
         <div className="mt-6 grid grid-cols-1 gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
           {result.items.map((c) => (
@@ -128,7 +128,7 @@ export default async function ComboPage({
 
         {result.items.length === 0 && (
           <p className="mt-6 text-ink/60">
-            Chưa có combo phù hợp với bộ lọc này. Bạn thử bỏ bớt một tiêu chí nhé.
+            Chưa có gói phù hợp với bộ lọc này. Bạn thử bỏ bớt một tiêu chí nhé.
           </p>
         )}
 
@@ -143,7 +143,7 @@ export default async function ComboPage({
               </h2>
               <p className="mt-2 text-ink/70">{pc(map, "combopage.cta.body")}</p>
             </div>
-            <LeadButton service="Combo du lịch">
+            <LeadButton service="Gói du lịch">
               {pc(map, "combopage.cta.button")}
             </LeadButton>
           </div>

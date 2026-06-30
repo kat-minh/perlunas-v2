@@ -11,7 +11,7 @@ const links = [
   { label: "Tour đoàn", href: "/tour-doan" },
   { label: "Tour riêng tư", href: "/tour-rieng-tu" },
   { label: "Lưu trú Cao cấp", href: "/khach-san" },
-  { label: "Combo du lịch", href: "/combo" },
+  { label: "Gói du lịch", href: "/combo" },
   { label: "Về chúng tôi", href: "/ve-chung-toi" },
 ];
 

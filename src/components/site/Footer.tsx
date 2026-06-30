@@ -12,7 +12,7 @@ import { getPageContentMap, pc } from "@/lib/page-content";
 const dichVu = [
   { label: "Tour trọn gói", href: "/tour-tron-goi" },
   { label: "Khách sạn", href: "/khach-san" },
-  { label: "Combo du lịch", href: "/combo" },
+  { label: "Gói du lịch", href: "/combo" },
   { label: "Tour đoàn", href: "/#tour-doan" },
   { label: "Tour riêng", href: "/#tour-rieng" },
 ];

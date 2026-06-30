@@ -9,9 +9,9 @@ import { getComboTiers } from "@/lib/api";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Phân loại Combo — Akoya · Tahiti · South Sea",
+  title: "Phân loại Gói — Akoya · Tahiti · South Sea",
   description:
-    "Vì sao Perlunas chia combo theo ba dòng ngọc trai Akoya, Tahiti và South Sea, mỗi gói gồm những gì và cách chọn gói phù hợp.",
+    "Vì sao Perlunas chia gói theo ba dòng ngọc trai Akoya, Tahiti và South Sea, mỗi gói gồm những gì và cách chọn gói phù hợp.",
 };
 
 export default async function ComboTiersPage() {
@@ -24,7 +24,7 @@ export default async function ComboTiersPage() {
           className="inline-flex items-center gap-2 text-sm text-mute transition-colors hover:text-ink"
         >
           <ArrowLeft className="h-4 w-4" />
-          Combo du lịch
+          Gói du lịch
         </Link>
 
         <header className="mt-6 max-w-3xl">
@@ -93,7 +93,7 @@ export default async function ComboTiersPage() {
               {pc(map, "combotiers.choose.body")}
             </p>
             <div className="mt-8">
-              <LeadButton service="Combo du lịch">{pc(map, "combotiers.choose.button")}</LeadButton>
+              <LeadButton service="Gói du lịch">{pc(map, "combotiers.choose.button")}</LeadButton>
             </div>
           </div>
         </section>

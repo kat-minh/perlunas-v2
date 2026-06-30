@@ -7,7 +7,7 @@ export const site = {
   tagline: "Pearl & Luna, every journey a pearl under the moon",
   taglineVi: "Mỗi hành trình là một viên ngọc dưới ánh trăng",
   description:
-    "Perlunas thiết kế những hành trình du lịch trong nước tinh tế và trọn vẹn: tour trọn gói, đặt phòng khách sạn, combo du lịch, tour đoàn và tour riêng theo yêu cầu.",
+    "Perlunas thiết kế những hành trình du lịch trong nước tinh tế và trọn vẹn: tour trọn gói, đặt phòng khách sạn, gói du lịch, tour đoàn và tour riêng theo yêu cầu.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://perlunas.vercel.app",
   phone: process.env.NEXT_PUBLIC_PHONE ?? "0900 000 000",
   zalo: process.env.NEXT_PUBLIC_ZALO_URL ?? "https://zalo.me/0900000000",

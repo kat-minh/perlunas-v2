@@ -42,10 +42,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const combo = await getCombo(slug);
-  if (!combo) return { title: "Combo du lịch" };
+  if (!combo) return { title: "Gói du lịch" };
   return {
     title: `${combo.tier.toUpperCase()} - ${combo.hotelName}`,
-    description: `Combo ${combo.tier} tại ${combo.hotelName}, ${combo.city} — ${combo.nights} đêm, giá từ ${combo.price}.`,
+    description: `Gói ${combo.tier} tại ${combo.hotelName}, ${combo.city} — ${combo.nights} đêm, giá từ ${combo.price}.`,
   };
 }
 
@@ -85,7 +85,7 @@ export default async function ComboDetailPage({
   const nightly =
     combo.nights > 0 ? Math.round(baseNum / combo.nights / 100000) * 100000 || baseNum : baseNum;
 
-  // Mã combo ổn định theo slug.
+  // Mã gói ổn định theo slug.
   const codePrefix =
     combo.slug
       .split("-")
@@ -200,7 +200,7 @@ export default async function ComboDetailPage({
   // "Thông tin quan trọng về combo" — accordion (nội dung mẫu chuẩn ngành).
   const comboInfo: InfoItem[] = [
     {
-      title: "Giá combo bao gồm",
+      title: "Giá gói bao gồm",
       blocks: [
         {
           lines: tier?.includes ?? [
@@ -212,7 +212,7 @@ export default async function ComboDetailPage({
       ],
     },
     {
-      title: "Giá combo chưa bao gồm",
+      title: "Giá gói chưa bao gồm",
       blocks: [
         {
           lines: [
@@ -242,7 +242,7 @@ export default async function ComboDetailPage({
       blocks: [
         {
           lines: [
-            "Đặt cọc 50% giá combo ngay khi đăng ký để giữ chỗ.",
+            "Đặt cọc 50% giá gói ngay khi đăng ký để giữ chỗ.",
             "Thanh toán phần còn lại trước ngày nhận phòng tối thiểu 7 ngày.",
             "Cung cấp đầy đủ thông tin: họ tên, số điện thoại, email khi đăng ký.",
           ],
@@ -255,16 +255,16 @@ export default async function ComboDetailPage({
         {
           subtitle: "Ngày thường",
           lines: [
-            "Huỷ trước ngày nhận phòng từ 15 ngày: phí 30% giá combo.",
-            "Huỷ trước 7 - 14 ngày: phí 50% giá combo.",
-            "Huỷ trong vòng 6 ngày hoặc không nhận phòng (no-show): phí 100% giá combo.",
+            "Huỷ trước ngày nhận phòng từ 15 ngày: phí 30% giá gói.",
+            "Huỷ trước 7 - 14 ngày: phí 50% giá gói.",
+            "Huỷ trong vòng 6 ngày hoặc không nhận phòng (no-show): phí 100% giá gói.",
           ],
         },
         {
           subtitle: "Ngày lễ, Tết",
           lines: [
-            "Huỷ trước ngày nhận phòng từ 30 ngày: phí 50% giá combo.",
-            "Huỷ trong vòng 29 ngày hoặc không nhận phòng (no-show): phí 100% giá combo.",
+            "Huỷ trước ngày nhận phòng từ 30 ngày: phí 50% giá gói.",
+            "Huỷ trong vòng 29 ngày hoặc không nhận phòng (no-show): phí 100% giá gói.",
           ],
         },
       ],
@@ -334,7 +334,7 @@ export default async function ComboDetailPage({
           <div className="flex items-center gap-2.5">
             <PearlIcon tier={combo.tier} className="h-7 w-7" />
             <p className="text-xs font-medium uppercase tracking-[0.3em] text-paper/80">
-              Combo {combo.tier} · {combo.nights} đêm
+              Gói {combo.tier} · {combo.nights} đêm
             </p>
           </div>
           <h1 className="display mt-4 max-w-3xl text-4xl sm:text-6xl">{combo.hotelName}</h1>
@@ -350,7 +350,7 @@ export default async function ComboDetailPage({
           className="inline-flex items-center gap-2 text-sm text-mute transition-colors hover:text-ink"
         >
           <ArrowLeft className="h-4 w-4" />
-          Tất cả combo
+          Tất cả gói
         </Link>
       </div>
 
@@ -360,7 +360,7 @@ export default async function ComboDetailPage({
           <TourGallery images={gallery} alt={combo.hotelName} />
 
           {/* Thông tin chính về combo — các ô giấy note */}
-          <h2 className="mt-12 font-serif text-2xl text-ink">Thông tin chính về combo</h2>
+          <h2 className="mt-12 font-serif text-2xl text-ink">Thông tin chính về gói</h2>
           <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
             {tripInfo.map(({ Icon, title, body }, i) => (
               <div
@@ -407,14 +407,14 @@ export default async function ComboDetailPage({
           {/* Lịch & giá áp dụng — chia theo tháng */}
           <h2 className="mt-12 font-serif text-2xl text-ink">Lịch & giá áp dụng</h2>
           <p className="mt-2 text-sm text-mute">
-            Chọn tháng để xem các mốc áp dụng, mã combo, giá và hạng lưu trú.
+            Chọn tháng để xem các mốc áp dụng, mã gói, giá và hạng lưu trú.
           </p>
           <div className="mt-6">
             <DepartureSchedule
               departures={departures}
               dateLabel="Ngày áp dụng"
-              codeLabel="Mã combo"
-              priceLabel="Giá combo"
+              codeLabel="Mã gói"
+              priceLabel="Giá gói"
               stayLabel="Hạng lưu trú"
               emptyText="Chưa có lịch áp dụng cho tháng này."
             />
@@ -438,7 +438,7 @@ export default async function ComboDetailPage({
           </p>
 
           {/* Thông tin quan trọng về combo — accordion */}
-          <h2 className="mt-12 font-serif text-2xl text-ink">Thông tin quan trọng về combo</h2>
+          <h2 className="mt-12 font-serif text-2xl text-ink">Thông tin quan trọng về gói</h2>
           <div className="mt-5">
             <InfoAccordion items={comboInfo} />
           </div>
@@ -446,7 +446,7 @@ export default async function ComboDetailPage({
           {/* Phòng nghỉ trong gói — mỗi combo có 1 hạng phòng cố định */}
           <h2 className="mt-12 font-serif text-2xl text-ink">Phòng nghỉ trong gói</h2>
           <p className="mt-2 text-sm text-ink/65">
-            Combo {combo.tier} đi kèm hạng phòng dưới đây. Bấm vào ảnh hoặc “Xem chi tiết” để
+            Gói {combo.tier} đi kèm hạng phòng dưới đây. Bấm vào ảnh hoặc “Xem chi tiết” để
             xem thêm hình và tiện nghi.
           </p>
           <div className="mt-6">
@@ -496,7 +496,7 @@ export default async function ComboDetailPage({
           <div className="border border-[var(--line)] bg-paper-2 p-8 lg:sticky lg:top-28">
             <dl className="space-y-3 text-sm">
               <div className="flex justify-between gap-4 border-b border-[var(--line-soft)] pb-3">
-                <dt className="text-mute">Mã combo</dt>
+                <dt className="text-mute">Mã gói</dt>
                 <dd className="font-medium uppercase tracking-wide text-ink">{comboCode}</dd>
               </div>
               <div className="flex justify-between gap-4 border-b border-[var(--line-soft)] pb-3">
@@ -535,7 +535,7 @@ export default async function ComboDetailPage({
               className="mt-7 flex w-full justify-center"
             />
             <p className="mt-5 text-center text-xs text-mute">
-              <Link href="/combo" className="link-underline">Xem các combo khác</Link>
+              <Link href="/combo" className="link-underline">Xem các gói khác</Link>
             </p>
           </div>
         </aside>
@@ -555,7 +555,7 @@ export default async function ComboDetailPage({
               href="/combo"
               className="group inline-flex shrink-0 items-center gap-2 text-sm font-medium text-ink"
             >
-              <span className="link-underline">Xem tất cả combo</span>
+              <span className="link-underline">Xem tất cả gói</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>

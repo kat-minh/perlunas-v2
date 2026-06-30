@@ -316,7 +316,7 @@ export default async function HotelDetailPage({
                   href={`/combo?noi-den=${provinceSlug}`}
                   className="mt-5 inline-flex w-full items-center justify-center gap-2 text-sm text-ink"
                 >
-                  <span className="link-underline">Xem combo ở {hotel.city}</span>
+                  <span className="link-underline">Xem gói ở {hotel.city}</span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               )}
