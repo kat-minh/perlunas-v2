@@ -65,7 +65,7 @@ export function DeparturePicker({
   return (
     <div>
       {/* ô chọn tháng */}
-      <div className="flex flex-wrap gap-3">
+      <div className="grid grid-cols-4 gap-3">
         {months.map((m) => {
           const [mm, yyyy] = m.split("/");
           const isActive = m === active;
@@ -76,14 +76,16 @@ export function DeparturePicker({
               onClick={() => setActive(m)}
               aria-pressed={isActive}
               className={clsx(
-                "flex flex-col items-center px-5 py-3 text-center transition-colors",
+                "flex flex-col items-center px-2 py-3 text-center transition-colors sm:px-5",
                 isActive
                   ? "bg-ink text-paper"
                   : "border border-[var(--line)] text-ink hover:border-ink",
               )}
             >
-              <span className="text-[0.65rem] uppercase tracking-[0.2em] opacity-70">Tháng</span>
-              <span className="font-serif text-2xl leading-tight">{mm}</span>
+              <span className="text-[0.6rem] uppercase tracking-[0.15em] opacity-70 sm:text-[0.65rem] sm:tracking-[0.2em]">
+                Tháng
+              </span>
+              <span className="font-serif text-xl leading-tight sm:text-2xl">{mm}</span>
               <span className="text-xs opacity-70">{yyyy}</span>
             </button>
           );
@@ -91,7 +93,7 @@ export function DeparturePicker({
       </div>
 
       {/* MOBILE: mỗi lịch khởi hành là 1 "cục" — không cần cuộn ngang */}
-      <div className="mt-6 flex flex-col gap-3 sm:hidden">
+      <div className="mt-6 flex flex-col gap-4 sm:hidden">
         {rows.map((r) => {
           const isSelected = selected?.code === r.code;
           return (
@@ -109,19 +111,29 @@ export function DeparturePicker({
               aria-pressed={isSelected}
               aria-label={`Chọn lịch khởi hành ${r.date}`}
               className={clsx(
-                "cursor-pointer select-none border bg-paper-2 p-4 outline-none transition-colors focus-visible:border-ink",
+                "group relative cursor-pointer select-none overflow-hidden rounded-xl border bg-paper-2 p-4 outline-none transition-all duration-300 focus-visible:border-ink",
                 isSelected
-                  ? "border-ink bg-ink/[0.05]"
-                  : "border-[var(--line)] hover:border-ink",
+                  ? "border-ink bg-gradient-to-br from-ink/[0.07] via-paper-2 to-paper-2 shadow-[0_16px_36px_-18px_rgba(26,24,19,0.5)] ring-1 ring-ink/10"
+                  : "border-[var(--line)] shadow-[0_6px_18px_-14px_rgba(26,24,19,0.4)] hover:border-ink hover:shadow-[0_12px_28px_-16px_rgba(26,24,19,0.45)]",
               )}
             >
-              {/* hàng đầu: ngày + chỉ báo chọn */}
-              <div className="flex items-center justify-between gap-3">
-                <span className="flex flex-col leading-tight">
-                  <span className="text-[0.7rem] uppercase tracking-[0.15em] text-mute">
+              {/* vệt sáng "lung linh" chạy qua khi card được chọn */}
+              {isSelected && (
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -inset-y-4 -left-1/3 w-1/3 rotate-12 bg-gradient-to-r from-transparent via-white/50 to-transparent blur-md animate-[shimmer_2.6s_ease-in-out_infinite]"
+                />
+              )}
+
+              {/* HERO: ngày khởi hành + chỉ báo chọn */}
+              <div className="relative flex items-start justify-between gap-3">
+                <span className="flex flex-col leading-none">
+                  <span className="text-[0.65rem] uppercase tracking-[0.2em] text-mute">
                     {dateLabel}
                   </span>
-                  <span className="font-medium text-ink">{r.date}</span>
+                  <span className="mt-1.5 font-serif text-2xl font-semibold tracking-tight text-ink">
+                    {r.date}
+                  </span>
                 </span>
                 <span
                   aria-hidden
@@ -136,30 +148,43 @@ export function DeparturePicker({
                 </span>
               </div>
 
-              {/* các field còn lại */}
-              <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-[var(--line-soft)] pt-3 text-sm">
-                <div className="flex flex-col leading-tight">
-                  <dt className="text-[0.7rem] uppercase tracking-[0.15em] text-mute">
-                    {codeLabel}
-                  </dt>
-                  <dd className="uppercase tracking-wide text-ink/70">{r.code}</dd>
-                </div>
-                <div className="flex flex-col leading-tight">
-                  <dt className="text-[0.7rem] uppercase tracking-[0.15em] text-mute">
-                    {stayLabel}
-                  </dt>
-                  <dd className="text-ink/80">{r.stay}</dd>
-                </div>
-                <div className="col-span-2 flex flex-col leading-tight">
-                  <dt className="text-[0.7rem] uppercase tracking-[0.15em] text-mute">
+              {/* HERO: giá — nổi bật, kèm badge ưu đãi nếu có giá gốc */}
+              <div className="relative mt-3 flex items-end justify-between gap-3 border-t border-[var(--line-soft)] pt-3">
+                <span className="flex flex-col leading-none">
+                  <span className="text-[0.65rem] uppercase tracking-[0.2em] text-mute">
                     {priceLabel}
-                  </dt>
-                  <dd className="flex items-baseline gap-2">
-                    <span className="font-medium text-ink">{r.price}</span>
+                  </span>
+                  <span className="mt-1.5 flex items-baseline gap-2">
+                    <span className="font-serif text-[1.7rem] font-semibold leading-none text-ink">
+                      {r.price}
+                    </span>
                     {r.priceWas && (
                       <span className="text-xs text-mute line-through">{r.priceWas}</span>
                     )}
+                  </span>
+                </span>
+                {r.priceWas && (
+                  <span className="flex-none rounded-full bg-ink px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.15em] text-paper">
+                    Ưu đãi
+                  </span>
+                )}
+              </div>
+
+              {/* meta phụ: mã tour + chuẩn lưu trú */}
+              <dl className="relative mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+                <div className="flex flex-col leading-tight">
+                  <dt className="text-[0.65rem] uppercase tracking-[0.15em] text-mute">
+                    {codeLabel}
+                  </dt>
+                  <dd className="truncate text-xs uppercase tracking-wide text-ink/60">
+                    {r.code}
                   </dd>
+                </div>
+                <div className="flex flex-col leading-tight">
+                  <dt className="text-[0.65rem] uppercase tracking-[0.15em] text-mute">
+                    {stayLabel}
+                  </dt>
+                  <dd className="text-ink/80">{r.stay}</dd>
                 </div>
               </dl>
             </div>
@@ -167,7 +192,7 @@ export function DeparturePicker({
         })}
 
         {rows.length === 0 && (
-          <p className="border border-[var(--line)] bg-paper-2 px-5 py-6 text-sm text-mute">
+          <p className="rounded-xl border border-[var(--line)] bg-paper-2 px-5 py-6 text-sm text-mute">
             {emptyText}
           </p>
         )}
