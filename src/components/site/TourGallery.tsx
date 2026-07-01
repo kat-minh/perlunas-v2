@@ -58,7 +58,7 @@ export function TourGallery({ images, alt }: { images: string[]; alt: string }) 
       )}
 
       {/* main image */}
-      <div className="group relative h-64 min-w-0 flex-1 overflow-hidden bg-ink/5 sm:h-80 md:h-96 lg:h-[26rem]">
+      <div className="group relative h-64 min-w-0 overflow-hidden bg-ink/5 sm:h-80 md:h-96 lg:h-[26rem] lg:flex-1">
         <SceneImage
           key={images[active]}
           seed={images[active]}
