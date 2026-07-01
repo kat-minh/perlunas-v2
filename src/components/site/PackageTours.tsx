@@ -57,7 +57,7 @@ export function PackageTours({
         <div className="min-w-0 flex-1">
           <div
             ref={railRef}
-            className="flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 sm:px-10 lg:pl-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 scroll-pl-6 sm:px-10 sm:scroll-pl-10 lg:pl-12 lg:scroll-pl-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {tours.map((t, i) => {
               const comingSoon = isComingSoon(t.slug);
