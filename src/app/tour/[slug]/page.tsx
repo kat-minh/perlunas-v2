@@ -482,7 +482,7 @@ export default async function TourDetailPage({
                 href={`/khach-san?noi-den=${p.slug}`}
                 className="btn-ink inline-flex items-center gap-2 rounded-[3px] px-7 py-3.5 text-sm font-medium"
               >
-                Khách sạn ở {p.name}
+                Lưu trú cao cấp tại {p.name}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             ))}

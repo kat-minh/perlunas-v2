@@ -7,7 +7,7 @@ import { clsx } from "clsx";
 import { site } from "@/lib/site";
 
 const links = [
-  { label: "Tour trong nước trọn gói", href: "/tour-tron-goi" },
+  { label: "Tour ghép lẻ trọn gói", href: "/tour-tron-goi" },
   { label: "Tour đoàn", href: "/tour-doan" },
   { label: "Tour riêng tư", href: "/tour-rieng-tu" },
   { label: "Lưu trú cao cấp", href: "/khach-san" },

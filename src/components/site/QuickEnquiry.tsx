@@ -178,7 +178,7 @@ function Dialog({
               {status === "loading" && <Loader2 className="h-4 w-4 animate-spin" />}
               {status === "loading" ? "Đang gửi…" : "Gửi thông tin"}
             </button>
-            <p className="mt-3 text-center text-xs text-mute">Chúng tôi giữ kín thông tin của bạn.</p>
+            <p className="mt-3 text-center text-xs text-mute">Chúng tôi cam kết bảo mật thông tin của khách hàng.</p>
           </form>
         )}
       </div>

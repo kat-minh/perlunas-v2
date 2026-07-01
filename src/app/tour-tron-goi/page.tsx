@@ -47,7 +47,7 @@ export default async function TourTronGoiPage({
         title={pc(map, "tourspage.hero.title")}
         intro={pc(map, "tourspage.hero.intro")}
         image={pc(map, "tourspage.hero.image")}
-        alt="Tour trong nước trọn gói"
+        alt="Tour ghép lẻ trọn gói"
       />
       <div className="mx-auto max-w-[100rem] px-6 sm:px-10">
         <CatalogControls
