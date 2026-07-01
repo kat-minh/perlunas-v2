@@ -313,7 +313,7 @@ export default async function ComboDetailPage({
       <section className="relative flex min-h-[64vh] items-end overflow-hidden">
         <div className="absolute inset-0">
           <SceneImage seed={`perlunas-place-${provinceSlug}`} alt={combo.city} w={2000} h={1100} priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/20 to-ink/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/40 to-ink/10" />
         </div>
         <div className="relative mx-auto w-full max-w-[100rem] px-6 pb-12 text-paper sm:px-10">
           <div className="flex items-center gap-2.5">
@@ -322,7 +322,7 @@ export default async function ComboDetailPage({
               Gói {combo.tier} · {combo.nights} đêm
             </p>
           </div>
-          <h1 className="display mt-4 max-w-3xl text-4xl sm:text-6xl">{combo.hotelName}</h1>
+          <h1 className="display mt-4 max-w-3xl text-3xl sm:text-6xl">{combo.hotelName}</h1>
           <p className="mt-3 text-sm uppercase tracking-[0.2em] text-paper/75">
             {combo.stayType} · {combo.city}
           </p>

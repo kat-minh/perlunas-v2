@@ -25,7 +25,7 @@ export function Hero({ map }: { map: PageContentMap }) {
         >
           <source src={video} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/25 via-transparent to-ink/80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/40 to-ink/10" />
       </div>
 
       <div className="relative mx-auto w-full max-w-[100rem] px-6 pb-16 sm:px-10 sm:pb-24">
@@ -34,7 +34,7 @@ export function Hero({ map }: { map: PageContentMap }) {
             <p className="text-xs font-medium uppercase tracking-[0.3em] text-paper/75">
               {pc(map, "home.hero.eyebrow")}
             </p>
-            <h1 className="display mt-6 text-[2.25rem] leading-[1.05] text-paper sm:text-6xl lg:text-[4.75rem]">
+            <h1 className="display mt-6 text-[1.875rem] leading-[1.1] text-paper sm:text-6xl sm:leading-[1.05] lg:text-[4.75rem]">
               {titleLines.map((line, i) => (
                 <Fragment key={i}>
                   {i > 0 && <br />}

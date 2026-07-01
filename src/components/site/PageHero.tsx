@@ -35,7 +35,7 @@ export function PageHero({
         priority
         className="absolute inset-0"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/35 via-ink/20 to-ink/85" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/40 to-ink/10" />
 
       <div className="relative mx-auto w-full max-w-[100rem] px-6 pb-12 sm:px-10 sm:pb-16">
         {eyebrow && (
@@ -43,7 +43,7 @@ export function PageHero({
             {eyebrow}
           </p>
         )}
-        <h1 className="display mt-5 max-w-3xl text-4xl text-paper sm:text-6xl">{title}</h1>
+        <h1 className="display mt-5 max-w-3xl text-3xl text-paper sm:text-6xl">{title}</h1>
         {intro && (
           <p className="mt-5 max-w-xl text-pretty leading-relaxed text-paper/85">{intro}</p>
         )}
