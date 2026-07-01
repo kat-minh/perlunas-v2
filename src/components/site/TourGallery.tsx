@@ -27,12 +27,12 @@ export function TourGallery({ images, alt }: { images: string[]; alt: string }) 
   }, [active]);
 
   return (
-    <div className="flex items-start gap-3 sm:gap-4">
-      {/* thumbnail index — vertical strip on the left */}
+    <div className="flex flex-col-reverse gap-3 sm:gap-4 lg:flex-row lg:items-start">
+      {/* thumbnail index — horizontal strip below on mobile, vertical strip on the left from lg */}
       {n > 1 && (
         <div
           data-lenis-prevent
-          className="flex max-h-[26rem] shrink-0 flex-col gap-3 overflow-y-auto overscroll-contain p-1.5 [scrollbar-width:thin]"
+          className="flex shrink-0 flex-row gap-3 overflow-x-auto overscroll-contain p-1.5 [scrollbar-width:thin] lg:max-h-[26rem] lg:flex-col lg:overflow-x-visible lg:overflow-y-auto"
         >
           {images.map((seed, idx) => (
             <button
@@ -58,7 +58,7 @@ export function TourGallery({ images, alt }: { images: string[]; alt: string }) 
       )}
 
       {/* main image */}
-      <div className="group relative h-[26rem] min-w-0 flex-1 overflow-hidden bg-ink/5">
+      <div className="group relative h-64 min-w-0 flex-1 overflow-hidden bg-ink/5 sm:h-80 md:h-96 lg:h-[26rem]">
         <SceneImage
           key={images[active]}
           seed={images[active]}

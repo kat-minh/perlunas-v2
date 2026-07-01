@@ -450,7 +450,7 @@ export default async function TourDetailPage({
           </div>
 
           {suggestedHotels.length > 0 && (
-            <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-3">
+            <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
               {suggestedHotels.map((h) => (
                 <Link
                   key={h.slug}

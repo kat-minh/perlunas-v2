@@ -58,7 +58,7 @@ export function DeparturePicker({
   const [active, setActive] = useState(selected?.month ?? months[0] ?? "");
   const rows = departures.filter((d) => d.month === active);
 
-  const cols = "grid grid-cols-[1.1fr_1.7fr_1.1fr_1.1fr_auto] gap-4";
+  const cols = "grid grid-cols-[1.1fr_1.7fr_1.1fr_1.1fr_auto] gap-3 sm:gap-4";
 
   return (
     <div>
@@ -90,11 +90,11 @@ export function DeparturePicker({
 
       {/* bảng lịch khởi hành — mỗi hàng có nút chọn, hàng chọn đổi màu */}
       <div className="mt-6 overflow-x-auto">
-        <div className="min-w-[680px] bg-paper-2 shadow-[0_8px_22px_-12px_rgba(26,24,19,0.45)]">
+        <div className="min-w-[560px] bg-paper-2 shadow-[0_8px_22px_-12px_rgba(26,24,19,0.45)]">
           <div
             className={clsx(
               cols,
-              "border-b-2 border-ink/70 px-5 py-3 text-[0.7rem] font-medium uppercase tracking-[0.15em] text-mute",
+              "border-b-2 border-ink/70 px-3 py-3 text-[0.7rem] font-medium uppercase tracking-[0.15em] text-mute sm:px-5",
             )}
           >
             <span>{dateLabel}</span>
@@ -111,7 +111,7 @@ export function DeparturePicker({
                 key={r.code}
                 className={clsx(
                   cols,
-                  "items-center border-b border-[var(--line-soft)] px-5 py-3.5 text-sm last:border-b-0 transition-colors",
+                  "items-center border-b border-[var(--line-soft)] px-3 py-3.5 text-sm last:border-b-0 transition-colors sm:px-5",
                   isSelected ? "bg-ink/[0.05] text-ink" : "text-ink/80",
                 )}
               >

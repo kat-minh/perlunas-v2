@@ -11,10 +11,10 @@ import { getPageContentMap, pc } from "@/lib/page-content";
  */
 const dichVu = [
   { label: "Tour ghép lẻ trọn gói", href: "/tour-tron-goi" },
-  { label: "Tour đoàn", href: "/tour-doan" },
-  { label: "Tour riêng tư", href: "/tour-rieng-tu" },
   { label: "Lưu trú cao cấp", href: "/khach-san" },
   { label: "Gói du lịch", href: "/combo" },
+  { label: "Tour đoàn", href: "/tour-doan" },
+  { label: "Tour riêng tư", href: "/tour-rieng-tu" },
 ];
 
 const congTy = [
