@@ -90,9 +90,92 @@ export function DeparturePicker({
         })}
       </div>
 
-      {/* bảng lịch khởi hành — mỗi hàng có nút chọn, hàng chọn đổi màu */}
-      <div className="mt-6 overflow-x-auto">
-        <div className="min-w-[560px] bg-paper-2 shadow-[0_8px_22px_-12px_rgba(26,24,19,0.45)]">
+      {/* MOBILE: mỗi lịch khởi hành là 1 "cục" — không cần cuộn ngang */}
+      <div className="mt-6 flex flex-col gap-3 sm:hidden">
+        {rows.map((r) => {
+          const isSelected = selected?.code === r.code;
+          return (
+            <div
+              key={r.code}
+              onClick={() => setSelected(r)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setSelected(r);
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              aria-pressed={isSelected}
+              aria-label={`Chọn lịch khởi hành ${r.date}`}
+              className={clsx(
+                "cursor-pointer select-none border bg-paper-2 p-4 outline-none transition-colors focus-visible:border-ink",
+                isSelected
+                  ? "border-ink bg-ink/[0.05]"
+                  : "border-[var(--line)] hover:border-ink",
+              )}
+            >
+              {/* hàng đầu: ngày + chỉ báo chọn */}
+              <div className="flex items-center justify-between gap-3">
+                <span className="flex flex-col leading-tight">
+                  <span className="text-[0.7rem] uppercase tracking-[0.15em] text-mute">
+                    {dateLabel}
+                  </span>
+                  <span className="font-medium text-ink">{r.date}</span>
+                </span>
+                <span
+                  aria-hidden
+                  className={clsx(
+                    "flex h-7 w-7 flex-none items-center justify-center rounded-full border transition-colors",
+                    isSelected
+                      ? "border-ink bg-ink text-paper"
+                      : "border-ink/40 text-transparent",
+                  )}
+                >
+                  <Check className="h-3.5 w-3.5" />
+                </span>
+              </div>
+
+              {/* các field còn lại */}
+              <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-[var(--line-soft)] pt-3 text-sm">
+                <div className="flex flex-col leading-tight">
+                  <dt className="text-[0.7rem] uppercase tracking-[0.15em] text-mute">
+                    {codeLabel}
+                  </dt>
+                  <dd className="uppercase tracking-wide text-ink/70">{r.code}</dd>
+                </div>
+                <div className="flex flex-col leading-tight">
+                  <dt className="text-[0.7rem] uppercase tracking-[0.15em] text-mute">
+                    {stayLabel}
+                  </dt>
+                  <dd className="text-ink/80">{r.stay}</dd>
+                </div>
+                <div className="col-span-2 flex flex-col leading-tight">
+                  <dt className="text-[0.7rem] uppercase tracking-[0.15em] text-mute">
+                    {priceLabel}
+                  </dt>
+                  <dd className="flex items-baseline gap-2">
+                    <span className="font-medium text-ink">{r.price}</span>
+                    {r.priceWas && (
+                      <span className="text-xs text-mute line-through">{r.priceWas}</span>
+                    )}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          );
+        })}
+
+        {rows.length === 0 && (
+          <p className="border border-[var(--line)] bg-paper-2 px-5 py-6 text-sm text-mute">
+            {emptyText}
+          </p>
+        )}
+      </div>
+
+      {/* DESKTOP: bảng lịch khởi hành — mỗi hàng có nút chọn, hàng chọn đổi màu */}
+      <div className="mt-6 hidden sm:block">
+        <div className="bg-paper-2 shadow-[0_8px_22px_-12px_rgba(26,24,19,0.45)]">
           <div
             className={clsx(
               cols,
