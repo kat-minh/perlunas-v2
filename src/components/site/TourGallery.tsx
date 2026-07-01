@@ -32,7 +32,7 @@ export function TourGallery({ images, alt }: { images: string[]; alt: string }) 
       {n > 1 && (
         <div
           data-lenis-prevent
-          className="flex shrink-0 flex-row gap-3 overflow-x-auto overscroll-contain p-1.5 [scrollbar-width:thin] lg:max-h-[26rem] lg:flex-col lg:overflow-x-visible lg:overflow-y-auto"
+          className="flex w-full min-w-0 shrink-0 flex-row gap-3 overflow-x-auto overscroll-contain p-1.5 [scrollbar-width:thin] lg:max-h-[26rem] lg:w-auto lg:flex-col lg:overflow-x-visible lg:overflow-y-auto"
         >
           {images.map((seed, idx) => (
             <button

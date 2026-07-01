@@ -222,10 +222,10 @@ function Dialog({
                 <Field label="Họ tên" hint="đúng theo giấy tờ" required>
                   <input name="name" required placeholder="VD: Nguyễn Thị Lan" className={inputCls} />
                 </Field>
-                <Field label="Số điện thoại (có Zalo)" hint="đúng theo giấy tờ" required>
+                <Field label="Số điện thoại (có Zalo)" required>
                   <input name="phone" required inputMode="tel" placeholder="0901 234 567" className={inputCls} />
                 </Field>
-                <Field label="Email" hint="đúng theo giấy tờ" required>
+                <Field label="Email" required>
                   <input name="email" required type="email" inputMode="email" placeholder="ban@email.com" className={inputCls} />
                 </Field>
               </div>

@@ -22,6 +22,7 @@ import { HotelGallery } from "@/components/site/HotelGallery";
 import { RoomGallery } from "@/components/site/RoomGallery";
 import { RoomDetail } from "@/components/site/RoomDetail";
 import { HotelBooking } from "@/components/site/HotelBooking";
+import { MobileBookingBar } from "@/components/site/MobileBookingBar";
 
 const citySlug = Object.fromEntries(PROVINCES.map((p) => [p.name, p.slug]));
 
@@ -281,9 +282,9 @@ export default async function HotelDetailPage({
             </section>
           </div>
 
-          {/* sticky booking widget */}
+          {/* booking widget — desktop: sidebar sticky; mobile: thanh cố định đáy */}
           <aside className="lg:col-span-4">
-            <div className="border border-[var(--line)] bg-paper-2 p-7 lg:sticky lg:top-28">
+            <div className="hidden border border-[var(--line)] bg-paper-2 p-7 lg:block lg:sticky lg:top-28">
               <div className="flex items-baseline gap-2">
                 <p className="text-xs uppercase tracking-[0.2em] text-mute">Giá từ</p>
                 <p className="font-serif text-3xl text-ink">{fmtVnd(baseNum)}</p>
@@ -321,6 +322,19 @@ export default async function HotelDetailPage({
                 </Link>
               )}
             </div>
+
+            <MobileBookingBar
+              chips={[{ icon: <MapPin className="h-4 w-4" />, value: hotel.city }]}
+              price={fmtVnd(baseNum)}
+              priceUnit="/ đêm"
+              action={
+                <HotelBooking
+                  hotelName={hotel.name}
+                  hotelCity={hotel.city}
+                  roomTypes={roomTypeNames}
+                />
+              }
+            />
           </aside>
         </div>
       </div>

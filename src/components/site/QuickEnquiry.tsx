@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { clsx } from "clsx";
 import { X, Check, Loader2 } from "lucide-react";
 
@@ -87,7 +88,9 @@ function Dialog({
     }
   }
 
-  return (
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4"
       role="dialog"
@@ -182,7 +185,8 @@ function Dialog({
           </form>
         )}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

@@ -11,6 +11,9 @@ import {
   Gift,
   Utensils,
   Bus,
+  Tag,
+  Moon,
+  MapPin,
 } from "lucide-react";
 import { COMBOS, PROVINCES } from "@/lib/catalog";
 import { getCombo, getCombos, getComboTiers } from "@/lib/api";
@@ -23,6 +26,7 @@ import { InfoAccordion, type InfoItem } from "@/components/site/InfoAccordion";
 import { RoomGallery } from "@/components/site/RoomGallery";
 import { RoomDetail } from "@/components/site/RoomDetail";
 import { HotelBooking } from "@/components/site/HotelBooking";
+import { MobileBookingBar } from "@/components/site/MobileBookingBar";
 
 const slugByCity = Object.fromEntries(PROVINCES.map((p) => [p.name, p.slug]));
 
@@ -84,7 +88,7 @@ export default async function ComboDetailPage({
   const slashAt = combo.price.indexOf("/");
   const priceAmount = slashAt === -1 ? combo.price : combo.price.slice(0, slashAt).trim();
   const priceUnit =
-    slashAt === -1 ? "" : combo.price.slice(slashAt).replace(/^\/\s*/, "/ ").trim();
+    slashAt === -1 ? "/ khách" : combo.price.slice(slashAt).replace(/^\/\s*/, "/ ").trim();
   // Per-night reference price for the room cards (combo price is total / khách).
   const nightly =
     combo.nights > 0 ? Math.round(baseNum / combo.nights / 100000) * 100000 || baseNum : baseNum;
@@ -313,7 +317,7 @@ export default async function ComboDetailPage({
       <section className="relative flex min-h-[64vh] items-end overflow-hidden">
         <div className="absolute inset-0">
           <SceneImage seed={`perlunas-place-${provinceSlug}`} alt={combo.city} w={2000} h={1100} priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink from-0% via-ink/80 via-40% to-transparent to-72%" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-transparent" />
         </div>
         <div className="relative mx-auto w-full max-w-[100rem] px-6 pb-12 text-paper sm:px-10">
           <div className="flex items-center gap-2.5">
@@ -340,7 +344,7 @@ export default async function ComboDetailPage({
       </div>
 
       <div className="mx-auto grid max-w-[100rem] gap-12 px-6 pt-8 sm:px-10 lg:grid-cols-12 lg:gap-16">
-        <div className="lg:col-span-7">
+        <div className="min-w-0 lg:col-span-7">
           {/* image carousel — main photo + left-aligned thumbnail index */}
           <TourGallery images={gallery} alt={combo.hotelName} />
 
@@ -460,9 +464,9 @@ export default async function ComboDetailPage({
           </div>
         </div>
 
-        {/* booking card */}
+        {/* booking card — desktop: sidebar sticky; mobile: thanh cố định đáy */}
         <aside className="lg:col-span-5">
-          <div className="border border-[var(--line)] bg-paper-2 p-8 lg:sticky lg:top-28">
+          <div className="hidden border border-[var(--line)] bg-paper-2 p-8 lg:block lg:sticky lg:top-28">
             <dl className="space-y-3 text-sm">
               <div className="flex justify-between gap-4 border-b border-[var(--line-soft)] pb-3">
                 <dt className="text-mute">Mã gói</dt>
@@ -502,6 +506,25 @@ export default async function ComboDetailPage({
               <Link href="/combo" className="link-underline">Xem các gói khác</Link>
             </p>
           </div>
+
+          <MobileBookingBar
+            chips={[
+              { icon: <Tag className="h-4 w-4" />, value: comboCode },
+              { icon: <PearlIcon tier={combo.tier} className="h-4 w-4" />, value: combo.tier },
+              { icon: <Moon className="h-4 w-4" />, value: `${combo.nights} đêm` },
+              { icon: <MapPin className="h-4 w-4" />, value: combo.city },
+            ]}
+            price={priceAmount}
+            priceUnit={priceUnit}
+            action={
+              <HotelBooking
+                hotelName={combo.hotelName}
+                hotelCity={combo.city}
+                roomTypes={[fixedRoom.name]}
+                lockRoom
+              />
+            }
+          />
         </aside>
       </div>
 

@@ -257,3 +257,11 @@
     }
   }
 }
+
+/* Trang có thanh đặt/liên hệ cố định ở đáy (mobile) → chừa chỗ cho footer
+   khỏi bị thanh che khi cuộn tới cuối. Chỉ áp dụng dưới breakpoint lg. */
+@media (max-width: 1023px) {
+  body:has([data-booking-bar]) footer {
+    padding-bottom: 9rem;
+  }
+}

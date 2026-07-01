@@ -1,9 +1,11 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
+import type { ReactNode } from "react";
 import { clsx } from "clsx";
-import { Check } from "lucide-react";
+import { Check, Calendar, Tag, Moon, Star } from "lucide-react";
 import type { Departure } from "./DepartureSchedule";
+import { MobileBookingBar } from "./MobileBookingBar";
 
 /**
  * Lịch khởi hành có thể CHỌN: mỗi hàng một nút chọn, hàng được chọn đổi màu, và
@@ -109,10 +111,21 @@ export function DeparturePicker({
             return (
               <div
                 key={r.code}
+                onClick={() => setSelected(r)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSelected(r);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-pressed={isSelected}
+                aria-label={`Chọn lịch khởi hành ${r.date}`}
                 className={clsx(
                   cols,
-                  "items-center border-b border-[var(--line-soft)] px-3 py-3.5 text-sm last:border-b-0 transition-colors sm:px-5",
-                  isSelected ? "bg-ink/[0.05] text-ink" : "text-ink/80",
+                  "cursor-pointer select-none items-center border-b border-[var(--line-soft)] px-3 py-3.5 text-sm outline-none transition-colors last:border-b-0 focus-visible:bg-ink/[0.06] sm:px-5",
+                  isSelected ? "bg-ink/[0.05] text-ink" : "text-ink/80 hover:bg-ink/[0.03]",
                 )}
               >
                 <span className="font-medium text-ink">{r.date}</span>
@@ -125,22 +138,19 @@ export function DeparturePicker({
                 </span>
                 <span>{r.stay}</span>
                 <span className="flex justify-center">
-                  <button
-                    type="button"
-                    onClick={() => setSelected(r)}
-                    aria-pressed={isSelected}
-                    aria-label={isSelected ? "Đã chọn lịch này" : "Chọn lịch này"}
-                    title={isSelected ? "Đã chọn" : "Chọn"}
+                  {/* chỉ báo trực quan — cả hàng đã bấm được để chọn */}
+                  <span
+                    aria-hidden
                     className={clsx(
                       // kích thước cố định → không nhảy layout; chỉ icon, không chữ
                       "flex h-7 w-7 items-center justify-center rounded-full border transition-colors",
                       isSelected
                         ? "border-ink bg-ink text-paper"
-                        : "border-ink/40 text-transparent hover:border-ink",
+                        : "border-ink/40 text-transparent",
                     )}
                   >
-                    <Check className="h-3.5 w-3.5" aria-hidden />
-                  </button>
+                    <Check className="h-3.5 w-3.5" />
+                  </span>
                 </span>
               </div>
             );
@@ -194,5 +204,33 @@ export function DepartureSummary({ nights }: { nights: string }) {
         <p className="mt-1 text-sm text-mute">/ khách</p>
       </div>
     </>
+  );
+}
+
+/**
+ * Bản mobile của DepartureSummary: thanh cố định đáy màn hình, phản chiếu lịch
+ * khởi hành đang chọn. Nhãn dài được thay bằng icon (lịch, mã, đêm, chuẩn lưu
+ * trú), giá + nút "Liên hệ ngay" để to. Phải nằm trong <DepartureProvider>.
+ */
+export function DepartureMobileBar({
+  nights,
+  action,
+}: {
+  nights: string;
+  action: ReactNode;
+}) {
+  const { selected } = useDepartureCtx();
+  return (
+    <MobileBookingBar
+      chips={[
+        { icon: <Calendar className="h-4 w-4" />, value: selected?.date ?? "—" },
+        { icon: <Tag className="h-4 w-4" />, value: selected?.code ?? "—" },
+        { icon: <Moon className="h-4 w-4" />, value: nights },
+        { icon: <Star className="h-4 w-4" />, value: selected?.stay ?? "—" },
+      ]}
+      price={selected?.price ?? "—"}
+      priceUnit="/ khách"
+      action={action}
+    />
   );
 }

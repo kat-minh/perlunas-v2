@@ -16,6 +16,7 @@ import {
   DepartureProvider,
   DeparturePicker,
   DepartureSummary,
+  DepartureMobileBar,
 } from "@/components/site/TourDepartures";
 import { QuickEnquiry } from "@/components/site/QuickEnquiry";
 
@@ -292,7 +293,7 @@ export default async function TourDetailPage({
       <section className="relative flex min-h-[64vh] items-end overflow-hidden">
         <div className="absolute inset-0">
           <SceneImage seed={`perlunas-tour-${tour.slug}`} alt={tour.name} w={2000} h={1100} priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink from-0% via-ink/80 via-40% to-transparent to-72%" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-transparent" />
         </div>
         <div className="relative mx-auto w-full max-w-[100rem] px-6 pb-12 text-paper sm:px-10">
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-paper/75">
@@ -373,9 +374,9 @@ export default async function TourDetailPage({
           </div>
         </div>
 
-        {/* booking card */}
+        {/* booking card — desktop: sidebar sticky; mobile: thanh cố định đáy */}
         <aside className="min-w-0 lg:col-span-5">
-          <div className="border border-[var(--line)] bg-paper-2 p-8 lg:sticky lg:top-28">
+          <div className="hidden border border-[var(--line)] bg-paper-2 p-8 lg:block lg:sticky lg:top-28">
             <DepartureSummary nights={tour.nights} />
 
             <QuickEnquiry
@@ -389,6 +390,11 @@ export default async function TourDetailPage({
           </div>
         </aside>
       </div>
+
+      <DepartureMobileBar
+        nights={tour.nights}
+        action={<QuickEnquiry tourName={tour.name} tourCode={tourCode} />}
+      />
       </DepartureProvider>
 
       {/* Tour khác — gợi ý các hành trình liên quan đang có */}

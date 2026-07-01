@@ -35,7 +35,7 @@ export function PageHero({
         priority
         className="absolute inset-0"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink from-0% via-ink/80 via-40% to-transparent to-72%" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-transparent" />
 
       <div className="relative mx-auto w-full max-w-[100rem] px-6 pb-12 sm:px-10 sm:pb-16">
         {eyebrow && (
