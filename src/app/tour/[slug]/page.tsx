@@ -292,7 +292,7 @@ export default async function TourDetailPage({
       <section className="relative flex min-h-[64vh] items-end overflow-hidden">
         <div className="absolute inset-0">
           <SceneImage seed={`perlunas-tour-${tour.slug}`} alt={tour.name} w={2000} h={1100} priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/40 to-ink/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink from-0% via-ink/80 via-40% to-transparent to-72%" />
         </div>
         <div className="relative mx-auto w-full max-w-[100rem] px-6 pb-12 text-paper sm:px-10">
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-paper/75">
